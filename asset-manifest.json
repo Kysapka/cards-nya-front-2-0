@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Kysapka/cards-nya-front-2-0/static/css/main.900052bc.chunk.css",
-    "main.js": "/Kysapka/cards-nya-front-2-0/static/js/main.c73a6a80.chunk.js",
-    "main.js.map": "/Kysapka/cards-nya-front-2-0/static/js/main.c73a6a80.chunk.js.map",
-    "runtime-main.js": "/Kysapka/cards-nya-front-2-0/static/js/runtime-main.b4457bd7.js",
-    "runtime-main.js.map": "/Kysapka/cards-nya-front-2-0/static/js/runtime-main.b4457bd7.js.map",
-    "static/js/2.3ce0db23.chunk.js": "/Kysapka/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js",
-    "static/js/2.3ce0db23.chunk.js.map": "/Kysapka/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js.map",
-    "static/js/3.baa1d874.chunk.js": "/Kysapka/cards-nya-front-2-0/static/js/3.baa1d874.chunk.js",
-    "static/js/3.baa1d874.chunk.js.map": "/Kysapka/cards-nya-front-2-0/static/js/3.baa1d874.chunk.js.map",
-    "index.html": "/Kysapka/cards-nya-front-2-0/index.html",
-    "static/css/main.900052bc.chunk.css.map": "/Kysapka/cards-nya-front-2-0/static/css/main.900052bc.chunk.css.map",
-    "static/js/2.3ce0db23.chunk.js.LICENSE.txt": "/Kysapka/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js.LICENSE.txt",
-    "static/media/SuperCheckbox.module.css": "/Kysapka/cards-nya-front-2-0/static/media/check.98cd8bb6.svg"
+    "main.css": "/cards-nya-front-2-0/static/css/main.61dbb6ef.chunk.css",
+    "main.js": "/cards-nya-front-2-0/static/js/main.c73a6a80.chunk.js",
+    "main.js.map": "/cards-nya-front-2-0/static/js/main.c73a6a80.chunk.js.map",
+    "runtime-main.js": "/cards-nya-front-2-0/static/js/runtime-main.aa596b3c.js",
+    "runtime-main.js.map": "/cards-nya-front-2-0/static/js/runtime-main.aa596b3c.js.map",
+    "static/js/2.3ce0db23.chunk.js": "/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js",
+    "static/js/2.3ce0db23.chunk.js.map": "/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js.map",
+    "static/js/3.baa1d874.chunk.js": "/cards-nya-front-2-0/static/js/3.baa1d874.chunk.js",
+    "static/js/3.baa1d874.chunk.js.map": "/cards-nya-front-2-0/static/js/3.baa1d874.chunk.js.map",
+    "index.html": "/cards-nya-front-2-0/index.html",
+    "static/css/main.61dbb6ef.chunk.css.map": "/cards-nya-front-2-0/static/css/main.61dbb6ef.chunk.css.map",
+    "static/js/2.3ce0db23.chunk.js.LICENSE.txt": "/cards-nya-front-2-0/static/js/2.3ce0db23.chunk.js.LICENSE.txt",
+    "static/media/SuperCheckbox.module.css": "/cards-nya-front-2-0/static/media/check.98cd8bb6.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.b4457bd7.js",
+    "static/js/runtime-main.aa596b3c.js",
     "static/js/2.3ce0db23.chunk.js",
-    "static/css/main.900052bc.chunk.css",
+    "static/css/main.61dbb6ef.chunk.css",
     "static/js/main.c73a6a80.chunk.js"
   ]
 }
