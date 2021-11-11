@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {appAPI} from "../m3-dal/appAPI";
+
 export type initAppStateType = {
     someProperty: string
 }
@@ -19,5 +22,15 @@ export const AppReducer = (state: initAppStateType = initAppState, action: AppAc
 }
 
 export const testAction = (payload: {}) => ({type: 'TEST_CASE', payload})
+
+export const testThunk = (param: string) => (dispatch: Dispatch) => {
+    appAPI.fakeRequest(param)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 export type AppActionTypes = ReturnType<typeof testAction>
