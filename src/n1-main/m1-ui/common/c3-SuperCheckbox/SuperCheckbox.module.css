@@ -1,0 +1,27 @@
+.lable {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    background: #335533;
+    cursor: pointer;
+}
+
+.checkbox:checked {
+    appearance: none;
+    background-image: url('./check.svg');
+}
+
+.checkbox:focus {
+    outline: #99ff99 solid 1px;
+}
+
+.spanClassName {
+    color: white;
+}
