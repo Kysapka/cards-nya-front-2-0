@@ -47,6 +47,7 @@ export const publicRoutes = [
     },
 ]
 
+
 export const AppRoutes = () => {
     return (
         <Routes>
