@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Kysapka/cards-nya-front-2-0/static/css/main.f3a81c12.chunk.css",
+    "main.js": "/Kysapka/cards-nya-front-2-0/static/js/main.e382547f.chunk.js",
+    "main.js.map": "/Kysapka/cards-nya-front-2-0/static/js/main.e382547f.chunk.js.map",
+    "runtime-main.js": "/Kysapka/cards-nya-front-2-0/static/js/runtime-main.3f3cd735.js",
+    "runtime-main.js.map": "/Kysapka/cards-nya-front-2-0/static/js/runtime-main.3f3cd735.js.map",
+    "static/js/2.1d909962.chunk.js": "/Kysapka/cards-nya-front-2-0/static/js/2.1d909962.chunk.js",
+    "static/js/2.1d909962.chunk.js.map": "/Kysapka/cards-nya-front-2-0/static/js/2.1d909962.chunk.js.map",
+    "static/js/3.edd9998b.chunk.js": "/Kysapka/cards-nya-front-2-0/static/js/3.edd9998b.chunk.js",
+    "static/js/3.edd9998b.chunk.js.map": "/Kysapka/cards-nya-front-2-0/static/js/3.edd9998b.chunk.js.map",
+    "index.html": "/Kysapka/cards-nya-front-2-0/index.html",
+    "static/css/main.f3a81c12.chunk.css.map": "/Kysapka/cards-nya-front-2-0/static/css/main.f3a81c12.chunk.css.map",
+    "static/js/2.1d909962.chunk.js.LICENSE.txt": "/Kysapka/cards-nya-front-2-0/static/js/2.1d909962.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3f3cd735.js",
+    "static/js/2.1d909962.chunk.js",
+    "static/css/main.f3a81c12.chunk.css",
+    "static/js/main.e382547f.chunk.js"
+  ]
+}
