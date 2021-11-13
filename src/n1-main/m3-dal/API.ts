@@ -13,8 +13,6 @@ export const API = {
     recoveryPass: (param: string) =>
       axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
-  registration: {
-    registration: (param: string) =>
-      axiosInst.post<string, ApiResponseTypes>('', { param }),
-  },
+  registration: (email: string, password: string) =>
+    axiosInst.post<string, ApiResponseTypes>('', { email, password }),
 };

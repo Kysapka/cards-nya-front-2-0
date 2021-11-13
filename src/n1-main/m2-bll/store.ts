@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   login: LoginReducer,
   // newPassword: NewPassowdReducer,
   // profile: ProfileReducer,
-  // recoveryPassword: RecoveryPasswordReducer,
+  recoveryPassword: RecoveryPasswordReducer,
   registration: RegistrationReducer,
 });
 
