@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import { LoginReducer } from '../../n2-features/f0-test/Login/LoginReducer';
+import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
 
 import { AppReducer } from './app-reducer';
 
@@ -10,7 +11,7 @@ const rootReducer = combineReducers({
   login: LoginReducer,
   // newPassword: NewPassowdReducer,
   // profile: ProfileReducer,
-  recoveryPassword: RecoveryPasswordReducer,
+  // recoveryPassword: RecoveryPasswordReducer,
   registration: RegistrationReducer,
 });
 

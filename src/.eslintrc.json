@@ -24,6 +24,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
     "no-alert": "error",
     "no-plusplus": "off",
@@ -66,6 +67,7 @@
         "unnamedComponents": "arrow-function"
       }
     ],
+    "react/require-default-props": "off",
     "react/prop-types": 0,
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
