@@ -5,6 +5,7 @@ import { LoginReducer } from '../../n2-features/f0-test/Login/LoginReducer';
 import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
 
 import { AppReducer } from './app-reducer';
+import {RecoveryPasswordReducer} from "../../n2-features/f0-test/RecoveryPass/RecoveryPassReducer";
 
 const rootReducer = combineReducers({
   app: AppReducer,
