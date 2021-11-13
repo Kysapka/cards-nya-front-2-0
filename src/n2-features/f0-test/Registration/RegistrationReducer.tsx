@@ -1,4 +1,4 @@
-import { API } from '../../../n1-main/m3-dal/API';
+import { API } from 'n1-main/m3-dal';
 
 export type initRegistrationStateType = {
   someProperty: string;
@@ -27,7 +27,7 @@ export const RegistrationAction = (param: string) =>
   ({ type: 'REGISTRATION_CASE', payload: { param } } as const);
 
 export const RegistrationThunk = (param: string) => () => {
-  API.registrationAPI
+  API.registration
     .registration(param)
     .then(res => {
       console.log(res);

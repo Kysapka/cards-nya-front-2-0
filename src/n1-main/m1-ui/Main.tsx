@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Header } from './header/Header';
-import { AppRoutes } from './routes/AppRoutes';
+import { Header } from './header';
+import { AppRoutes } from './routes';
 
 export const Main = (): React.ReactElement => (
   <div>

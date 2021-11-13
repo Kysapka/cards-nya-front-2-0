@@ -1,4 +1,4 @@
-import { API } from '../../../n1-main/m3-dal/API';
+import { API } from 'n1-main/m3-dal';
 
 export type initLoginStateType = {
   someProperty: string;
@@ -27,7 +27,7 @@ export const RecoveryPassAction = (param: string) =>
   ({ type: 'RECOVERY_PASS_CASE', payload: { param } } as const);
 
 export const RecoveryPassThunk = (param: string) => () => {
-  API.recoveryPasswordAPI
+  API.recoveryPassword
     .recoveryPass(param)
     .then(res => {
       console.log(res);

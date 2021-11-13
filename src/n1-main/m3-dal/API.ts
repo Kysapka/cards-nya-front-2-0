@@ -1,33 +1,20 @@
-import axios from 'axios';
-
+import { axiosInst } from './apiConfig';
 import { ApiResponseTypes } from './ApiResponseTypes';
 
-// const settings = {
-//     withCredentials: true,
-//     headers: {
-//         'API-KEY': ''
-//     }
-// }
-
-const instance = axios.create({
-  baseURL: '',
-  // ...settings
-});
-
 export const API = {
-  appAPI: {
+  app: {
     fakeRequest: (param: string) =>
-      instance.post<string, ApiResponseTypes>('', { param }),
+      axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
-  loginAPI: {
-    login: (param: string) => instance.post<string, ApiResponseTypes>('', { param }),
+  login: {
+    login: (param: string) => axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
-  recoveryPasswordAPI: {
+  recoveryPassword: {
     recoveryPass: (param: string) =>
-      instance.post<string, ApiResponseTypes>('', { param }),
+      axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
-  registrationAPI: {
+  registration: {
     registration: (param: string) =>
-      instance.post<string, ApiResponseTypes>('', { param }),
+      axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
 };
