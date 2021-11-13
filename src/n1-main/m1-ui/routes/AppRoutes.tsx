@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import {Login} from "../../../n2-features/f0-test/Login";
+import {Login} from "../../../n2-features/f0-test/Login/Login";
 import {Registration} from "../../../n2-features/f0-test/Registration";
 import {Profile} from "../../../n2-features/f0-test/Profile";
 import {NotFound} from "../../../n2-features/f0-test/NotFound";

@@ -1,0 +1,25 @@
+import axios from 'axios';
+
+import { ApiResponseTypes } from './index';
+
+// const settings = {
+//     withCredentials: true,
+//     headers: {
+//         'API-KEY': ''
+//     }
+// }
+
+const instance = axios.create({
+  baseURL: '',
+  // ...settings
+});
+
+export const API = {
+  appAPI: {
+    fakeRequest: (param: string) =>
+      instance.post<string, ApiResponseTypes>('', { param }),
+  },
+  loginAPI: {
+    login: (param: string) => instance.post<string, ApiResponseTypes>('', { param }),
+  },
+};

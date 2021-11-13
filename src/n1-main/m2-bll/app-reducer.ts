@@ -1,36 +1,41 @@
-import {Dispatch} from "redux";
-import {appAPI} from "../m3-dal/appAPI";
+import { Dispatch } from 'redux';
+
+import { appAPI } from '../m3-dal/API';
 
 export type initAppStateType = {
-    someProperty: string
-}
+  someProperty: string;
+};
 
 const initAppState = {
-    someProperty: ''
-}
+  someProperty: '',
+};
 
-export const AppReducer = (state: initAppStateType = initAppState, action: AppActionTypes):initAppStateType => {
-    switch (action.type) {
-        case 'TEST_CASE':
-            return {
-                ...state,
-                ...action.payload
-            }
-        default:
-            return state
-    }
-}
+export const AppReducer = (
+  state: initAppStateType = initAppState,
+  action: AppActionTypes,
+): initAppStateType => {
+  switch (action.type) {
+    case 'TEST_CASE':
+      return {
+        ...state,
+        ...action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-export const testAction = (payload: {}) => ({type: 'TEST_CASE', payload})
+export const testAction = (payload: {}) => ({ type: 'TEST_CASE', payload });
 
 export const testThunk = (param: string) => (dispatch: Dispatch) => {
-    appAPI.fakeRequest(param)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}
+  appAPI
+    .fakeRequest(param)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
-export type AppActionTypes = ReturnType<typeof testAction>
+export type AppActionTypes = ReturnType<typeof testAction>;
