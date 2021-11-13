@@ -22,4 +22,8 @@ export const API = {
   loginAPI: {
     login: (param: string) => instance.post<string, ApiResponseTypes>('', { param }),
   },
+  recoveryPasswordAPI: {
+    recoveryPass: (param: string) =>
+      instance.post<string, ApiResponseTypes>('', { param }),
+  },
 };

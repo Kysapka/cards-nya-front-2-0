@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { LoginReducer } from '../../n2-features/f0-test/Login/LoginReducer';
 
 import { AppReducer } from './app-reducer';
+import {RecoveryPasswordReducer} from "../../n2-features/f0-test/RecoveryPass/RecoveryPassReducer";
 
 const rootReducer = combineReducers({
   app: AppReducer,
