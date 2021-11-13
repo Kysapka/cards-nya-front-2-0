@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { appAPI } from '../m3-dal/API';
+import { API } from '../m3-dal/API';
 
 export type initAppStateType = {
   someProperty: string;
@@ -25,12 +25,17 @@ export const AppReducer = (
   }
 };
 
-export const testAction = (payload: {}) => ({ type: 'TEST_CASE', payload });
+export const testAction = (param: string) =>
+  ({
+    type: 'TEST_CASE',
+    payload: { param },
+  } as const);
 
 export const testThunk = (param: string) => (dispatch: Dispatch) => {
-  appAPI
+  API.appAPI
     .fakeRequest(param)
     .then(res => {
+      dispatch(testAction('app'));
       console.log(res);
     })
     .catch(err => {
@@ -38,4 +43,5 @@ export const testThunk = (param: string) => (dispatch: Dispatch) => {
     });
 };
 
-export type AppActionTypes = ReturnType<typeof testAction>;
+export type testActionType = ReturnType<typeof testAction>;
+export type AppActionTypes = testActionType;

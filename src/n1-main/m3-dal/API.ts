@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ApiResponseTypes } from './index';
+import { ApiResponseTypes } from './ApiResponseTypes';
 
 // const settings = {
 //     withCredentials: true,
@@ -24,6 +24,10 @@ export const API = {
   },
   recoveryPasswordAPI: {
     recoveryPass: (param: string) =>
+      instance.post<string, ApiResponseTypes>('', { param }),
+  },
+  registrationAPI: {
+    registration: (param: string) =>
       instance.post<string, ApiResponseTypes>('', { param }),
   },
 };
