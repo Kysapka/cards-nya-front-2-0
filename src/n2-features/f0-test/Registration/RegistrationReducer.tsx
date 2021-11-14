@@ -1,19 +1,18 @@
-import { API } from '../../../n1-main/m3-dal/API';
-
-export type initRegistrationStateType = {
-  someProperty: string;
-};
+import { API } from 'n1-main/m3-dal';
+import { Dispatch } from 'redux';
 
 const initRegistrationState = {
-  someProperty: '',
+  email: '',
+  password: '',
 };
 
 export const RegistrationReducer = (
+  // eslint-disable-next-line
   state: initRegistrationStateType = initRegistrationState,
   action: RegistrationActionType,
 ): initRegistrationStateType => {
   switch (action.type) {
-    case 'REGISTRATION_CASE':
+    case 'REGISTRATION':
       return {
         ...state,
         ...action.payload,
@@ -23,18 +22,23 @@ export const RegistrationReducer = (
   }
 };
 
-export const RegistrationAction = (param: string) =>
-  ({ type: 'REGISTRATION_CASE', payload: { param } } as const);
+export const Registration = (email: string, password: string) =>
+  ({ type: 'REGISTRATION', payload: { email, password } } as const);
 
-export const RegistrationThunk = (param: string) => () => {
-  API.registrationAPI
-    .registration(param)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+export const RegistrationThunk =
+  (email: string, password: string) => (dispatch: Dispatch) => {
+    API.registration(email, password)
+      .then(res => {
+        console.log(res);
+        dispatch(Registration(email, password));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+export type RegistrationActionType = ReturnType<typeof Registration>;
+export type initRegistrationStateType = {
+  email: string;
+  password: string;
 };
-
-export type RegistrationActionType = ReturnType<typeof RegistrationAction>;

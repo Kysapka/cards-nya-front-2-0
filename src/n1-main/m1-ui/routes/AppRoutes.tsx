@@ -1,14 +1,15 @@
 import React from 'react';
 
+import {
+  Demonstration,
+  Login,
+  NewPassword,
+  RecoveryPass,
+  Profile,
+  Registration,
+  NotFound,
+} from 'n2-features';
 import { Route, Routes } from 'react-router-dom';
-
-import { Demonstration } from '../../../n2-features/f0-test/Demonstration';
-import { Login } from '../../../n2-features/f0-test/Login/Login';
-import { NewPassword } from '../../../n2-features/f0-test/NewPassword';
-import { NotFound } from '../../../n2-features/f0-test/NotFound';
-import { Profile } from '../../../n2-features/f0-test/Profile';
-import { RecoveryPass } from '../../../n2-features/f0-test/RecoveryPass/RecoveryPass';
-import { Registration } from '../../../n2-features/f0-test/Registration';
 
 export const NOT_FOUND_ROUTE = '*';
 export const LOGIN_ROUTE = 'login';
@@ -49,7 +50,7 @@ export const publicRoutes = [
   },
 ];
 
-export const AppRoutes = () => (
+export const AppRoutes = (): React.ReactElement => (
   <Routes>
     {publicRoutes.map(({ path, component }) => (
       <Route key={path} path={path} element={component} />

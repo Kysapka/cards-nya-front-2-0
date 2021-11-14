@@ -1,4 +1,4 @@
-import { API } from '../../../n1-main/m3-dal/API';
+import { API } from 'n1-main/m3-dal';
 
 export type initLoginStateType = {
   someProperty: string;
@@ -9,6 +9,7 @@ const initLoginState = {
 };
 
 export const LoginReducer = (
+  // eslint-disable-next-line
   state: initLoginStateType = initLoginState,
   action: LoginActionTypes,
 ): initLoginStateType => {
@@ -27,7 +28,7 @@ export const LoginAction = (param: string) =>
   ({ type: 'LOGIN_CASE', payload: { param } } as const);
 
 export const testThunk = (param: string) => () => {
-  API.appAPI
+  API.app
     .fakeRequest(param)
     .then(res => {
       console.log(res);
