@@ -5,3 +5,4 @@ export { Login } from './Login';
 export { RecoveryPass } from './RecoveryPass';
 export { NotFound } from './NotFound';
 export { NewPassword } from './NewPassword';
+export { LoginReducer } from './Login';
