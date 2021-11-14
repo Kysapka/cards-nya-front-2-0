@@ -55,14 +55,10 @@ export const Registration = (): React.ReactElement => {
                     name="confirmPassword"
                     type="password"
                   />
-                  <button className="btn btn-dark mt-3" type="submit">
+                  <button className="btn btn-primary mt-3" type="submit">
                     Register
                   </button>
-                  <button
-                    style={{ marginLeft: '20px' }}
-                    className="btn btn-danger mt-3"
-                    type="reset"
-                  >
+                  <button className="btn btn-danger mt-3 mx-lg-3" type="reset">
                     Reset
                   </button>
                 </Form>
