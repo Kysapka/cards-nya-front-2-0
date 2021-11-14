@@ -28,7 +28,7 @@
     "no-shadow": "off",
     "no-alert": "error",
     "no-plusplus": "off",
-    "no-debugger": "error",
+    "no-debugger": 1,
     "no-unused-vars": "off",
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
@@ -40,7 +40,7 @@
       }
     ],
     "@typescript-eslint/default-param-last": [
-     "warn"
+     1
     ],
     "@typescript-eslint/no-shadow": [
       "error"
@@ -72,6 +72,11 @@
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
     "react/destructuring-assignment": "off",
+    "react/button-has-type": [1, {
+      "button": true,
+      "submit": true,
+      "reset": true
+    }],
     "react/jsx-filename-extension": [
       1,
       {
@@ -83,10 +88,19 @@
         ]
       }
     ],
-    "import/extensions": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     "import/prefer-default-export": "off",
     "import/no-unresolved": [
-      2,
+      0,
       {
         "caseSensitive": false
       }

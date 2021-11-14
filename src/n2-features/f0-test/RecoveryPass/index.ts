@@ -1,0 +1,1 @@
+export { RecoveryPass } from './RecoveryPass';
