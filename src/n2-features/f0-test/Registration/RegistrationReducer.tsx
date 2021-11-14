@@ -7,6 +7,7 @@ const initRegistrationState = {
 };
 
 export const RegistrationReducer = (
+  // eslint-disable-next-line
   state: initRegistrationStateType = initRegistrationState,
   action: RegistrationActionType,
 ): initRegistrationStateType => {

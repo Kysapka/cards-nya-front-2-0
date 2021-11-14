@@ -1,5 +1,5 @@
 import { axiosInst } from './apiConfig';
-import { ApiResponseTypes } from './ApiResponseTypes';
+import { ApiResponseTypes, RegistrationResponseType } from './ApiResponseTypes';
 
 export const API = {
   app: {
@@ -14,5 +14,8 @@ export const API = {
       axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
   registration: (email: string, password: string) =>
-    axiosInst.post<string, ApiResponseTypes>('', { email, password }),
+    axiosInst.post<{ email: string; password: string }, RegistrationResponseType>(
+      'auth/register',
+      { email, password },
+    ),
 };

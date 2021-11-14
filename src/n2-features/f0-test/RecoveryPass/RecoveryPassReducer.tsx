@@ -9,6 +9,7 @@ const initLoginState = {
 };
 
 export const RecoveryPasswordReducer = (
+  // eslint-disable-next-line
   state: initLoginStateType = initLoginState,
   action: RecoveryPassTypes,
 ): initLoginStateType => {

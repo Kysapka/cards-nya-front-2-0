@@ -9,6 +9,7 @@ const initLoginState = {
 };
 
 export const LoginReducer = (
+  // eslint-disable-next-line
   state: initLoginStateType = initLoginState,
   action: LoginActionTypes,
 ): initLoginStateType => {
