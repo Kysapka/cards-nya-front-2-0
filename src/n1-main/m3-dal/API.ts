@@ -3,13 +3,15 @@ import axios from 'axios';
 import { axiosInst } from './apiConfig';
 import { ApiResponseTypes, RegistrationResponseType } from './ApiResponseTypes';
 
+export type LoginPost = { email: string; password: string; rememberMe: boolean };
 export const API = {
   app: {
     fakeRequest: (param: string) =>
       axiosInst.post<string, ApiResponseTypes>('', { param }),
   },
   login: {
-    login: (param: string) => axiosInst.post<string>('', { param }),
+    login: (params: LoginPost) =>
+      axiosInst.post<string, ApiResponseTypes>('auth/login', params),
   },
   forgetPassword: {
     forgetPassword: (email: string) =>
