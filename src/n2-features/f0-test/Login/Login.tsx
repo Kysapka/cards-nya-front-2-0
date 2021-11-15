@@ -24,7 +24,7 @@ export const Login = (): React.ReactElement => {
     })
     .required();
   const n = useNavigate();
-  if (!loginState.verified) n('/profile');
+  if (!!loginState.name) n('/profile');
   return (
     <div className="container mt-3">
       <div className="row">
