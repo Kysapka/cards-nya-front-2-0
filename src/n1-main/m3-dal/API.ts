@@ -1,16 +1,21 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+
+import { ProfileStateType } from '../../n2-features/f0-test/Profile/Profile-Reducer';
 
 import { axiosInst } from './apiConfig';
 import { ApiResponseTypes, RegistrationResponseType } from './ApiResponseTypes';
 
-export type LoginPost = { email: string; password: string; rememberMe: boolean };
+export type LoginPostType = { email: string; password: string; rememberMe: boolean };
 export const API = {
   app: {
     getAuth: () => axiosInst.post<null, ApiResponseTypes>('auth/me', {}),
   },
   login: {
-    login: (params: LoginPost) =>
-      axiosInst.post<string, ApiResponseTypes>('auth/login', params),
+    login: (params: LoginPostType) =>
+      axiosInst.post<LoginPostType, AxiosResponse<ProfileStateType>>(
+        'auth/login',
+        params,
+      ),
   },
   forgetPassword: {
     forgetPassword: (email: string) =>

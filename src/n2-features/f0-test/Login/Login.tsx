@@ -7,12 +7,15 @@ import { useNavigate } from 'react-router';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import { ProfileStateType } from '../Profile/Profile-Reducer';
 import { TextField } from '../Registration/TextField';
 
-import { LoginStateType, testThunk } from './LoginReducer';
+import { loginInThunk } from './LoginReducer';
 
 export const Login = (): React.ReactElement => {
-  const loginState = useSelector<AppRootStateType, LoginStateType>(state => state.login);
+  const profileState = useSelector<AppRootStateType, ProfileStateType>(
+    state => state.profile,
+  );
   const dispatch = useDispatch();
   const SignupSchema = yup
     .object({
@@ -24,7 +27,7 @@ export const Login = (): React.ReactElement => {
     })
     .required();
   const n = useNavigate();
-  if (!!loginState.name) n('/profile');
+  if (!profileState.verified) n('/profile');
   return (
     <div className="container mt-3">
       <div className="row">
