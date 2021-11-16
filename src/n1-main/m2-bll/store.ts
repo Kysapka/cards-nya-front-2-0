@@ -1,4 +1,7 @@
-import { ForGetPasswordReducer } from 'n2-features/f0-test/RecoveryPass';
+import {
+  ForGetPasswordReducer,
+  RecoveryPasswordReducer,
+} from 'n2-features/f0-test/RecoveryPass';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 

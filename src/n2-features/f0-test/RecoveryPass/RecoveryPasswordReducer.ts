@@ -1,5 +1,8 @@
+import { AxiosError } from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
+
+import { RecoveryPasswordErrorResp } from './TypeRecoveryPasswordResponse';
 
 export type initRecoveryPasswordStateType = {
   password: string;
@@ -60,8 +63,11 @@ export const recoveryPasswordThunk =
       .then(res => {
         dispatch(setInfoAction(res.data.info));
       })
-      .catch(err => {
-        dispatch(setErrorAction(err.response.data.error));
+      .catch((err: AxiosError<RecoveryPasswordErrorResp>) => {
+        if (err.response?.data.error) dispatch(setErrorAction(err.response.data.error));
+        setTimeout(() => {
+          dispatch(setErrorAction(''));
+        }, 5000);
       });
   };
 
