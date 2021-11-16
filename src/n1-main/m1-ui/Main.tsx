@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { AppRootStateType } from '../m2-bll';
 import { authMeThunk } from '../m2-bll/AppThunks';
 
-import { Loader } from './common/Loader';
 import { Header } from './header';
 import { AppRoutes } from './routes';
 
 export const Main = (): React.ReactElement => {
-  // const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  // const navigate = useNavigate();
-  // if (!isAuth) {
-  //   navigate('/login');
-  // }
+  const isAppInitializated = useSelector<AppRootStateType, boolean>(
+    state => state.app.isAppInitializated,
+  );
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(authMeThunk());
   }, []);
+
   return (
     <div>
       <Header />

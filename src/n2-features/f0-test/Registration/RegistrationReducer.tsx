@@ -1,6 +1,9 @@
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
+import { ErrorResponseType } from '../../../n1-main/m3-dal/ApiResponseTypes';
+
+const REGISTRATION = '@@REGISTRATION_REDUCER/REGISTRATION';
 const initRegistrationState = {
   email: '',
   password: '',
@@ -12,7 +15,7 @@ export const RegistrationReducer = (
   action: RegistrationActionType,
 ): initRegistrationStateType => {
   switch (action.type) {
-    case 'REGISTRATION':
+    case REGISTRATION:
       return {
         ...state,
         ...action.payload,
@@ -23,17 +26,19 @@ export const RegistrationReducer = (
 };
 
 export const Registration = (email: string, password: string) =>
-  ({ type: 'REGISTRATION', payload: { email, password } } as const);
+  ({ type: REGISTRATION, payload: { email, password } } as const);
 
 export const RegistrationThunk =
   (email: string, password: string) => (dispatch: Dispatch) => {
     API.registration(email, password)
       .then(res => {
-        console.log(res);
-        dispatch(Registration(email, password));
+        if (res.status === '201') {
+          console.log('registration succsess');
+          dispatch(Registration(email, password));
+        }
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err: ErrorResponseType) => {
+        console.dir(err.response.data.error);
       });
   };
 

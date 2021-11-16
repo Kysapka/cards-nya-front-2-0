@@ -4,28 +4,31 @@ import {
   Demonstration,
   Login,
   NewPassword,
-  ForgetPassword,
   Profile,
   Registration,
   NotFound,
+  ForgetPassword,
 } from 'n2-features';
 import { Route, Routes } from 'react-router-dom';
 
-import { RecoveryPassword } from '../../../n2-features/f0-test/RecoveryPass/RecoveryPassword';
+import { RecoveryPassword } from '../../../n2-features/f0-test/RecoveryPass';
 
-export const NOT_FOUND_ROUTE = '*';
-export const LOGIN_ROUTE = 'login';
-export const REG_ROUTE = 'register';
-export const PROFILE_ROUTE = 'profile';
-export const RECOVERY_PASS_ROUTE = 'recovery';
-export const NEW_PASS_ROUTE = 'newpass';
-export const DEMONSTRATION_ROUTE = 'demonstration';
-export const RECOVERYPASSWORD_ROUTE = 'set-new-password/:token';
+import {
+  BASE_ROUTE,
+  DEMONSTRATION_ROUTE,
+  LOGIN_ROUTE,
+  NEW_PASS_ROUTE,
+  NOT_FOUND_ROUTE,
+  PROFILE_ROUTE,
+  RECOVERY_PASS_ROUTE,
+  RECOVERYPASSWORD_ROUTE,
+  REG_ROUTE,
+} from './consts';
 
 export const publicRoutes = [
   {
-    path: NOT_FOUND_ROUTE,
-    component: <NotFound />,
+    path: BASE_ROUTE,
+    component: <Profile />,
   },
   {
     path: LOGIN_ROUTE,
@@ -54,6 +57,10 @@ export const publicRoutes = [
   {
     path: RECOVERYPASSWORD_ROUTE,
     component: <RecoveryPassword />,
+  },
+  {
+    path: NOT_FOUND_ROUTE,
+    component: <NotFound />,
   },
 ];
 

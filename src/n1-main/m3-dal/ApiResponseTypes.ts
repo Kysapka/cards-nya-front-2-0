@@ -1,9 +1,20 @@
-export type ApiResponseTypes = {
-  resultCode: number;
-  data: {};
+export type ApiResponseTypes<D = {}> = {
+  status: string;
+  statusText: string;
+  data: D;
 };
 
-export type RegistrationResponseType = {
+export type ErrorResponseType = {
+  response: {
+    data: {
+      error: string;
+    };
+  };
+  status: string;
+  statusText: string;
+};
+
+export type UserDataResponseType = {
   addedUser: {
     created: string;
     email: string;

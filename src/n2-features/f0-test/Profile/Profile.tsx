@@ -1,22 +1,46 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import { Loader } from '../../../n1-main/m1-ui/common/Loader';
+import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { Login } from '../Login';
+import { LogOut } from '../LogOut/LogOutThunk';
 
 export const Profile = (): React.ReactElement => {
+  const dispatch = useDispatch();
   const profileState = useSelector((state: AppRootStateType) => state.profile);
-  console.log('render');
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+  const navigate = useNavigate();
+  const isAppInitializated = useSelector<AppRootStateType, boolean>(
+    state => state.app.isAppInitializated,
+  );
+  const onLogoutClick = (): void => {
+    dispatch(LogOut());
+  };
+
+  if (!isAppInitializated) {
+    return <Loader />;
+  }
+
+  if (!isAuth) {
+    navigate(LOGIN_ROUTE);
+    return <Login />;
+  }
+
   return (
     <div>
-      {profileState.avatar !== null ? (
+      <span>Profile Component render</span>
+      {isAuth && (
         <div>
-          <img src={profileState.avatar} alt="" />
+          <img src={profileState.avatar ? profileState.avatar : ''} alt="" />
           <h2>My name is: {profileState.name}</h2>
           <p>Date of Create:{profileState.created}</p>
-          <button>Logout</button>
+          <button onClick={onLogoutClick}>Logout</button>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
