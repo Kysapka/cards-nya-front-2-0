@@ -6,8 +6,7 @@ import { ApiResponseTypes, RegistrationResponseType } from './ApiResponseTypes';
 export type LoginPost = { email: string; password: string; rememberMe: boolean };
 export const API = {
   app: {
-    fakeRequest: (param: string) =>
-      axiosInst.post<string, ApiResponseTypes>('', { param }),
+    getAuth: () => axiosInst.post<null, ApiResponseTypes>('auth/me', {}),
   },
   login: {
     login: (params: LoginPost) =>
