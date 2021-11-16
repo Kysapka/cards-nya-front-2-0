@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Form, Formik } from 'formik';
-import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
@@ -38,7 +37,6 @@ export const ForgetPassword = (): React.ReactElement => {
       error={recovereState.error}
       text="sent to your email"
       title="check your mail"
-      show={show}
       email={recovereState.email}
     />
   );

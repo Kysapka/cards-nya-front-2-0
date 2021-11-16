@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, Modal } from 'react-bootstrap';
 
@@ -7,18 +7,18 @@ type PropsCheckEmailType = {
   text: string;
   title: string;
   email?: string;
-  show: boolean;
-  onClick: (show: boolean) => void;
 };
 
 export const CheckMail = (props: PropsCheckEmailType): React.ReactElement => {
+  const [show, setShow] = useState(true);
   const email = props.email ? props.email : '';
   const handleClose = (): void => {
-    props.onClick(false);
+    setShow(false);
+    window.location.reload();
   };
 
   return (
-    <Modal show={props.show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{props.title}</Modal.Title>
       </Modal.Header>
