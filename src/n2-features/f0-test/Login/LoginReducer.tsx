@@ -1,40 +1,21 @@
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
-import { LoginPost } from '../../../n1-main/m3-dal/API';
+import { LoginPostType } from '../../../n1-main/m3-dal/API';
+import { profileAction } from '../Profile/Profile-Reducer';
 
 export type LoginStateType = {
-  _id: string | null;
-  email: string | null;
-  name: string | null;
-  avatar?: string | null;
-  publicCardPacksCount: number | null; // количество колод
-  created: Date | null;
-  updated: Date | null;
-  isAdmin: boolean | null;
-  verified: boolean | null; // подтвердил ли почту
-  rememberMe: boolean | null;
-  error?: string | null;
+  isLogin: boolean;
 };
 
 const initLoginState = {
-  _id: null,
-  email: null,
-  name: null,
-  avatar: null,
-  publicCardPacksCount: null, // количество колод
-  created: null,
-  updated: null,
-  isAdmin: null,
-  verified: null, // подтвердил ли почту
-  rememberMe: null,
-  error: null,
+  isLogin: false,
 };
 
 export const LoginReducer = (
   // eslint-disable-next-line
   state: LoginStateType = initLoginState,
-  action: LoginActionTypes,
+  action: ActionTypes,
 ): LoginStateType => {
   switch (action.type) {
     case 'LOGIN_CASE':
@@ -49,16 +30,15 @@ export const LoginReducer = (
 
 export const LoginAction = (param: {}) => ({ type: 'LOGIN_CASE', data: param } as const);
 
-export const testThunk = (param: LoginPost) => (dispatch: Dispatch) => {
-  API.login
-    .login(param)
-    .then(res => {
-      console.log(res.data);
-      dispatch(LoginAction(res.data));
-    })
-    .catch(err => {
-      console.log(err);
-    });
+export const loginInThunk = (param: LoginPostType) => (dispatch: Dispatch) => {
+  API.login.login(param).then(res => {
+    console.log(res.data);
+    dispatch(profileAction(res.data));
+  });
+  // .catch(err => {
+  //   console.log('Error: ', err.response.data.error);
+  // });
 };
 
 export type LoginActionTypes = ReturnType<typeof LoginAction>;
+type ActionTypes = LoginActionTypes;

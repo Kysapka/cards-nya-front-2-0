@@ -7,12 +7,15 @@ import { useNavigate } from 'react-router';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import { ProfileStateType } from '../Profile/Profile-Reducer';
 import { TextField } from '../Registration/TextField';
 
-import { LoginStateType, testThunk } from './LoginReducer';
+import { loginInThunk } from './LoginReducer';
 
 export const Login = (): React.ReactElement => {
-  const loginState = useSelector<AppRootStateType, LoginStateType>(state => state.login);
+  const profileState = useSelector<AppRootStateType, ProfileStateType>(
+    state => state.profile,
+  );
   const dispatch = useDispatch();
   const SignupSchema = yup
     .object({
@@ -24,7 +27,7 @@ export const Login = (): React.ReactElement => {
     })
     .required();
   const n = useNavigate();
-  if (!loginState.verified) n('/profile');
+  if (!profileState.verified) n('/profile');
   return (
     <div className="container mt-3">
       <div className="row">
@@ -38,7 +41,7 @@ export const Login = (): React.ReactElement => {
             validationSchema={SignupSchema}
             onSubmit={values => {
               // const { email, password, rememberMe } = values;
-              dispatch(testThunk(values));
+              dispatch(loginInThunk(values));
             }}
           >
             {() => (
@@ -50,15 +53,8 @@ export const Login = (): React.ReactElement => {
                   <div>
                     <Field type="checkbox" name="rememberMe" />
                   </div>
-                  <button className="btn btn-dark mt-3" type="submit">
-                    Register
-                  </button>
-                  <button
-                    style={{ marginLeft: '20px' }}
-                    className="btn btn-danger mt-3"
-                    type="reset"
-                  >
-                    Reset
+                  <button className="btn btn-primary mt-3" type="submit">
+                    Login
                   </button>
                 </Form>
               </div>
