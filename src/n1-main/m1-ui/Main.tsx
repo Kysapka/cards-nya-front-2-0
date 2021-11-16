@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-// import { useNavigate } from 'react-router';
-//
-// import { AppRootStateType } from '../m2-bll';
-import { authMeThunk } from '../m2-bll/app-reducer';
+import { authMeThunk } from '../m2-bll/AppThunks';
 
+import { Loader } from './common/Loader';
 import { Header } from './header';
 import { AppRoutes } from './routes';
 

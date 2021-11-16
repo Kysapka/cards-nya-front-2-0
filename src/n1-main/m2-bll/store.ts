@@ -7,9 +7,11 @@ import { RecoveryPasswordReducer } from '../../n2-features/f0-test/RecoveryPass/
 import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
 
 import { AppReducer } from './app-reducer';
+import { ErrorReducer } from './ErrorReducer';
 
 const rootReducer = combineReducers({
   app: AppReducer,
+  error: ErrorReducer,
   login: LoginReducer,
   // newPassword: NewPassowdReducer,
   // profile: ProfileReducer,

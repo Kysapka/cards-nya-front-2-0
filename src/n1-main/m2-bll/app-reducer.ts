@@ -1,14 +1,14 @@
-import { Dispatch } from 'redux';
-
-import { LoginAction } from '../../n2-features/f0-test/Login/LoginReducer';
-import { API } from '../m3-dal';
-
 export type initAppStateType = {
+  preloaderToggle: boolean;
+  isAppInitializated: boolean;
   isAuth: boolean;
 };
 
 const SET_AUTH = '@@APP_REDUCER/SET_AUTH';
+const SET_APP_INITIALIZATE = '@@APP_REDUCER/SET_APP_INITIALIZATE';
 const initAppState = {
+  preloaderToggle: false,
+  isAppInitializated: false,
   isAuth: false,
 };
 
@@ -18,6 +18,11 @@ export const AppReducer = (
   action: AppActionTypes,
 ): initAppStateType => {
   switch (action.type) {
+    case SET_APP_INITIALIZATE:
+      return {
+        ...state,
+        isAppInitializated: action.isAppInitializated,
+      };
     case SET_AUTH:
       return {
         ...state,
@@ -28,25 +33,18 @@ export const AppReducer = (
   }
 };
 
+export const setAppInitializate = (isAppInitializated: boolean) =>
+  ({
+    type: SET_APP_INITIALIZATE,
+    isAppInitializated,
+  } as const);
+
 export const setAuth = (isAuth: boolean) =>
   ({
     type: SET_AUTH,
     isAuth,
   } as const);
 
-export const authMeThunk = () => (dispatch: Dispatch) => {
-  API.app
-    .getAuth()
-    .then(res => {
-      dispatch(setAuth(true));
-      dispatch(LoginAction(res.data));
-      console.log({ ...res });
-    })
-    .catch(err => {
-      dispatch(setAuth(false));
-      console.log({ ...err });
-    });
-};
-
-export type testActionType = ReturnType<typeof setAuth>;
-export type AppActionTypes = testActionType;
+export type AppActionTypes =
+  | ReturnType<typeof setAppInitializate>
+  | ReturnType<typeof setAuth>;
