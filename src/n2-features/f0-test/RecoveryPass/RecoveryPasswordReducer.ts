@@ -65,6 +65,9 @@ export const recoveryPasswordThunk =
       })
       .catch((err: AxiosError<RecoveryPasswordErrorResp>) => {
         if (err.response?.data.error) dispatch(setErrorAction(err.response.data.error));
+        setTimeout(() => {
+          dispatch(setErrorAction(''));
+        }, 5000);
       });
   };
 

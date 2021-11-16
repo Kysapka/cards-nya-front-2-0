@@ -20,7 +20,7 @@ export const API = {
   },
   login: {
     login: (params: LoginPost) =>
-      axiosInst.post<string, ApiResponseTypes>('auth/login', params),
+      axiosInst.post<LoginPost, AxiosResponse<ApiResponseTypes>>('auth/login', params),
   },
   forgetPassword: {
     forgetPassword: (email: string) =>
