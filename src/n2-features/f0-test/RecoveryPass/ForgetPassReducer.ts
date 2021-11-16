@@ -1,5 +1,8 @@
+import { AxiosError } from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
+
+import { ForgetPasswordErrorResp } from './TypeForForgetPasswordResponse';
 
 export type initRecoveryStateType = {
   email: string;
@@ -43,12 +46,12 @@ export const RecoveryPassThunk = (email: string) => (dispatch: Dispatch) => {
   dispatch(SetEmailAction(email));
   API.forgetPassword
     .forgetPassword(email)
-    .then(res => {
-      console.log(res);
+    .then(() => {
       dispatch(SetTooglMailAction(true));
     })
-    .catch(err => {
-      dispatch(SetErrorAction(true));
+    .catch((err: AxiosError<ForgetPasswordErrorResp>) => {
+      if (err.response?.data.error) dispatch(SetErrorAction(true));
+      if (err.response?.data.email) dispatch(SetEmailAction(err.response?.data.email));
       dispatch(SetTooglMailAction(true));
       console.log(err);
     });

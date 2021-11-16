@@ -2,7 +2,7 @@ export {
   Login,
   NewPassword,
   Profile,
-  RecoveryPass,
+  ForgetPassword,
   NotFound,
   Demonstration,
   Registration,

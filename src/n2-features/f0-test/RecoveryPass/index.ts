@@ -1,5 +1,5 @@
-export { RecoveryPass } from './RecoveryPass';
+export { ForgetPassword } from './ForgetPassword';
 export { CheckMail } from './CheckMail';
-export { ForGetPasswordReducer } from './RecoveryPassReducer';
+export { ForGetPasswordReducer } from './ForgetPassReducer';
 export { RecoveryPassword } from './RecoveryPassword';
-export { RecoveryPasswordReducer } from './recoveryPassword-reducer';
+export { RecoveryPasswordReducer } from './RecoveryPasswordReducer';

@@ -9,11 +9,12 @@ import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { TextField } from '../Registration/TextField';
 
+import { CheckMail } from './CheckMail';
 import {
   initRecoveryPasswordStateType,
   recoveryPasswordThunk,
   setTokenAction,
-} from './recoveryPassword-reducer';
+} from './RecoveryPasswordReducer';
 
 export const RecoveryPassword = (): React.ReactElement => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const RecoveryPassword = (): React.ReactElement => {
     .object({
       password: yup
         .string()
-        .min(7, 'password must be at least 7 character')
+        .min(8, 'password must be at least 8 character')
         .required('password is required'),
       confirmPassword: yup
         .string()
@@ -54,6 +55,12 @@ export const RecoveryPassword = (): React.ReactElement => {
           >
             {() => (
               <div>
+                {error ? (
+                  <CheckMail error={!!error} text={error} title="Error" />
+                ) : (
+                  <br />
+                )}
+                {info ? <CheckMail error={false} text={info} title="All Good" /> : <br />}
                 <h1 className="my-4 font-weght-bold display-4">Create new password</h1>
                 <Form>
                   <TextField label="Password" name="password" type="password" />
@@ -62,10 +69,8 @@ export const RecoveryPassword = (): React.ReactElement => {
                     name="confirmPassword"
                     type="password"
                   />
-                  {error ? <div className="error">{error}</div> : <br />}
-                  {info ? <div>{info}</div> : <br />}
                   <button className="btn btn-dark mt-3" type="submit">
-                    Set
+                    Accept
                   </button>
                   <button
                     style={{ marginLeft: '20px' }}

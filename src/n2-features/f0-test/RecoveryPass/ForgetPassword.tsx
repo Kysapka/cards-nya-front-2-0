@@ -9,9 +9,9 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { TextField } from '../Registration/TextField';
 
 import { CheckMail } from './CheckMail';
-import { initRecoveryStateType, RecoveryPassThunk } from './RecoveryPassReducer';
+import { initRecoveryStateType, RecoveryPassThunk } from './ForgetPassReducer';
 
-export const RecoveryPass = (): React.ReactElement => {
+export const ForgetPassword = (): React.ReactElement => {
   console.log('RecoveryPass Render');
   const SignupSchema = yup
     .object({
@@ -22,10 +22,23 @@ export const RecoveryPass = (): React.ReactElement => {
     state => state.forgetPassword,
   );
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-nested-ternary
   const renderContent = !recovereState.toggle ? (
     <br />
+  ) : recovereState.error ? (
+    <CheckMail
+      error={recovereState.error}
+      text="Email address not found"
+      title="Error"
+      email={recovereState.email}
+    />
   ) : (
-    <CheckMail error={recovereState.error} />
+    <CheckMail
+      error={recovereState.error}
+      text="sent to your email"
+      title="check your mail"
+      email={recovereState.email}
+    />
   );
   return (
     <div className="container mt-3">
@@ -39,7 +52,6 @@ export const RecoveryPass = (): React.ReactElement => {
             validationSchema={SignupSchema}
             onSubmit={values => {
               const { email } = values;
-              console.log(email);
               dispatch(RecoveryPassThunk(email));
             }}
           >
@@ -49,7 +61,7 @@ export const RecoveryPass = (): React.ReactElement => {
                 <Form>
                   <TextField label="E-mail" name="email" type="text" />
                   <button className="btn btn-dark mt-3" type="submit">
-                    Register
+                    Enter
                   </button>
                   <button
                     style={{ marginLeft: '20px' }}

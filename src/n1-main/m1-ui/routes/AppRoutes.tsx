@@ -4,7 +4,7 @@ import {
   Demonstration,
   Login,
   NewPassword,
-  RecoveryPass,
+  ForgetPassword,
   Profile,
   Registration,
   NotFound,
@@ -41,7 +41,7 @@ export const publicRoutes = [
   },
   {
     path: RECOVERY_PASS_ROUTE,
-    component: <RecoveryPass />,
+    component: <ForgetPassword />,
   },
   {
     path: NEW_PASS_ROUTE,

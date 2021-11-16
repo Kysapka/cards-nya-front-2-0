@@ -4,23 +4,26 @@ import { Button, Modal } from 'react-bootstrap';
 
 type PropsCheckEmailType = {
   error: boolean;
+  text: string;
+  title: string;
+  email?: string;
 };
 
 export const CheckMail = (props: PropsCheckEmailType): React.ReactElement => {
   const [show, setShow] = useState(true);
-
+  const email = props.email ? props.email : '';
   const handleClose = (): void => setShow(false);
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Check Email</Modal.Title>
+        <Modal.Title>{props.title}</Modal.Title>
       </Modal.Header>
 
       {props.error ? (
-        <Modal.Body style={{ color: 'red' }}>Email address not found</Modal.Body>
+        <Modal.Body style={{ color: 'red' }}>{`${props.text} ${email}`}</Modal.Body>
       ) : (
-        <Modal.Body>We’ve sent an Email with instructions</Modal.Body>
+        <Modal.Body>{`${props.text} ${email}`}</Modal.Body>
       )}
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
