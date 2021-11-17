@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { TextField } from '../Registration/TextField';
 
@@ -22,6 +24,13 @@ export const ForgetPassword = (): React.ReactElement => {
     state => state.forgetPassword,
   );
   const dispatch = useDispatch();
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuth) {
+      navigate(PROFILE_ROUTE, { replace: true });
+    }
+  }, [isAuth]);
   // eslint-disable-next-line no-nested-ternary
   const renderContent = !recovereState.toggle ? (
     <br />
@@ -57,7 +66,9 @@ export const ForgetPassword = (): React.ReactElement => {
           >
             {() => (
               <div>
-                <h1 className="my-4 font-weght-bold display-4">Recovery password</h1>
+                <h1 className="my-4 font-weght-bold display-4">
+                  Enter your email please
+                </h1>
                 <Form>
                   <TextField label="E-mail" name="email" type="text" />
                   <button className="btn btn-dark mt-3" type="submit">

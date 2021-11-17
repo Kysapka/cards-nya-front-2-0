@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import rocketImg from 'n1-main/m1-ui/common/assets/Rocket.jpg';
 import { AppRootStateType } from 'n1-main/m2-bll';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router';
 import * as yup from 'yup';
 
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
-import { Profile } from '../Profile';
 
 import { initRegistrationStateType, RegistrationThunk } from './RegistrationReducer';
 import { TextField } from './TextField';
@@ -33,10 +32,12 @@ export const Registration = (): React.ReactElement => {
         .required('confirm password is required'),
     })
     .required();
-  if (isAuth) {
-    navigate(PROFILE_ROUTE);
-    return <Profile />;
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate(PROFILE_ROUTE, { replace: true });
+    }
+  }, [isAuth]);
+
   return (
     <div className="container mt-3">
       <div className="row">

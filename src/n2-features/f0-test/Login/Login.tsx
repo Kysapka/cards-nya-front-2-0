@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Field, Form, Formik } from 'formik';
 import { AppRootStateType } from 'n1-main/m2-bll';
@@ -8,16 +8,11 @@ import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
-import { Profile } from '../Profile';
-import { ProfileStateType } from '../Profile/Profile-Reducer';
 import { TextField } from '../Registration/TextField';
 
 import { loginInThunk } from './LoginReducer';
 
 export const Login = (): React.ReactElement => {
-  const profileState = useSelector<AppRootStateType, ProfileStateType>(
-    state => state.profile,
-  );
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,10 +26,12 @@ export const Login = (): React.ReactElement => {
         .required('password is required'),
     })
     .required();
-  if (isAuth) {
-    navigate(PROFILE_ROUTE);
-    return <Profile />;
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate(PROFILE_ROUTE, { replace: true });
+    }
+  }, [isAuth]);
+
   return (
     <div className="container mt-3">
       <div className="row">

@@ -2,12 +2,12 @@ import React from 'react';
 
 import {
   Demonstration,
+  ForgetPassword,
   Login,
   NewPassword,
+  NotFound,
   Profile,
   Registration,
-  NotFound,
-  ForgetPassword,
 } from 'n2-features';
 import { Route, Routes } from 'react-router-dom';
 

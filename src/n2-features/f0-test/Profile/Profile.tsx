@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
-import { Login } from '../Login';
 import { LogOut } from '../LogOut/LogOutThunk';
 
 export const Profile = (): React.ReactElement => {
@@ -17,17 +16,17 @@ export const Profile = (): React.ReactElement => {
   const isAppInitializated = useSelector<AppRootStateType, boolean>(
     state => state.app.isAppInitializated,
   );
+  useEffect(() => {
+    if (!isAuth) {
+      navigate(LOGIN_ROUTE, { replace: true });
+    }
+  }, [isAuth]);
   const onLogoutClick = (): void => {
     dispatch(LogOut());
   };
 
   if (!isAppInitializated) {
     return <Loader />;
-  }
-
-  if (!isAuth) {
-    navigate(LOGIN_ROUTE);
-    return <Login />;
   }
 
   return (
