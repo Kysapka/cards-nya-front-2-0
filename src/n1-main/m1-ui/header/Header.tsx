@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
 import { publicRoutes } from '../routes';
 
-export const Header = (): React.ReactElement => {
-  const [show, setShow] = useState(true);
+import style from './Header.module.css';
 
-  return (
-    <div style={{ marginBottom: '20px' }}>
-      <button className="btn-primary" onClick={() => setShow(!show)}>
-        Show/hide Dev-Menu
-      </button>
-      {publicRoutes.map(
-        ({ path }) =>
-          show && (
-            <NavLink key={path} to={path}>
-              <span style={{ padding: '5px' }}>{path}</span>
-            </NavLink>
-          ),
-      )}
+export const Header = (): React.ReactElement => (
+  <div className={style.dropdown}>
+    <div className={style.DropButton}>Drop</div>
+    <div className={style.DropdownContent}>
+      {publicRoutes.map(({ path }) => (
+        <NavLink className={style.Link} key={path} to={path}>
+          <span style={{ padding: '5px' }}>{path}</span>
+        </NavLink>
+      ))}
     </div>
-  );
-};
+  </div>
+);

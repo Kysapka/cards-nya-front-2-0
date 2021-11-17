@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { ProfileStateType } from 'n2-features/f0-test/Profile/Profile-Reducer';
 
 import { ProfileStateType } from '../../n2-features/f0-test/Profile/Profile-Reducer';
 import {
