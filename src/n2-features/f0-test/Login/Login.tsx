@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
+import { Profile } from '../Profile';
 import { ProfileStateType } from '../Profile/Profile-Reducer';
 import { TextField } from '../Registration/TextField';
 
@@ -16,7 +18,10 @@ export const Login = (): React.ReactElement => {
   const profileState = useSelector<AppRootStateType, ProfileStateType>(
     state => state.profile,
   );
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const SignupSchema = yup
     .object({
       email: yup.string().email('email is invalid').required('email is required'),
@@ -26,8 +31,10 @@ export const Login = (): React.ReactElement => {
         .required('password is required'),
     })
     .required();
-  const n = useNavigate();
-  if (!profileState.verified) n('/profile');
+  if (isAuth) {
+    navigate(PROFILE_ROUTE);
+    return <Profile />;
+  }
   return (
     <div className="container mt-3">
       <div className="row">
@@ -54,7 +61,7 @@ export const Login = (): React.ReactElement => {
                     <Field type="checkbox" name="rememberMe" />
                   </div>
                   <button className="btn btn-dark mt-3" type="submit">
-                    Register
+                    Login
                   </button>
                   <button
                     style={{ marginLeft: '20px' }}

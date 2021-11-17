@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ProfileStateType } from 'n2-features/f0-test/Profile/Profile-Reducer';
 
+import { ProfileStateType } from '../../n2-features/f0-test/Profile/Profile-Reducer';
 import {
   ForgetPasswordResp,
   PostForgetPasswordReq,
@@ -11,12 +12,13 @@ import {
 } from '../../n2-features/f0-test/RecoveryPass/TypeRecoveryPasswordResponse';
 
 import { axiosInst } from './apiConfig';
-import { ApiResponseTypes, RegistrationResponseType } from './ApiResponseTypes';
+import { ApiResponseTypes, UserDataResponseType } from './ApiResponseTypes';
 
 export type LoginPostType = { email: string; password: string; rememberMe: boolean };
 export const API = {
   app: {
-    getAuth: () => axiosInst.post<null, ApiResponseTypes>('auth/me', {}),
+    getAuth: () =>
+      axiosInst.post<null, ApiResponseTypes<UserDataResponseType>>('auth/me', {}),
   },
   login: {
     login: (params: LoginPostType) =>
@@ -24,6 +26,9 @@ export const API = {
         'auth/login',
         params,
       ),
+  },
+  logout: {
+    logout: () => axiosInst.delete('auth/me', {}),
   },
   forgetPassword: {
     forgetPassword: (email: string) =>
@@ -43,8 +48,8 @@ export const API = {
       ),
   },
   registration: (email: string, password: string) =>
-    axiosInst.post<{ email: string; password: string }, RegistrationResponseType>(
-      'auth/register',
-      { email, password },
-    ),
+    axiosInst.post<
+      { email: string; password: string },
+      ApiResponseTypes<UserDataResponseType>
+    >('auth/register', { email, password }),
 };

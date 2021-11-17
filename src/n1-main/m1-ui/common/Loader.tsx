@@ -2,7 +2,10 @@ import React, { ReactElement } from 'react';
 import '../App.css';
 
 export const Loader = (): ReactElement => (
-  <div className="row justify-content-center align-items-center h-100">
+  <div
+    style={{ height: '100vh' }}
+    className="row justify-content-center align-items-center"
+  >
     <div className="lds-hourglass " />
   </div>
 );

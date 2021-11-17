@@ -1,3 +1,5 @@
+const LOG_OUT = '@@PROFILE_REDUCER/LOG_OUT_CLEAR_STATE';
+
 export type ProfileStateType = {
   _id: string | null;
   email: string | null;
@@ -47,7 +49,7 @@ const initProfileState = {
 export const ProfileReducer = (
   // eslint-disable-next-line
   state: ProfileStateType = initProfileState,
-  action: ActionType,
+  action: ProfileActionTypes,
 ): ProfileStateType => {
   switch (action.type) {
     case 'PROFILE_CASE':
@@ -55,6 +57,8 @@ export const ProfileReducer = (
         ...state,
         ...action.data,
       };
+    case LOG_OUT:
+      return { ...initProfileState };
     default:
       return state;
   }
@@ -63,5 +67,8 @@ export const ProfileReducer = (
 export const profileAction = (param: {}) =>
   ({ type: 'PROFILE_CASE', data: param } as const);
 
+export const LogOutClearState = () => ({ type: LOG_OUT } as const);
+
 export type ProfileActionType = ReturnType<typeof profileAction>;
-type ActionType = ProfileActionType;
+export type LogOutActionType = ReturnType<typeof LogOutClearState>;
+type ProfileActionTypes = ProfileActionType | LogOutActionType;

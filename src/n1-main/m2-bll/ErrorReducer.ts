@@ -46,6 +46,6 @@ export const resetError = () =>
     type: RESET_ERROR,
   } as const);
 
-export type ErrorActionTypes =
-  | ReturnType<typeof setError>
-  | ReturnType<typeof resetError>;
+export type setErrorActionType = ReturnType<typeof setError>;
+export type resetErrorActionType = ReturnType<typeof resetError>;
+export type ErrorActionTypes = setErrorActionType | resetErrorActionType;
