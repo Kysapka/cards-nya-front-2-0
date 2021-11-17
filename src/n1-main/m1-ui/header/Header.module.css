@@ -1,0 +1,54 @@
+.dropdown{
+  position: relative;
+  transition: 1s;
+  display: inline-block;
+  z-index: 12;
+}
+
+.DropButton{
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1;
+  background-color: blue;
+  color: yellow;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  transition: 1s;
+  height: 50px;
+  z-index: 1;
+}
+
+.DropdownContent{
+  display: inline-flex;
+  position: absolute;
+  z-index: -1;
+  left: -1000px;
+  background-color: #000000;
+  min-width: max-content;
+  min-height: 50px;
+  /*border-radius: 0px 30px 30px 0px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transition: 10s;
+}
+
+.Link{
+  color: yellow;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: 1s;
+}
+.Link:hover{
+  transition: 1s;
+  background-color:grey;
+  /*border-radius: 30px;*/
+}
+.dropdown:hover .DropdownContent {
+  left: 10px;
+  transition: 2s;
+}
+
+/*.dropdown:hover .DropButton {*/
+/*  transition: 1s;*/
+/*}*/

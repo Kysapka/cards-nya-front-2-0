@@ -7,7 +7,6 @@ import thunk from 'redux-thunk';
 
 import { LoginReducer } from '../../n2-features/f0-test/Login/LoginReducer';
 import { ProfileReducer } from '../../n2-features/f0-test/Profile/Profile-Reducer';
-import { RecoveryPasswordReducer } from '../../n2-features/f0-test/RecoveryPass/recoveryPassword-reducer';
 import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
 
 import { AppReducer } from './app-reducer';

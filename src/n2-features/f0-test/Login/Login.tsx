@@ -41,7 +41,7 @@ export const Login = (): React.ReactElement => {
             validationSchema={SignupSchema}
             onSubmit={values => {
               // const { email, password, rememberMe } = values;
-              dispatch(testThunk(values));
+              dispatch(loginInThunk(values));
             }}
           >
             {() => (
