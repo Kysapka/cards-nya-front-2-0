@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,8 @@ import * as yup from 'yup';
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { ModalInfo } from '../modalWindow/ModaInfo';
+import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
 import { CheckMail } from './CheckMail';
@@ -31,27 +33,25 @@ export const ForgetPassword = (): React.ReactElement => {
       navigate(PROFILE_ROUTE, { replace: true });
     }
   }, [isAuth]);
-  // eslint-disable-next-line no-nested-ternary
-  const renderContent = !recovereState.toggle ? (
-    <br />
-  ) : recovereState.error ? (
-    <CheckMail
-      error={recovereState.error}
-      text="Email address not found"
-      title="Error"
-      email={recovereState.email}
-    />
-  ) : (
-    <CheckMail
-      error={recovereState.error}
-      text="sent to your email"
-      title="check your mail"
-      email={recovereState.email}
-    />
-  );
+  const [show, setShow] = useState(false);
   return (
     <div className="container mt-3" id="213213123123">
-      {renderContent}
+      {recovereState.error && (
+        <ModalError
+          error={recovereState.error}
+          show={show}
+          setShow={setShow}
+          email={recovereState.email}
+        />
+      )}
+      {recovereState.info && (
+        <ModalInfo
+          text={recovereState.info}
+          show={show}
+          setShow={setShow}
+          email={recovereState.email}
+        />
+      )}
       <div className="row">
         <div className="col-md-5">
           <Formik
@@ -62,6 +62,7 @@ export const ForgetPassword = (): React.ReactElement => {
             onSubmit={values => {
               const { email } = values;
               dispatch(RecoveryPassThunk(email));
+              setShow(true);
             }}
           >
             {() => (

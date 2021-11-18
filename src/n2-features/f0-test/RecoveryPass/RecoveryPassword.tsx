@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,9 +7,10 @@ import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { ModalInfo } from '../modalWindow/ModaInfo';
+import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
-import { CheckMail } from './CheckMail';
 import {
   initRecoveryPasswordStateType,
   recoveryPasswordThunk,
@@ -37,6 +38,7 @@ export const RecoveryPassword = (): React.ReactElement => {
   const { info, error } = useSelector<AppRootStateType, initRecoveryPasswordStateType>(
     state => state.recoveryPasswordReducer,
   );
+  const [show, setShow] = useState(false);
   return (
     <div className="container mt-3">
       <div className="row">
@@ -50,18 +52,15 @@ export const RecoveryPassword = (): React.ReactElement => {
               const { password } = values;
               if (token) {
                 dispatch(recoveryPasswordThunk(password, token));
+                setShow(true);
               }
             }}
           >
             {() => (
               <div>
-                {error ? (
-                  <CheckMail error={!!error} text={error} title="Error" />
-                ) : (
-                  <br />
-                )}
-                {info ? <CheckMail error={false} text={info} title="All Good" /> : <br />}
                 <h1 className="my-4 font-weght-bold display-4">Create new password</h1>
+                {error && <ModalError error={error} show={show} setShow={setShow} />}
+                {info && <ModalInfo text={info} show={show} setShow={setShow} />}
                 <Form>
                   <TextField label="Password" name="password" type="password" />
                   <TextField
