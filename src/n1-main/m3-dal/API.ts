@@ -11,10 +11,18 @@ import {
 } from '../../n2-features/f0-test/RecoveryPass/TypeRecoveryPasswordResponse';
 
 import { axiosInst } from './apiConfig';
-import { ApiResponseTypes, UserDataResponseType } from './ApiResponseTypes';
+import {
+  ApiResponseTypes,
+  DeleteResponseType,
+  UserDataResponseType,
+} from './ApiResponseTypes';
 
 export type LoginPostType = { email: string; password: string; rememberMe: boolean };
 export const API = {
+  profile: {
+    updateAvatar: (userName: string, avatarUrl: string) =>
+      axiosInst.put('/auth/me', { name: userName, avatar: avatarUrl }),
+  },
   app: {
     getAuth: () =>
       axiosInst.post<null, ApiResponseTypes<UserDataResponseType>>('auth/me', {}),
@@ -27,7 +35,7 @@ export const API = {
       ),
   },
   logout: {
-    logout: () => axiosInst.delete('auth/me', {}),
+    logout: () => axiosInst.delete<{}, AxiosResponse<DeleteResponseType>>('auth/me', {}),
   },
   forgetPassword: {
     forgetPassword: (email: string) =>

@@ -13,6 +13,10 @@ export type ErrorResponseType = {
   status: string;
   statusText: string;
 };
+export type DeleteResponseType = {
+  info: string;
+  error: string;
+};
 
 export type UserDataResponseType = {
   addedUser: {
