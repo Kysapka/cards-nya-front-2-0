@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
@@ -27,12 +27,9 @@ export const ForgetPassword = (): React.ReactElement => {
   );
   const dispatch = useDispatch();
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (isAuth) {
-      navigate(PROFILE_ROUTE, { replace: true });
-    }
-  }, [isAuth]);
+  if (isAuth) {
+    return <Navigate to={PROFILE_ROUTE} />;
+  }
   const [show, setShow] = useState(false);
   return (
     <div className="container mt-3" id="213213123123">
