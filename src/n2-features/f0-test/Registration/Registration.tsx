@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Form, Formik } from 'formik';
 import rocketImg from 'n1-main/m1-ui/common/assets/Rocket.jpg';
 import { AppRootStateType } from 'n1-main/m2-bll';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
@@ -17,7 +17,6 @@ export const Registration = (): React.ReactElement => {
     state => state.registration,
   );
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const SignupSchema = yup
     .object({
@@ -32,12 +31,9 @@ export const Registration = (): React.ReactElement => {
         .required('confirm password is required'),
     })
     .required();
-  useEffect(() => {
-    if (isAuth) {
-      navigate(PROFILE_ROUTE, { replace: true });
-    }
-  }, [isAuth]);
-
+  if (isAuth) {
+    return <Navigate to={PROFILE_ROUTE} />;
+  }
   return (
     <div className="container mt-3">
       <div className="row">

@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
@@ -20,11 +20,15 @@ export const Profile = (): React.ReactElement => {
   const isAppInitializated = useSelector<AppRootStateType, boolean>(
     state => state.app.isAppInitializated,
   );
-  useEffect(() => {
-    if (!isAuth) {
-      navigate(LOGIN_ROUTE, { replace: true });
-    }
-  }, [isAuth]);
+
+  if (!isAppInitializated) {
+    return <Loader />;
+  }
+
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
+
   const onLogoutClick = (): void => {
     dispatch(LogOut());
   };

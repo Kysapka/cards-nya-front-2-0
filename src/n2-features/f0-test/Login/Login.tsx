@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Field, Form, Formik } from 'formik';
 import { AppRootStateType } from 'n1-main/m2-bll';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
@@ -12,11 +12,12 @@ import { TextField } from '../Registration/TextField';
 
 import { loginInThunk } from './LoginReducer';
 
-export const Login = (): React.ReactElement => {
+export const Login = (): ReactElement => {
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  if (isAuth) {
+    return <Navigate to={PROFILE_ROUTE} />;
+  }
   const SignupSchema = yup
     .object({
       email: yup.string().email('email is invalid').required('email is required'),
@@ -26,11 +27,6 @@ export const Login = (): React.ReactElement => {
         .required('password is required'),
     })
     .required();
-  useEffect(() => {
-    if (isAuth) {
-      navigate(PROFILE_ROUTE, { replace: true });
-    }
-  }, [isAuth]);
 
   return (
     <div className="container mt-3">

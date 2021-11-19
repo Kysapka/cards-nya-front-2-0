@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { ErrorMessage, useField } from 'formik';
 
@@ -8,7 +8,7 @@ type TextFieldPropsType = {
   type: string;
 };
 
-export const TextField: React.FC<TextFieldPropsType> = ({ label, ...props }) => {
+export const TextField: FC<TextFieldPropsType> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
