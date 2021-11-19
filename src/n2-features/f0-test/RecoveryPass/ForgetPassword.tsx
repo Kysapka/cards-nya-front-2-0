@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
-import { CheckMail } from './CheckMail';
 import { initRecoveryStateType, RecoveryPassThunk } from './ForgetPassReducer';
 
 export const ForgetPassword = (): React.ReactElement => {
