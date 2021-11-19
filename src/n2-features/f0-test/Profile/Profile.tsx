@@ -8,7 +8,7 @@ import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { LogOut } from '../LogOut/LogOutThunk';
 
-import { addAvatarAC, addAvatarTC } from './Profile-Reducer';
+import { addAvatarTC } from './Profile-Reducer';
 import style from './profile-style.module.css';
 
 export const Profile = (): React.ReactElement => {

@@ -8,6 +8,7 @@ const settings = {
 };
 
 export const axiosInst = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: 'https://neko-back.herokuapp.com/2.0',
+  // process.env.REACT_APP_BASE_URL,
   ...settings,
 });
