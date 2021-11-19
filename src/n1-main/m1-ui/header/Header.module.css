@@ -6,30 +6,53 @@
 }
 
 .DropButton{
-  display: inline-block;
+  display: inline-flex;
+  position: relative;
   cursor: pointer;
   line-height: 1;
   background-color: blue;
-  color: yellow;
+  color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
   transition: 1s;
   height: 50px;
   z-index: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.DropButton::before{
+  content: "";
+  position: absolute;
+  transform: translate(-50% -50%);
+  top:15px;
+  width: 30px;
+  border: 0.5px solid
+}
+.DropButton::after{
+  content: "";
+  position: absolute;
+  transform: translate(-50% -50%);
+  bottom:15px;
+  width: 30px;
+  border: 0.5px solid
+}
+.middleLine{
+  width: 30px;
+  border: 0.5px solid
 }
 
 .DropdownContent{
   display: inline-flex;
   position: absolute;
   z-index: -1;
-  left: -1000px;
+  left: -950px;
   background-color: #000000;
   min-width: max-content;
   min-height: 50px;
   /*border-radius: 0px 30px 30px 0px;*/
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  transition: 10s;
+  transition: 1s;
 }
 
 .Link{
@@ -46,7 +69,7 @@
 }
 .dropdown:hover .DropdownContent {
   left: 10px;
-  transition: 2s;
+  transition: 0.5s;
 }
 
 /*.dropdown:hover .DropButton {*/

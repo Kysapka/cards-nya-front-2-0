@@ -1,3 +1,10 @@
+import { ThunkDispatch } from 'redux-thunk';
+
+import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { AppActionTypes } from '../../../n1-main/m2-bll/app-reducer';
+import { authMeThunk } from '../../../n1-main/m2-bll/AppThunks';
+import { API } from '../../../n1-main/m3-dal';
+
 const LOG_OUT = '@@PROFILE_REDUCER/LOG_OUT_CLEAR_STATE';
 
 export type ProfileStateType = {
@@ -59,6 +66,8 @@ export const ProfileReducer = (
       };
     case LOG_OUT:
       return { ...initProfileState };
+    case 'ADD-AVATAR':
+      return { ...state, avatar: action.avatar };
     default:
       return state;
   }
@@ -66,9 +75,27 @@ export const ProfileReducer = (
 
 export const profileAction = (param: {}) =>
   ({ type: 'PROFILE_CASE', data: param } as const);
+export const addAvatarAC = (avatar: string) => ({ type: 'ADD-AVATAR', avatar } as const);
+export const addAvatarTC =
+  (userName: string, avatarUrl: string) =>
+  (dispatch: ThunkDispatch<void, AppRootStateType, AppActionTypes>) => {
+    API.profile
+      .updateAvatar(userName, avatarUrl)
+      .then(res => {
+        dispatch(authMeThunk());
+      })
+      .catch(err => {
+        console.dir({ ...err });
+      });
+  };
 
 export const LogOutClearState = () => ({ type: LOG_OUT } as const);
 
+export type AddAvatarType = ReturnType<typeof addAvatarAC>;
 export type ProfileActionType = ReturnType<typeof profileAction>;
 export type LogOutActionType = ReturnType<typeof LogOutClearState>;
-type ProfileActionTypes = ProfileActionType | LogOutActionType;
+type ProfileActionTypes =
+  | ProfileActionType
+  | LogOutActionType
+  | AddAvatarType
+  | AppActionTypes;
