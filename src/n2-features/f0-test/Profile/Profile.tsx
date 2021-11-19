@@ -15,16 +15,18 @@ export const Profile = (): React.ReactElement => {
   const isAppInitializated = useSelector<AppRootStateType, boolean>(
     state => state.app.isAppInitializated,
   );
-  if (isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
-  const onLogoutClick = (): void => {
-    dispatch(LogOut());
-  };
 
   if (!isAppInitializated) {
     return <Loader />;
   }
+
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
+
+  const onLogoutClick = (): void => {
+    dispatch(LogOut());
+  };
 
   return (
     <div>
