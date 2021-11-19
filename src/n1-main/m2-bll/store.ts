@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import { LoginReducer } from '../../n2-features/f0-test';
 import { ProfileReducer } from '../../n2-features/f0-test/Profile/Profile-Reducer';
 import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
+import { CardPacksReducer } from '../../n2-features/f1-table/packs/PacksReducer';
 
 import { AppReducer } from './app-reducer';
 import { ErrorReducer } from './ErrorReducer';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   forgetPassword: ForGetPasswordReducer,
   registration: RegistrationReducer,
   recoveryPasswordReducer: RecoveryPasswordReducer,
+  cardPacks: CardPacksReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

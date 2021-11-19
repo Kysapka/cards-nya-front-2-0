@@ -1,0 +1,1 @@
+export const SET_CARD_PACKS = '@@PACKS_REDUCER/SET_CARD_PACKS';
