@@ -3,11 +3,11 @@ import React, { ReactElement } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { AppRootStateType } from 'n1-main/m2-bll';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
-import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
+import { PROFILE_ROUTE, RECOVERY_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { TextField } from '../Registration/TextField';
 
 import { loginInThunk } from './LoginReducer';
@@ -53,7 +53,10 @@ export const Login = (): ReactElement => {
                   <div>
                     <Field type="checkbox" name="rememberMe" />
                   </div>
-                  <button className="btn btn-dark mt-3" type="submit">
+                  <NavLink style={{ display: 'block' }} to={RECOVERY_PASS_ROUTE}>
+                    Forgot Password
+                  </NavLink>
+                  <button className="btn btn-primary mt-3" type="submit">
                     Login
                   </button>
                   <button
