@@ -29,7 +29,6 @@ const initCardPacksState = {
 };
 
 export const CardPacksReducer = (
-  // eslint-disable-next-line
   state: CardPacksType = initCardPacksState,
   action: ActionTypes,
 ): CardPacksType => {

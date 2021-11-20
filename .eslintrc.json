@@ -40,9 +40,8 @@
         "maxBOF": 1
       }
     ],
-    "@typescript-eslint/default-param-last": [
-     1
-    ],
+    "default-param-last": "off"
+    ,
     "@typescript-eslint/no-shadow": [
       "error"
     ],
