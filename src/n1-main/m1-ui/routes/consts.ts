@@ -6,4 +6,5 @@ export const RECOVERY_PASS_ROUTE = '/recovery';
 export const NEW_PASS_ROUTE = '/newpass';
 export const DEMONSTRATION_ROUTE = '/demonstration';
 export const RECOVERYPASSWORD_ROUTE = '/set-new-password/:token';
+export const CARD_PACKS_ROUTE = '/cardpacks';
 export const NOT_FOUND_ROUTE = '*';

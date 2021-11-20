@@ -1,4 +1,8 @@
-import React, { ChangeEvent } from 'react';
+<<<<<<<<< Temporary merge branch 1
+import React from 'react';
+=========
+import React, { ChangeEvent, useEffect } from 'react';
+>>>>>>>>> Temporary merge branch 2
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
@@ -16,6 +20,7 @@ export const Profile = (): React.ReactElement => {
   const profileState = useSelector((state: AppRootStateType) => state.profile);
   const userName = useSelector((state: AppRootStateType) => state.profile.name);
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+
   const isAppInitializated = useSelector<AppRootStateType, boolean>(
     state => state.app.isAppInitializated,
   );
@@ -32,9 +37,6 @@ export const Profile = (): React.ReactElement => {
     dispatch(LogOut());
   };
 
-  if (!isAppInitializated) {
-    return <Loader />;
-  }
   const fileUpload = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event && userName) {
       if (event.currentTarget.files) {
@@ -45,6 +47,14 @@ export const Profile = (): React.ReactElement => {
         reader.readAsDataURL(event.currentTarget.files[0]);
       }
     }
+  };
+
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
+
+  const onLogoutClick = (): void => {
+    dispatch(LogOut());
   };
 
   return (

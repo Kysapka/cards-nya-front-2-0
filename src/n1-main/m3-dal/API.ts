@@ -45,7 +45,7 @@ export const API = {
           email,
           from: 'test-front-admin <ai73a@yandex.by>',
           message:
-            '\n<div style="background-color: lime; padding: 15px">\npassword recovery link: \n<a href=\'http://localhost:3000/#/set-new-password/$token$\'>link</a>\n</div>\n',
+            '\n<div style="background-color: lime; padding: 15px">\npassword recovery link: \n<a href=\'https://neko-back.herokuapp.com/2.0/#/set-new-password/$token$\'>link</a>\n</div>\n',
         },
       ),
     changePasswordOnForget: (password: string, token: string) =>
