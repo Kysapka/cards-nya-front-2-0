@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,11 +7,11 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
 import { TableCardPacks } from './TableCardPacks';
-import { CardInPackType, CardPacksType } from './types';
+import { CardInPackType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
   const dispatch = useDispatch();
-  const data = useSelector<AppRootStateType, CardInPackType>(
+  const data = useSelector<AppRootStateType, CardInPackType[]>(
     state => state.cardPacks.cardPacks,
   );
   const getCardPacksHandler = (): void => {

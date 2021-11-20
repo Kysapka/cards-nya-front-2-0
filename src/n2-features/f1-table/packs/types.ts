@@ -1,4 +1,4 @@
-export type CardInPackType = Array<{
+export type CardInPackType = {
   _id: string;
   // eslint-disable-next-line camelcase
   user_id: string;
@@ -15,9 +15,9 @@ export type CardInPackType = Array<{
   updated: string;
   __v: number;
   private: boolean;
-}>;
+};
 export type CardPacksType = {
-  cardPacks: CardInPackType;
+  cardPacks: Array<CardInPackType>;
   cardPacksTotalCount: number;
   maxCardsCount: number;
   minCardsCount: number;

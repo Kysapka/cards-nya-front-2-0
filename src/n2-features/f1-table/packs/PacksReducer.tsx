@@ -34,7 +34,7 @@ export const CardPacksReducer = (
 ): CardPacksType => {
   switch (action.type) {
     case SET_CARD_PACKS: {
-      return { ...state, ...action.payload, cardPacks: action.payload.cardPacks };
+      return { ...state, ...action.payload };
     }
     default:
       return state;
