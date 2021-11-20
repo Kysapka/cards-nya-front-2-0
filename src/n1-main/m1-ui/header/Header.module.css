@@ -1,75 +1,81 @@
-.dropdown{
-  position: relative;
-  transition: 1s;
-  display: inline-block;
-  z-index: 12;
+.dropdown {
+    position: relative;
+    transition: 1s;
+    display: inline-block;
+    z-index: 12;
+
 }
 
-.DropButton{
-  display: inline-flex;
-  position: relative;
-  cursor: pointer;
-  line-height: 1;
-  background-color: blue;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  transition: 1s;
-  height: 50px;
-  z-index: 1;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-}
-.DropButton::before{
-  content: "";
-  position: absolute;
-  transform: translate(-50% -50%);
-  top:15px;
-  width: 30px;
-  border: 0.5px solid
-}
-.DropButton::after{
-  content: "";
-  position: absolute;
-  transform: translate(-50% -50%);
-  bottom:15px;
-  width: 30px;
-  border: 0.5px solid
-}
-.middleLine{
-  width: 30px;
-  border: 0.5px solid
+.DropButton {
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+    line-height: 1;
+    background-color: blue;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    transition: 1s;
+    height: 50px;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
 
-.DropdownContent{
-  display: inline-flex;
-  position: absolute;
-  z-index: -1;
-  left: -950px;
-  background-color: #000000;
-  min-width: max-content;
-  min-height: 50px;
-  /*border-radius: 0px 30px 30px 0px;*/
-  transition: 1s;
+.DropButton::before {
+    content: "";
+    position: absolute;
+    transform: translate(-50% -50%);
+    top: 15px;
+    width: 30px;
+    border: 0.5px solid
 }
 
-.Link{
-  color: yellow;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: 1s;
+.DropButton::after {
+    content: "";
+    position: absolute;
+    transform: translate(-50% -50%);
+    bottom: 15px;
+    width: 30px;
+    border: 0.5px solid
 }
-.Link:hover{
-  transition: 1s;
-  background-color:grey;
-  /*border-radius: 30px;*/
+
+.middleLine {
+    width: 30px;
+    border: 0.5px solid
 }
+
+.DropdownContent {
+    display: inline-flex;
+    position: absolute;
+    z-index: -1;
+    /*left: -1100px;*/
+    background-color: #000000;
+    min-width: max-content;
+    min-height: 50px;
+    /*border-radius: 0px 30px 30px 0px;*/
+    transition: 1s;
+}
+
+.Link {
+    color: yellow;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: 1s;
+}
+
+.Link:hover {
+    transition: 1s;
+    background-color: grey;
+    /*border-radius: 30px;*/
+}
+
 .dropdown:hover .DropdownContent {
-  left: 10px;
-  transition: 0.5s;
+    left: 62px;
+    transition: 0.5s;
 }
 
 /*.dropdown:hover .DropButton {*/
