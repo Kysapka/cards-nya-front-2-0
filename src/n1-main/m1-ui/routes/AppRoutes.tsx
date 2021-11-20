@@ -12,7 +12,7 @@ import {
 import { Route, Routes } from 'react-router-dom';
 
 import { RecoveryPassword } from '../../../n2-features/f0-test/RecoveryPass';
-import { CardPacks } from '../../../n2-features/f1-table/packs/CardPacks';
+import { CardPacksContainer } from '../../../n2-features/f1-table/packs/CardPacksContainer';
 
 import {
   BASE_ROUTE,
@@ -66,7 +66,7 @@ export const publicRoutes = [
   },
   {
     path: CARD_PACKS_ROUTE,
-    component: <CardPacks />,
+    component: <CardPacksContainer />,
   },
 ];
 
