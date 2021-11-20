@@ -32,6 +32,9 @@ export const Profile = (): React.ReactElement => {
     dispatch(LogOut());
   };
 
+  if (!isAppInitializated) {
+    return <Loader />;
+  }
   const fileUpload = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event && userName) {
       if (event.currentTarget.files) {
@@ -43,8 +46,6 @@ export const Profile = (): React.ReactElement => {
       }
     }
   };
-
-
   return (
     <div className={style.profileContainer}>
       <div className={style.avatarContainer}>
@@ -75,7 +76,7 @@ export const Profile = (): React.ReactElement => {
             Logout
           </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
