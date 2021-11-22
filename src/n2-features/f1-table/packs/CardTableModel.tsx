@@ -8,6 +8,7 @@ export const CardTableModel = (): ITableModel[] => [
         CardPacks
       </div>
     ),
+
     render: (d: CardInPackType, i: number) => (
       <div key={i} style={{ width: '60%' }}>
         {d.name}
