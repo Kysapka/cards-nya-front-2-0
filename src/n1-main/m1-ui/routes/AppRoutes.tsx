@@ -2,16 +2,16 @@ import React from 'react';
 
 import {
   Demonstration,
-  ForgetPassword,
-  Login,
+  LoginContainer,
   NewPassword,
   NotFound,
   Profile,
   Registration,
+  ForgetPasswordContainer,
 } from 'n2-features';
 import { Route, Routes } from 'react-router-dom';
 
-import { RecoveryPassword } from '../../../n2-features/f0-test/RecoveryPass';
+import { RegistrationContainer } from '../../../n2-features/f0-test/Registration/RegistrationContainer';
 import { CardPacksContainer } from '../../../n2-features/f1-table/packs/CardPacksContainer';
 
 import {
@@ -34,11 +34,11 @@ export const publicRoutes = [
   },
   {
     path: LOGIN_ROUTE,
-    component: <Login />,
+    component: <LoginContainer />,
   },
   {
     path: REG_ROUTE,
-    component: <Registration />,
+    component: <RegistrationContainer />,
   },
   {
     path: PROFILE_ROUTE,
@@ -46,7 +46,7 @@ export const publicRoutes = [
   },
   {
     path: RECOVERY_PASS_ROUTE,
-    component: <ForgetPassword />,
+    component: <ForgetPasswordContainer />,
   },
   {
     path: NEW_PASS_ROUTE,
@@ -58,7 +58,7 @@ export const publicRoutes = [
   },
   {
     path: RECOVERYPASSWORD_ROUTE,
-    component: <RecoveryPassword />,
+    component: <NewPassword />,
   },
   {
     path: NOT_FOUND_ROUTE,

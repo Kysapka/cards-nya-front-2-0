@@ -1,9 +1,10 @@
+import axios from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle, setAuth } from '../../../n1-main/m2-bll/app-reducer';
+import { setError } from '../../../n1-main/m2-bll/ErrorReducer';
 import { LoginPostType } from '../../../n1-main/m3-dal/API';
-import { ErrorResponseType } from '../../../n1-main/m3-dal/ApiResponseTypes';
 import { profileAction } from '../Profile/Profile-Reducer';
 
 export type LoginStateType = {
@@ -41,10 +42,12 @@ export const loginInThunk = (param: LoginPostType) => (dispatch: Dispatch) => {
       dispatch(profileAction(res.data));
       dispatch(preloaderToggle(false));
     })
-    .catch((err: ErrorResponseType) => {
-      console.dir('Login server error', err.response.data.error);
-      dispatch(setAuth(false));
-      dispatch(preloaderToggle(false));
+    .catch(err => {
+      if (axios.isAxiosError(err) && err.response) {
+        dispatch(setAuth(false));
+        dispatch(preloaderToggle(false));
+        dispatch(setError(true, err.response.data.error));
+      }
     });
 };
 

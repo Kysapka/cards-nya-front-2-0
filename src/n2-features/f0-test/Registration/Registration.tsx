@@ -2,36 +2,20 @@ import React from 'react';
 
 import { Form, Formik } from 'formik';
 import rocketImg from 'n1-main/m1-ui/common/assets/Rocket.jpg';
-import { AppRootStateType } from 'n1-main/m2-bll';
-import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import * as yup from 'yup';
 
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 
-import { initRegistrationStateType, RegistrationThunk } from './RegistrationReducer';
 import { TextField } from './TextField';
 
-export const Registration = (): React.ReactElement => {
-  const regState = useSelector<AppRootStateType, initRegistrationStateType>(
-    state => state.registration,
-  );
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  const dispatch = useDispatch();
-  const SignupSchema = yup
-    .object({
-      email: yup.string().email('email is invalid').required('email is required'),
-      password: yup
-        .string()
-        .min(7, 'password must be at least 7 character')
-        .required('password is required'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'password must match')
-        .required('confirm password is required'),
-    })
-    .required();
-  if (isAuth) {
+type RegistrationPropsType = {
+  isAuth: boolean;
+  SignupSchema: any;
+  callback: (email: string, password: string) => void;
+  regState: any;
+};
+export const Registration = (props: RegistrationPropsType): React.ReactElement => {
+  if (props.isAuth) {
     return <Navigate to={PROFILE_ROUTE} />;
   }
   return (
@@ -44,10 +28,10 @@ export const Registration = (): React.ReactElement => {
               password: '',
               confirmPassword: '',
             }}
-            validationSchema={SignupSchema}
+            validationSchema={props.SignupSchema}
             onSubmit={values => {
               const { email, password } = values;
-              dispatch(RegistrationThunk(email, password));
+              props.callback(email, password);
             }}
           >
             {() => (
@@ -68,9 +52,9 @@ export const Registration = (): React.ReactElement => {
                     Reset
                   </button>
                 </Form>
-                {regState.email.length > 0 ? (
+                {props.regState.email.length > 0 ? (
                   <h1 style={{ color: 'green' }}>
-                    Register successful with e-mail: {regState.email}
+                    Register successful with e-mail: {props.regState.email}
                   </h1>
                 ) : null}
               </div>

@@ -4,7 +4,7 @@ import { ProfileStateType } from 'n2-features/f0-test/Profile/Profile-Reducer';
 import {
   ForgetPasswordResp,
   PostForgetPasswordReq,
-} from '../../n2-features/f0-test/RecoveryPass/TypeForForgetPasswordResponse';
+} from '../../n2-features/f0-test/ForgetPassword/TypeForForgetPasswordResponse';
 import {
   PostRecoveryPasswordReq,
   RecoveryPasswordResp,

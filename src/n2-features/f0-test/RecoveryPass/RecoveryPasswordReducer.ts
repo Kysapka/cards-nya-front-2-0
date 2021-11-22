@@ -1,21 +1,17 @@
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
-import { RecoveryPasswordErrorResp } from './TypeRecoveryPasswordResponse';
+import { setError, setInfo } from '../../../n1-main/m2-bll/ErrorReducer';
 
 export type initRecoveryPasswordStateType = {
   password: string;
   token: string | undefined;
-  info: string | null;
-  error: string | null;
 };
 
 const initRecoveryPasswordState = {
   password: '',
   token: '',
-  info: null,
-  error: null,
 };
 
 export const RecoveryPasswordReducer = (
@@ -25,9 +21,7 @@ export const RecoveryPasswordReducer = (
 ): initRecoveryPasswordStateType => {
   switch (action.type) {
     case 'SET_PASSWORD_CASE':
-    case 'SET_TOKEN_CASE':
-    case 'SET_ERROR_CASE':
-    case 'SET_INFO_CASE': {
+    case 'SET_TOKEN_CASE': {
       return { ...state, ...action.payload };
     }
     default:
@@ -45,39 +39,22 @@ export const setPasswordAction = (password: string) =>
     type: 'SET_PASSWORD_CASE',
     payload: { password },
   } as const);
-export const setErrorAction = (error: string) =>
-  ({
-    type: 'SET_ERROR_CASE',
-    payload: { error },
-  } as const);
-export const setInfoAction = (info: string) =>
-  ({
-    type: 'SET_INFO_CASE',
-    payload: { info },
-  } as const);
 
 export const recoveryPasswordThunk =
   (password: string, token: string) => (dispatch: Dispatch) => {
     API.forgetPassword
       .changePasswordOnForget(password, token)
       .then(res => {
-        dispatch(setInfoAction(res.data.info));
+        dispatch(setInfo(true, res.data.info));
       })
-      .catch((err: AxiosError<RecoveryPasswordErrorResp>) => {
-        if (err.response?.data.error) dispatch(setErrorAction(err.response.data.error));
-        setTimeout(() => {
-          dispatch(setErrorAction(''));
-        }, 5000);
+      .catch(err => {
+        if (axios.isAxiosError(err) && err.response) {
+          dispatch(setError(true, err.response.data.error));
+        }
       });
   };
 
 export type setPasswordActionType = ReturnType<typeof setTokenAction>;
 export type setTokenActionType = ReturnType<typeof setPasswordAction>;
-export type setErrorActionType = ReturnType<typeof setErrorAction>;
-export type setInfoActionType = ReturnType<typeof setInfoAction>;
 
-export type ActionTypes =
-  | setPasswordActionType
-  | setTokenActionType
-  | setErrorActionType
-  | setInfoActionType;
+export type ActionTypes = setPasswordActionType | setTokenActionType;

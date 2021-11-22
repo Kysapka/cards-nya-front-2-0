@@ -1,22 +1,24 @@
 import React from 'react';
 
 import { Button, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+
+import { resetError } from '../../../n1-main/m2-bll/ErrorReducer';
 
 type PropsCheckEmailType = {
   error: string;
   email?: string;
-  show: boolean;
-  setShow: (show: boolean) => void;
 };
 
-export const ModalError = (props: PropsCheckEmailType): React.ReactElement => {
+export const ModalError = React.memo((props: PropsCheckEmailType): React.ReactElement => {
   const email = props.email ? props.email : '';
+  const dispatch = useDispatch();
   const handleClose = (): void => {
-    props.setShow(false);
+    dispatch(resetError());
   };
 
   return (
-    <Modal show={props.show} onHide={handleClose}>
+    <Modal show onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Error</Modal.Title>
       </Modal.Header>
@@ -28,4 +30,4 @@ export const ModalError = (props: PropsCheckEmailType): React.ReactElement => {
       </Modal.Footer>
     </Modal>
   );
-};
+});
