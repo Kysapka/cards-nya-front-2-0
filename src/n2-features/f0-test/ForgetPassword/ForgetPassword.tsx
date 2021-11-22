@@ -1,64 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Form, Formik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import * as yup from 'yup';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
-import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
-import { initRecoveryStateType, RecoveryPassThunk } from './ForgetPassReducer';
+import { SignupShemForgetPasswordType } from './ForgetPasswordContainer';
 
-export const ForgetPassword = (): React.ReactElement => {
-  console.log('RecoveryPass Render');
-  const SignupSchema = yup
-    .object({
-      email: yup.string().email('email is invalid').required('email is required'),
-    })
-    .required();
-  const recovereState = useSelector<AppRootStateType, initRecoveryStateType>(
-    state => state.forgetPassword,
-  );
-  const dispatch = useDispatch();
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  if (isAuth) {
+type ForgetPasswordPropsType = {
+  Info: boolean;
+  textInfo: string;
+  isAuth: boolean;
+  Error: boolean;
+  email: string;
+  textError: string;
+  SignupSchema: SignupShemForgetPasswordType;
+  callback: (email: string) => void;
+};
+export const ForgetPassword = (props: ForgetPasswordPropsType): React.ReactElement => {
+  if (props.isAuth) {
     return <Navigate to={PROFILE_ROUTE} />;
   }
-  const [show, setShow] = useState(false);
   return (
     <div className="container mt-3" id="213213123123">
-      {recovereState.error && (
-        <ModalError
-          error={recovereState.error}
-          show={show}
-          setShow={setShow}
-          email={recovereState.email}
-        />
-      )}
-      {recovereState.info && (
-        <ModalInfo
-          text={recovereState.info}
-          show={show}
-          setShow={setShow}
-          email={recovereState.email}
-        />
-      )}
+      {props.Error && <ModalError error={props.textError} email={props.email} />}
+      {props.Info && <ModalInfo text={props.textInfo} email={props.email} />}
       <div className="row">
         <div className="col-md-5">
           <Formik
             initialValues={{
               email: '',
             }}
-            validationSchema={SignupSchema}
+            validationSchema={props.SignupSchema}
             onSubmit={values => {
               const { email } = values;
-              dispatch(RecoveryPassThunk(email));
-              setShow(true);
+              props.callback(email);
             }}
           >
             {() => (

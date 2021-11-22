@@ -1,7 +1,5 @@
-import {
-  ForGetPasswordReducer,
-  RecoveryPasswordReducer,
-} from 'n2-features/f0-test/RecoveryPass';
+import { ForGetPasswordReducer } from 'n2-features/f0-test/ForgetPassword';
+import { RecoveryPasswordReducer } from 'n2-features/f0-test/RecoveryPass';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -17,7 +15,6 @@ const rootReducer = combineReducers({
   app: AppReducer,
   error: ErrorReducer,
   login: LoginReducer,
-  // newPassword: NewPassowdReducer,
   profile: ProfileReducer,
   forgetPassword: ForGetPasswordReducer,
   registration: RegistrationReducer,

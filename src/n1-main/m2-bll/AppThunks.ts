@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import { Dispatch } from 'redux';
 
 import { profileAction } from '../../n2-features/f0-test/Profile/Profile-Reducer';
@@ -11,15 +12,16 @@ export const authMeThunk = () => (dispatch: Dispatch) => {
   API.app
     .getAuth()
     .then(res => {
-      dispatch(setAuth(true));
       dispatch(profileAction(res.data));
       dispatch(preloaderToggle(false));
       dispatch(setAppInitializate(true));
+      dispatch(setAuth(true));
     })
-    .catch((err: ErrorResponseType) => {
-      console.dir('get Auth server error', err.response.data.error);
-      dispatch(setAuth(false));
-      dispatch(preloaderToggle(false));
-      dispatch(setAppInitializate(true));
+    .catch(err => {
+      if (axios.isAxiosError(err) && err.response) {
+        dispatch(setAuth(false));
+        dispatch(preloaderToggle(false));
+        dispatch(setAppInitializate(true));
+      }
     });
 };

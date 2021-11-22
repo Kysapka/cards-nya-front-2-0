@@ -1,21 +1,17 @@
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
-import { ForgetPasswordErrorResp } from './TypeForForgetPasswordResponse';
+import { setError, setInfo } from '../../../n1-main/m2-bll/ErrorReducer';
 
 export type initRecoveryStateType = {
   email: string;
   toggle: boolean;
-  error: string;
-  info: string;
 };
 
 const initRecoveryState = {
   email: '',
-  info: '',
   toggle: false,
-  error: '',
 };
 
 export const ForGetPasswordReducer = (
@@ -26,8 +22,6 @@ export const ForGetPasswordReducer = (
   switch (action.type) {
     case 'EMAIL_SET_CASE':
     case 'TOOGL_SET_CASE':
-    case 'ERROR_SET_CASE':
-    case 'INFO_SET_CASE':
       return {
         ...state,
         ...action.payload,
@@ -42,10 +36,6 @@ export const SetEmailAction = (email: string) =>
 
 export const SetTooglMailAction = (toggle: boolean) =>
   ({ type: 'TOOGL_SET_CASE', payload: { toggle } } as const);
-export const SetErrorAction = (error: string) =>
-  ({ type: 'ERROR_SET_CASE', payload: { error } } as const);
-export const SetInfoAction = (info: string) =>
-  ({ type: 'INFO_SET_CASE', payload: { info } } as const);
 
 export const RecoveryPassThunk = (email: string) => (dispatch: Dispatch) => {
   dispatch(SetEmailAction(email));
@@ -53,23 +43,19 @@ export const RecoveryPassThunk = (email: string) => (dispatch: Dispatch) => {
     .forgetPassword(email)
     .then(resp => {
       dispatch(SetTooglMailAction(true));
-      dispatch(SetInfoAction(resp.data.info));
+      dispatch(setInfo(true, resp.data.info));
     })
-    .catch((err: AxiosError<ForgetPasswordErrorResp>) => {
-      if (err.response?.data.error) dispatch(SetErrorAction(err.response.data.error));
-      if (err.response?.data.email) dispatch(SetEmailAction(err.response?.data.email));
-      dispatch(SetTooglMailAction(true));
-      console.log(err);
+    .catch(err => {
+      if (axios.isAxiosError(err) && err.response) {
+        dispatch(setError(true, err.response.data.error));
+        dispatch(SetEmailAction(err.response?.data.email));
+        dispatch(SetTooglMailAction(true));
+      }
+      dispatch(setError(true, err.toJSON().message));
     });
 };
 
-export type RecoveryPassTypes =
-  | SetEmailActionType
-  | SetTooglMailActionType
-  | SetErrorActionType
-  | SetInfoActionType;
+export type RecoveryPassTypes = SetEmailActionType | SetTooglMailActionType;
 
 export type SetEmailActionType = ReturnType<typeof SetEmailAction>;
-export type SetErrorActionType = ReturnType<typeof SetErrorAction>;
-export type SetInfoActionType = ReturnType<typeof SetInfoAction>;
 export type SetTooglMailActionType = ReturnType<typeof SetTooglMailAction>;

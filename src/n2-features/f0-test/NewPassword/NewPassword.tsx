@@ -1,5 +1,5 @@
 import React from 'react';
 
-import { RecoveryPassword } from '../RecoveryPass';
+import { RecoveryPasswordContainer } from '../RecoveryPass';
 
-export const NewPassword = (): React.ReactElement => <RecoveryPassword />;
+export const NewPassword = (): React.ReactElement => <RecoveryPasswordContainer />;

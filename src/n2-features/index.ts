@@ -1,8 +1,8 @@
 export {
-  Login,
+  LoginContainer,
   NewPassword,
   Profile,
-  ForgetPassword,
+  ForgetPasswordContainer,
   NotFound,
   Demonstration,
   Registration,

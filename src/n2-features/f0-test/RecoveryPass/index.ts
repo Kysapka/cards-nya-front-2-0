@@ -1,5 +1,2 @@
-export { ForgetPassword } from './ForgetPassword';
-export { CheckMail } from './CheckMail';
-export { ForGetPasswordReducer } from './ForgetPassReducer';
-export { RecoveryPassword } from './RecoveryPassword';
+export { RecoveryPasswordContainer } from './RecoveryPasswordContainer';
 export { RecoveryPasswordReducer } from './RecoveryPasswordReducer';
