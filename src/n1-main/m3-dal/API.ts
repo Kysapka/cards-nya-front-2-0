@@ -22,6 +22,10 @@ export const API = {
   profile: {
     updateAvatar: (userName: string, avatarUrl: string) =>
       axiosInst.put('/auth/me', { name: userName, avatar: avatarUrl }),
+    updateUserName: (userName: string) =>
+      axiosInst.put<string, AxiosResponse<ProfileStateType>>('/auth/me', {
+        name: userName,
+      }),
   },
   app: {
     getAuth: () =>

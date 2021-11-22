@@ -6,9 +6,10 @@ import { Navigate, NavLink } from 'react-router-dom';
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE, NEW_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { EditableSpan } from '../EditableSpan/EditableSpan';
 import { LogOut } from '../LogOut/LogOutThunk';
 
-import { addAvatarTC } from './Profile-Reducer';
+import { addAvatarTC, changeUserNameAC, changeUserNameTC } from './Profile-Reducer';
 import style from './profile-style.module.scss';
 
 export const Profile = (): React.ReactElement => {
@@ -35,6 +36,7 @@ export const Profile = (): React.ReactElement => {
   if (!isAppInitializated) {
     return <Loader />;
   }
+
   const fileUpload = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event && userName) {
       if (event.currentTarget.files) {
@@ -64,7 +66,10 @@ export const Profile = (): React.ReactElement => {
       </div>
       <div className={style.descriptionContainer}>
         <div className={style.descriptionBox}>
-          <h2 className={style.titleName}>{profileState.name}</h2>
+          <h2 className={style.titleName}>
+            {' '}
+            <EditableSpan name={userName!} thunk={changeUserNameTC} />
+          </h2>
           <p className={style.description}>Date of Create:{profileState.created}</p>
           <NavLink to={NEW_PASS_ROUTE}>Change Password</NavLink>
           <button

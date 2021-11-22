@@ -68,6 +68,8 @@ export const ProfileReducer = (
       return { ...initProfileState };
     case 'ADD-AVATAR':
       return { ...state, avatar: action.avatar };
+    case 'CHANGE-USERNAME':
+      return { ...state, name: action.userName };
     default:
       return state;
   }
@@ -75,6 +77,8 @@ export const ProfileReducer = (
 
 export const profileAction = (param: {}) =>
   ({ type: 'PROFILE_CASE', data: param } as const);
+export const changeUserNameAC = (userName: string) =>
+  ({ type: 'CHANGE-USERNAME', userName } as const);
 export const addAvatarAC = (avatar: string) => ({ type: 'ADD-AVATAR', avatar } as const);
 export const addAvatarTC =
   (userName: string, avatarUrl: string) =>
@@ -88,14 +92,28 @@ export const addAvatarTC =
         console.dir({ ...err });
       });
   };
+export const changeUserNameTC =
+  (userName: string) =>
+  (dispatch: ThunkDispatch<void, AppRootStateType, AppActionTypes>) => {
+    API.profile
+      .updateUserName(userName)
+      .then(res => {
+        dispatch(authMeThunk());
+      })
+      .catch(err => {
+        console.dir({ ...err });
+      });
+  };
 
 export const LogOutClearState = () => ({ type: LOG_OUT } as const);
 
 export type AddAvatarType = ReturnType<typeof addAvatarAC>;
 export type ProfileActionType = ReturnType<typeof profileAction>;
 export type LogOutActionType = ReturnType<typeof LogOutClearState>;
+export type ChangeUserNameType = ReturnType<typeof changeUserNameAC>;
 type ProfileActionTypes =
   | ProfileActionType
   | LogOutActionType
   | AddAvatarType
+  | ChangeUserNameType
   | AppActionTypes;
