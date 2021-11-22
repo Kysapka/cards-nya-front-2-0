@@ -1,7 +1,8 @@
+import axios from 'axios';
 import { API } from 'n1-main/m3-dal';
 import { Dispatch } from 'redux';
 
-import { ErrorResponseType } from '../../../n1-main/m3-dal/ApiResponseTypes';
+import { setError, setInfo } from '../../../n1-main/m2-bll/ErrorReducer';
 
 const REGISTRATION = '@@REGISTRATION_REDUCER/REGISTRATION';
 const initRegistrationState = {
@@ -31,14 +32,15 @@ export const Registration = (email: string, password: string) =>
 export const RegistrationThunk =
   (email: string, password: string) => (dispatch: Dispatch) => {
     API.registration(email, password)
-      .then(res => {
-        if (res.status === '201') {
-          console.log('registration succsess');
-          dispatch(Registration(email, password));
-        }
+      .then(() => {
+        dispatch(setInfo(true, 'registration succsess'));
+        dispatch(Registration(email, password));
       })
-      .catch((err: ErrorResponseType) => {
-        console.dir(err.response.data.error);
+      .catch(err => {
+        if (axios.isAxiosError(err) && err.response) {
+          dispatch(setError(true, err.response.data.error));
+        }
+        dispatch(setError(true, err.toJSON().message));
       });
   };
 

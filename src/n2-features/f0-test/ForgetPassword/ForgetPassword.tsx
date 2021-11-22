@@ -9,6 +9,8 @@ import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
+import { SignupShemForgetPasswordType } from './ForgetPasswordContainer';
+
 type ForgetPasswordPropsType = {
   Info: boolean;
   textInfo: string;
@@ -16,7 +18,7 @@ type ForgetPasswordPropsType = {
   Error: boolean;
   email: string;
   textError: string;
-  SignupSchema: any;
+  SignupSchema: SignupShemForgetPasswordType;
   callback: (email: string) => void;
 };
 export const ForgetPassword = (props: ForgetPasswordPropsType): React.ReactElement => {

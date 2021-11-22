@@ -11,13 +11,13 @@ import { initErrorStateType } from '../../../n1-main/m2-bll/ErrorReducer';
 import { initRecoveryStateType, RecoveryPassThunk } from './ForgetPassReducer';
 import { ForgetPassword } from './ForgetPassword';
 
+export type SignupShemForgetPasswordType = typeof SignupSchema;
+const SignupSchema = yup
+  .object({
+    email: yup.string().email('email is invalid').required('email is required'),
+  })
+  .required();
 export const ForgetPasswordContainer = (): React.ReactElement => {
-  console.log('RecoveryPass Render');
-  const SignupSchema = yup
-    .object({
-      email: yup.string().email('email is invalid').required('email is required'),
-    })
-    .required();
   const recovereState = useSelector<AppRootStateType, initRecoveryStateType>(
     state => state.forgetPassword,
   );

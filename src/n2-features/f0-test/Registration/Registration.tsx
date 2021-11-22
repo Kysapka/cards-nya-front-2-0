@@ -5,14 +5,21 @@ import rocketImg from 'n1-main/m1-ui/common/assets/Rocket.jpg';
 import { Navigate } from 'react-router-dom';
 
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
+import { ModalInfo } from '../modalWindow/ModaInfo';
+import { ModalError } from '../modalWindow/ModalError';
 
+import { SignupSchemaRegistrationType } from './RegistrationContainer';
 import { TextField } from './TextField';
 
 type RegistrationPropsType = {
+  textError: string;
+  Info: boolean;
+  textInfo: string;
+  Error: boolean;
   isAuth: boolean;
-  SignupSchema: any;
+  SignupSchema: SignupSchemaRegistrationType;
   callback: (email: string, password: string) => void;
-  regState: any;
+  regState: { email: string; password: string };
 };
 export const Registration = (props: RegistrationPropsType): React.ReactElement => {
   if (props.isAuth) {
@@ -36,6 +43,12 @@ export const Registration = (props: RegistrationPropsType): React.ReactElement =
           >
             {() => (
               <div>
+                {props.Error && (
+                  <ModalError error={props.textError} email={props.regState.email} />
+                )}
+                {props.Info && (
+                  <ModalInfo text={props.textInfo} email={props.regState.email} />
+                )}
                 <h1 className="my-4 font-weght-bold display-4">Sign Up</h1>
                 <Form>
                   <TextField label="E-mail" name="email" type="text" />
@@ -52,11 +65,6 @@ export const Registration = (props: RegistrationPropsType): React.ReactElement =
                     Reset
                   </button>
                 </Form>
-                {props.regState.email.length > 0 ? (
-                  <h1 style={{ color: 'green' }}>
-                    Register successful with e-mail: {props.regState.email}
-                  </h1>
-                ) : null}
               </div>
             )}
           </Formik>

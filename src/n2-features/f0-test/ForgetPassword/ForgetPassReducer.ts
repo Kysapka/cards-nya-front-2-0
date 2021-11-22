@@ -51,6 +51,7 @@ export const RecoveryPassThunk = (email: string) => (dispatch: Dispatch) => {
         dispatch(SetEmailAction(err.response?.data.email));
         dispatch(SetTooglMailAction(true));
       }
+      dispatch(setError(true, err.toJSON().message));
     });
 };
 

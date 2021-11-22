@@ -1,8 +1,10 @@
+import axios from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { AppActionTypes } from '../../../n1-main/m2-bll/app-reducer';
 import { authMeThunk } from '../../../n1-main/m2-bll/AppThunks';
+import { ErrorActionTypes, setError } from '../../../n1-main/m2-bll/ErrorReducer';
 import { API } from '../../../n1-main/m3-dal';
 
 const LOG_OUT = '@@PROFILE_REDUCER/LOG_OUT_CLEAR_STATE';
@@ -78,14 +80,19 @@ export const profileAction = (param: {}) =>
 export const addAvatarAC = (avatar: string) => ({ type: 'ADD-AVATAR', avatar } as const);
 export const addAvatarTC =
   (userName: string, avatarUrl: string) =>
-  (dispatch: ThunkDispatch<void, AppRootStateType, AppActionTypes>) => {
+  (
+    dispatch: ThunkDispatch<void, AppRootStateType, AppActionTypes | ErrorActionTypes>,
+  ) => {
     API.profile
       .updateAvatar(userName, avatarUrl)
-      .then(res => {
+      .then(() => {
         dispatch(authMeThunk());
       })
       .catch(err => {
-        console.dir({ ...err });
+        if (axios.isAxiosError(err) && err.response) {
+          dispatch(setError(true, err.response.data.error));
+        }
+        dispatch(setError(true, err.toJSON().message));
       });
   };
 

@@ -51,6 +51,7 @@ export const recoveryPasswordThunk =
         if (axios.isAxiosError(err) && err.response) {
           dispatch(setError(true, err.response.data.error));
         }
+        dispatch(setError(true, err.toJSON().message));
       });
   };
 

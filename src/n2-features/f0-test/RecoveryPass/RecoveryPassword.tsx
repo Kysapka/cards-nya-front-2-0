@@ -7,12 +7,14 @@ import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
+import { SignupSchemaRecoveryPasswordType } from './RecoveryPasswordContainer';
+
 type RecoveryPasswordPropsType = {
   Info: boolean;
   textInfo: string;
   Error: boolean;
   textError: string;
-  SignupSchema: any;
+  SignupSchema: SignupSchemaRecoveryPasswordType;
   callback: (password: string) => void;
 };
 export const RecoveryPassword = (

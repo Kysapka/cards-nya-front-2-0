@@ -48,6 +48,7 @@ export const loginInThunk = (param: LoginPostType) => (dispatch: Dispatch) => {
         dispatch(preloaderToggle(false));
         dispatch(setError(true, err.response.data.error));
       }
+      dispatch(setError(true, err.toJSON().message));
     });
 };
 

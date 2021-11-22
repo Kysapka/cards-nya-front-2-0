@@ -8,11 +8,13 @@ import { PROFILE_ROUTE, RECOVERY_PASS_ROUTE } from '../../../n1-main/m1-ui/route
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
+import { SignupSchemaLoginType } from './LoginContainer';
+
 type LoginPropsType = {
   Error: boolean;
   isAuth: boolean;
   textError: string;
-  SignupSchema: any;
+  SignupSchema: SignupSchemaLoginType;
   callback: (values: { email: string; password: string; rememberMe: boolean }) => void;
 };
 
