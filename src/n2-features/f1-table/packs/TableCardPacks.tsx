@@ -1,4 +1,6 @@
-import React, { ReactElement, CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, ReactElement, ReactNode } from 'react';
+
+import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 
 export interface ITableModel {
   title: (index: number) => ReactNode;
@@ -16,6 +18,7 @@ interface ITableProps {
   tableStyle?: CSSProperties;
   rowsStyle?: CSSProperties;
   rowStyle?: CSSProperties;
+  disabled: boolean;
 }
 
 export const TableCardPacks: React.FC<ITableProps> = ({
@@ -28,6 +31,7 @@ export const TableCardPacks: React.FC<ITableProps> = ({
   tableStyle,
   rowsStyle,
   rowStyle,
+  disabled,
 }): ReactElement => (
   <div
     style={{
@@ -60,28 +64,32 @@ export const TableCardPacks: React.FC<ITableProps> = ({
     >
       {model.map((m: ITableModel, index: number) => m.title(index))}
     </div>
-    <div
-      style={{
-        border: '1px solid lime',
-        width: '100%',
-        ...rowsStyle,
-      }}
-    >
-      {data.map((dataItem: any, dataIndex: number) => (
-        <div
-          key={dataItem._id || dataIndex}
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexFlow: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            ...rowStyle,
-          }}
-        >
-          {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-        </div>
-      ))}
-    </div>
+    {disabled ? (
+      <Loader />
+    ) : (
+      <div
+        style={{
+          border: '1px solid lime',
+          width: '100%',
+          ...rowsStyle,
+        }}
+      >
+        {data.map((dataItem: any, dataIndex: number) => (
+          <div
+            key={dataItem._id || dataIndex}
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexFlow: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              ...rowStyle,
+            }}
+          >
+            {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 );

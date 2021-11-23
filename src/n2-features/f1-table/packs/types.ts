@@ -24,4 +24,5 @@ export type CardPacksType = {
   page: number;
   pageCount: number;
   token: string;
+  disabled: boolean;
 };
