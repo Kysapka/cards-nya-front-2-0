@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useEffect } from 'react';
+import React, { ChangeEvent, MouseEvent, ReactElement, useEffect } from 'react';
 
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,8 +18,17 @@ export const CardPacksContainer = (): ReactElement => {
   useEffect(() => {
     dispatch(getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page));
   }, [data.page]);
-  const Search = (): void => {
-    dispatch(getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page));
+  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
+  const Search = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (e.currentTarget.name === 'search') {
+      dispatch(getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page));
+    } else if (e.currentTarget.name === 'searchMyCards') {
+      if (userId) {
+        dispatch(
+          getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page, userId),
+        );
+      }
+    }
   };
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
@@ -39,7 +48,12 @@ export const CardPacksContainer = (): ReactElement => {
         <Form.Range value={data.minCardsCount} name="min" onChange={changeValue} />
         <Form.Label>RangeMax {data.maxCardsCount}</Form.Label>
         <Form.Range value={data.maxCardsCount} name="max" onChange={changeValue} />
-        <Button onClick={Search}>search</Button>
+        <Button onClick={Search} name="search">
+          search
+        </Button>
+        <Button onClick={Search} name="searchMyCards">
+          search My Cards
+        </Button>
       </Form.Group>
       <TableCardPacks
         model={CardTableModel()}

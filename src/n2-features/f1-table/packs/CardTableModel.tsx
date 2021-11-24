@@ -1,12 +1,14 @@
 import { useDispatch } from 'react-redux';
 
-import { cardPacksAPI } from './CardsPackAPI';
-import { DeletePackThunk } from './PacksReducer';
+import { AddPackThunk, DeletePackThunk } from './PacksReducer';
 import { ITableModel } from './TableCardPacks';
 import { CardInPackType } from './types';
 
 export const CardTableModel = (): ITableModel[] => {
   const dispatch = useDispatch();
+  const onClickHandler = (): void => {
+    dispatch(AddPackThunk());
+  };
   return [
     {
       title: (i: number) => (
@@ -49,7 +51,7 @@ export const CardTableModel = (): ITableModel[] => {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
           settings
-          <button onClick={() => cardPacksAPI.createCardPack()}>Add</button>
+          <button onClick={onClickHandler}>Add</button>
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
