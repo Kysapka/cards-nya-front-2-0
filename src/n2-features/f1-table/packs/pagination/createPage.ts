@@ -3,6 +3,7 @@ export function createPages(
   pagesTotalCount: number,
   activPage: number,
 ): void {
+  console.log(pagesTotalCount, activPage);
   if (pagesTotalCount > 10) {
     if (activPage > 5) {
       for (let i = activPage - 4; i <= activPage + 5; i++) {

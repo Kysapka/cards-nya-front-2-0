@@ -18,7 +18,7 @@ export const PaginationComponent = (
   props: PaginationComponentPropsType,
 ): ReactElement => {
   const { activePage, pageCardsTotal, totalCards, disabled } = props;
-  const pageTotalCount: number = totalCards / pageCardsTotal;
+  const pageTotalCount: number = Math.ceil(totalCards / pageCardsTotal);
   const items: Array<number> = [];
   createPages(items, pageTotalCount, activePage);
   const dispatch = useDispatch();
