@@ -1,3 +1,5 @@
+import { ChangeEvent, useRef } from 'react';
+
 import { useDispatch } from 'react-redux';
 
 import { AddPackThunk, DeletePackThunk } from './PacksReducer';
@@ -6,8 +8,12 @@ import { CardInPackType } from './types';
 
 export const CardTableModel = (): ITableModel[] => {
   const dispatch = useDispatch();
+  const searchValue = useRef<string>();
+  const ChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    searchValue.current = event.currentTarget.value;
+  };
   const onClickHandler = (): void => {
-    dispatch(AddPackThunk());
+    dispatch(AddPackThunk(searchValue.current));
   };
   return [
     {
@@ -51,6 +57,7 @@ export const CardTableModel = (): ITableModel[] => {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
           settings
+          <input onChange={ChangeHandler} />
           <button onClick={onClickHandler}>Add</button>
         </div>
       ),

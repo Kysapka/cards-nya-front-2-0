@@ -101,10 +101,10 @@ export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
     });
 };
 
-export const AddPackThunk = () => (dispatch: Dispatch) => {
+export const AddPackThunk = (name?: string) => (dispatch: Dispatch) => {
   dispatch(SetDisabledPacksAC(true));
   cardPacksAPI
-    .createCardPack()
+    .createCardPack(name)
     .then(resp => {
       console.log(resp.data);
       dispatch(AddPackAC(resp.data.newCardsPack));

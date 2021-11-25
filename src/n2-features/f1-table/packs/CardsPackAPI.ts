@@ -1,9 +1,11 @@
+import { AxiosResponse } from 'axios';
+
 import { axiosInst } from '../../../n1-main/m3-dal/apiConfig';
 import { ApiResponseTypes } from '../../../n1-main/m3-dal/ApiResponseTypes';
 
-import { CardPacksType } from './types';
+import { CardInPackType, CardPacksType } from './types';
 
-const cardsPack = {
+const cardsPack: cardsPackType = {
   name: 'no Name',
   path: '/master',
   grade: 0,
@@ -14,18 +16,50 @@ const cardsPack = {
   type: 'pack',
 };
 
+type cardsPackType = {
+  name: string;
+  path: string;
+  grade: number;
+  shots: number;
+  rating: number;
+  deckCover: string;
+  private: boolean;
+  type: string;
+};
+
 export const cardPacksAPI = {
-  getCardPacks: (minCards: number, maxCards: number, page: number, userId?: string) =>
+  getCardPacks: (
+    minCards: number,
+    maxCards: number,
+    page: number,
+    userId?: string,
+    packName?: string,
+  ) =>
     axiosInst.get<any, ApiResponseTypes<CardPacksType>>('cards/pack', {
       params: {
-        pageCount: 20,
+        pageCount: 10,
         min: minCards,
         max: maxCards,
         page,
         user_id: userId,
+        packName,
       },
     }),
-  createCardPack: () => axiosInst.post('cards/pack', { cardsPack }),
+  createCardPack: (name?: string) => {
+    if (name) {
+      cardsPack.name = name;
+    }
+    return axiosInst.post<
+      cardsPackType,
+      AxiosResponse<{
+        newCardsPack: CardInPackType;
+        token: string;
+        tokenDeathTime: number;
+      }>
+    >('cards/pack', {
+      cardsPack,
+    });
+  },
   deleteCardsPacks: (id: string) =>
     axiosInst.delete('cards/pack', {
       params: { id },
