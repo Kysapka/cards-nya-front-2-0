@@ -12,18 +12,24 @@ import { SetCardPacksAC, SetDisabledPacksAC } from './PacksReducer';
 //   userId?: string,
 // }
 
+export type getPacksCommonRequestParamsType = {
+  packName?: string | undefined;
+  min?: number;
+  max?: number;
+  sortPacks?: string;
+  page?: number;
+  pageCount?: number;
+  // eslint-disable-next-line camelcase
+  user_id?: string;
+};
+
 export const getCardPacksTC =
-  (
-    minCards: number,
-    maxCards: number,
-    page: number,
-    packName?: string,
-    userId?: string,
-  ) =>
+  (getPacksCommonRequestParams: getPacksCommonRequestParamsType) =>
   (dispatch: Dispatch) => {
     dispatch(SetDisabledPacksAC(true));
+    console.dir(getPacksCommonRequestParams);
     cardPacksAPI
-      .getCardPacks(minCards, maxCards, page, userId, packName)
+      .getCardPacks({ ...getPacksCommonRequestParams })
       .then(res => {
         console.dir(res);
         dispatch(SetCardPacksAC(res.data));
