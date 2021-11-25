@@ -39,7 +39,6 @@ export const CardPacksReducer = (
 ): CardPacksType => {
   switch (action.type) {
     case SET_CARD_PACKS:
-    case 'SET-VALUE-CARDS-TYPE':
     case 'SET-PAGE':
     case 'SET-DISABLED': {
       return { ...state, ...action.payload };
@@ -72,14 +71,7 @@ export const DeletPackAC = (id: string) => ({ type: 'DELETE-PACK', id } as const
 export const AddPackAC = (newCardsPack: CardInPackType) =>
   ({ type: 'ADD-PACK', newCardsPack } as const);
 
-export const SetValueCardsCountPacksAC = (min: number, max: number) =>
-  ({
-    type: 'SET-VALUE-CARDS-TYPE',
-    payload: { minCardsCount: min, maxCardsCount: max },
-  } as const);
-
 export type CardPacksActionTypes = ReturnType<typeof SetCardPacksAC>;
-export type SetValueCardsCountPacksACType = ReturnType<typeof SetValueCardsCountPacksAC>;
 export type SetPagePacksACType = ReturnType<typeof SetPagePacksAC>;
 export type SetDisabledPacksACType = ReturnType<typeof SetDisabledPacksAC>;
 export type DeletPackACType = ReturnType<typeof DeletPackAC>;
@@ -120,7 +112,6 @@ export const AddPackThunk = (name?: string) => (dispatch: Dispatch) => {
 
 type ActionTypes =
   | CardPacksActionTypes
-  | SetValueCardsCountPacksACType
   | SetPagePacksACType
   | SetDisabledPacksACType
   | DeletPackACType

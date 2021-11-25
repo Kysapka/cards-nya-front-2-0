@@ -1,4 +1,11 @@
-import React, { ChangeEvent, MouseEvent, ReactElement, useEffect, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  MouseEvent,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +14,6 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 
 import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
-import { SetValueCardsCountPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
 import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
@@ -16,45 +22,31 @@ export const CardPacksContainer = (): ReactElement => {
   const valueSearch = useRef<string>();
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const dispatch = useDispatch();
+  const [minValue, setMinValue] = useState<number>(data.minCardsCount);
+  const [maxValue, setMaxValue] = useState<number>(150);
   useEffect(() => {
-    dispatch(
-      getCardPacksTC(
-        data.minCardsCount,
-        data.maxCardsCount,
-        data.page,
-        valueSearch.current,
-      ),
-    );
+    dispatch(getCardPacksTC(minValue, maxValue, data.page, valueSearch.current));
   }, [data.page]);
   const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
   const Search = (e: MouseEvent<HTMLButtonElement>): void => {
     if (e.currentTarget.name === 'search') {
-      dispatch(getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page));
+      dispatch(getCardPacksTC(minValue, maxValue, data.page));
     } else if (e.currentTarget.name === 'searchMyCards') {
       if (userId) {
-        dispatch(
-          getCardPacksTC(data.minCardsCount, data.maxCardsCount, data.page, '', userId),
-        );
+        dispatch(getCardPacksTC(minValue, maxValue, data.page, '', userId));
       }
     } else if (e.currentTarget.name === 'searchInputCardPack') {
-      dispatch(
-        getCardPacksTC(
-          data.minCardsCount,
-          data.maxCardsCount,
-          data.page,
-          valueSearch.current,
-        ),
-      );
+      dispatch(getCardPacksTC(minValue, maxValue, data.page, valueSearch.current));
     }
   };
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
       const max = Number(event.currentTarget.value);
-      dispatch(SetValueCardsCountPacksAC(data.minCardsCount, max));
+      setMaxValue(max);
     }
     if (event.currentTarget.name === 'min') {
       const min = Number(event.currentTarget.value);
-      dispatch(SetValueCardsCountPacksAC(min, data.maxCardsCount));
+      setMinValue(min);
     }
   };
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -75,10 +67,10 @@ export const CardPacksContainer = (): ReactElement => {
         </Button>
       </Form.Group>
       <Form.Group>
-        <Form.Label>RangeMin {data.minCardsCount}</Form.Label>
-        <Form.Range value={data.minCardsCount} name="min" onChange={changeValue} />
-        <Form.Label>RangeMax {data.maxCardsCount}</Form.Label>
-        <Form.Range value={data.maxCardsCount} name="max" onChange={changeValue} />
+        <Form.Label>RangeMin {minValue}</Form.Label>
+        <Form.Range value={minValue} name="min" onChange={changeValue} />
+        <Form.Label>RangeMax {maxValue}</Form.Label>
+        <Form.Range value={maxValue} name="max" onChange={changeValue} />
         <Button onClick={Search} name="search">
           search
         </Button>
