@@ -27,12 +27,14 @@ export const CardPacksContainer = (): ReactElement => {
     currentPage,
     pageCount,
     onlyMe,
+    sortFilter,
     setSearchedPackNameValue,
     setSearchedMinValue,
     setSearchedMaxValue,
     setCurrentPage,
     setPageCount,
     setOnlyMe,
+    setSortFilter,
   } = usePacksRequestSettings();
 
   const [searchCommonRequestPack, setSearchCommonRequestPack] =
@@ -44,12 +46,12 @@ export const CardPacksContainer = (): ReactElement => {
       packName: searchedPackNameValue,
       min: searchedMinValue,
       max: searchedMaxValue,
-      sortPacks: '0updated',
+      sortPacks: sortFilter,
       page: currentPage,
       pageCount,
       // user_id: userID,
     });
-  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount]);
+  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount, sortFilter]);
   useEffect(() => {
     if (currentPage !== 0) {
       dispatch(getCardPacksTC({ ...searchCommonRequestPack, page: currentPage }));
@@ -65,6 +67,11 @@ export const CardPacksContainer = (): ReactElement => {
       dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
     }
   };
+
+  const setSortFilterHandler = (value: string): void => {
+    setSortFilter(value);
+  };
+
   const pageCountHandler = (value: string): void => {
     setPageCount(+value);
   };
@@ -108,6 +115,7 @@ export const CardPacksContainer = (): ReactElement => {
         />
         <div
           style={{
+            marginTop: '20px',
             width: '1000px',
             display: 'flex',
             alignItems: 'center',
@@ -129,6 +137,31 @@ export const CardPacksContainer = (): ReactElement => {
               id="searchOnlyMePacks"
             />
           </div>
+          <div>
+            <select
+              onChange={e => setSortFilterHandler(e.currentTarget.value)}
+              style={{ width: '240px' }}
+              className="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option defaultChecked={sortFilter === '0packName'} value="0packName">
+                sort by name
+              </option>
+              <option defaultChecked={sortFilter === '0cardsCount'} value="0cardsCount">
+                sort by cards count
+              </option>
+              <option defaultChecked={sortFilter === '0updated'} value="0updated">
+                sort by updated data
+              </option>
+            </select>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Select count of packs on page
+            </label>
+          </div>
+
           <div>
             <select
               onChange={e => pageCountHandler(e.currentTarget.value)}

@@ -7,6 +7,7 @@ export const usePacksRequestSettings = (): any => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(10);
   const [onlyMe, setOnlyMe] = useState<boolean>(false);
+  const [sortFilter, setSortFilter] = useState<string>('0updated');
 
   return {
     searchedPackNameValue,
@@ -15,11 +16,13 @@ export const usePacksRequestSettings = (): any => {
     currentPage,
     pageCount,
     onlyMe,
+    sortFilter,
     setSearchedPackNameValue,
     setSearchedMinValue,
     setSearchedMaxValue,
     setCurrentPage,
     setPageCount,
     setOnlyMe,
+    setSortFilter,
   };
 };
