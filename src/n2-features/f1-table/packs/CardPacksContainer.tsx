@@ -25,15 +25,19 @@ export const CardPacksContainer = (): ReactElement => {
     searchedMinValue,
     searchedMaxValue,
     currentPage,
+    pageCount,
+    onlyMe,
     setSearchedPackNameValue,
     setSearchedMinValue,
     setSearchedMaxValue,
     setCurrentPage,
+    setPageCount,
+    setOnlyMe,
   } = usePacksRequestSettings();
 
   const [searchCommonRequestPack, setSearchCommonRequestPack] =
     useState<getPacksCommonRequestParamsType>({});
-  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
+  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 1000);
 
   useEffect(() => {
     setSearchCommonRequestPack({
@@ -42,10 +46,10 @@ export const CardPacksContainer = (): ReactElement => {
       max: searchedMaxValue,
       sortPacks: '0updated',
       page: currentPage,
-      pageCount: 10,
-      user_id: '',
+      pageCount,
+      // user_id: userID,
     });
-  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue]);
+  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount]);
   useEffect(() => {
     if (currentPage !== 0) {
       dispatch(getCardPacksTC({ ...searchCommonRequestPack, page: currentPage }));
@@ -54,19 +58,23 @@ export const CardPacksContainer = (): ReactElement => {
 
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
+      setOnlyMe(true);
       dispatch(getCardPacksTC({ user_id: userId }));
     } else {
+      setOnlyMe(false);
       dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
     }
   };
   const pageCountHandler = (value: string): void => {
-    dispatch(getCardPacksTC({ ...searchCommonRequestPack, pageCount: +value }));
+    setPageCount(+value);
   };
   useEffect(() => {
     // Убедиться что у нас есть значение (пользователь ввел что-то)
     if (debouncedSearchTerm) {
       // Сделать запрос к АПИ
       if (Object.keys(searchCommonRequestPack).length !== 0) {
+        setOnlyMe(false);
+        console.log(onlyMe);
         dispatch(getCardPacksTC(debouncedSearchTerm));
       }
     }
@@ -117,7 +125,7 @@ export const CardPacksContainer = (): ReactElement => {
               onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
               className="form-check-input"
               type="checkbox"
-              value=""
+              checked={onlyMe}
               id="searchOnlyMePacks"
             />
           </div>
@@ -128,11 +136,21 @@ export const CardPacksContainer = (): ReactElement => {
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
             >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="75">75</option>
-              <option value="100">100</option>
+              <option defaultChecked={pageCount === 10} value="10">
+                10
+              </option>
+              <option defaultChecked={pageCount === 25} value="25">
+                25
+              </option>
+              <option defaultChecked={pageCount === 50} value="50">
+                50
+              </option>
+              <option defaultChecked={pageCount === 75} value="75">
+                75
+              </option>
+              <option defaultChecked={pageCount === 100} value="100">
+                100
+              </option>
             </select>
             <label
               className="form-check-label text-capitalize bg-gradient bg-info"
