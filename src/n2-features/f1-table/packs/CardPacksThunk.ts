@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-import { setAuth } from '../../../n1-main/m2-bll/app-reducer';
+import { preloaderToggle, setAuth } from '../../../n1-main/m2-bll/app-reducer';
 
 import { cardPacksAPI } from './CardsPackAPI';
 import { SetCardPacksAC, SetDisabledPacksAC } from './PacksReducer';
@@ -28,6 +28,7 @@ export type getPacksCommonRequestParamsType = {
 export const getCardPacksTC =
   (getPacksCommonRequestParams: getPacksCommonRequestParamsType) =>
   (dispatch: Dispatch) => {
+    dispatch(preloaderToggle(true));
     dispatch(SetDisabledPacksAC(true));
     // console.dir(getPacksCommonRequestParams);
     cardPacksAPI
@@ -35,6 +36,7 @@ export const getCardPacksTC =
       .then(res => {
         dispatch(SetCardPacksAC(res.data));
         dispatch(SetDisabledPacksAC(false));
+        dispatch(preloaderToggle(false));
       })
       .catch(err => {
         if (axios.isAxiosError(err) && err.response) {

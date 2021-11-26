@@ -2,7 +2,9 @@ import React, { ChangeEvent, MouseEvent, ReactElement, useEffect, useState } fro
 
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
+import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 
 import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
@@ -18,6 +20,8 @@ export const CardPacksContainer = (): ReactElement => {
     state => state.profile._id,
   );
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
 
   const {
@@ -49,7 +53,6 @@ export const CardPacksContainer = (): ReactElement => {
       sortPacks: sortFilter,
       page: currentPage,
       pageCount,
-      // user_id: userID,
     });
   }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount, sortFilter]);
   useEffect(() => {
@@ -81,7 +84,6 @@ export const CardPacksContainer = (): ReactElement => {
       // Сделать запрос к АПИ
       if (Object.keys(searchCommonRequestPack).length !== 0) {
         setOnlyMe(false);
-        console.log(onlyMe);
         dispatch(getCardPacksTC(debouncedSearchTerm));
       }
     }
@@ -100,7 +102,9 @@ export const CardPacksContainer = (): ReactElement => {
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchedPackNameValue(event.currentTarget.value);
   };
-
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
   return (
     <div className="col-9 align-content-center m-lg-auto">
       <Form.Group
@@ -169,6 +173,9 @@ export const CardPacksContainer = (): ReactElement => {
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
             >
+              <option defaultChecked={pageCount === 5} value="5">
+                5
+              </option>
               <option defaultChecked={pageCount === 10} value="10">
                 10
               </option>
@@ -204,6 +211,7 @@ export const CardPacksContainer = (): ReactElement => {
         model={CardTableModel()}
         data={data.cardPacks}
         disabled={data.disabled}
+        loading={isLoading}
       />
       <PaginationComponent
         pageCardsTotal={10}
