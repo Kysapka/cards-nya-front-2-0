@@ -44,7 +44,7 @@ export const TableCardPacks: React.FC<ITableProps> = ({
       ...tableStyle,
     }}
   >
-    table
+    <h2>CADR PACKS</h2>
     {/* {loading */}
     {/* ? <div style={{color: 'orange'}}>loading...</div> */}
     {/*: error */}
@@ -53,12 +53,14 @@ export const TableCardPacks: React.FC<ITableProps> = ({
     {/* } */}
     <div
       style={{
-        border: '1px solid red',
+        border: '1px solid grey',
         width: '100%',
         display: 'flex',
         flexFlow: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        margin: '5px',
+        padding: '10px',
         ...headerStyle,
       }}
     >
@@ -69,8 +71,10 @@ export const TableCardPacks: React.FC<ITableProps> = ({
     ) : (
       <div
         style={{
-          border: '1px solid lime',
+          border: '1px solid grey',
           width: '100%',
+          margin: '20px',
+          padding: '10px',
           ...rowsStyle,
         }}
       >
