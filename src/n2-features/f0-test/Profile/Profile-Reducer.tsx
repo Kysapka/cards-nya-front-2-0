@@ -10,7 +10,7 @@ import { API } from '../../../n1-main/m3-dal';
 const LOG_OUT = '@@PROFILE_REDUCER/LOG_OUT_CLEAR_STATE';
 
 export type ProfileStateType = {
-  _id: string | null;
+  _id: string | undefined;
   email: string | null;
   password: string | null;
   rememberMe: boolean | null;
@@ -36,7 +36,7 @@ type DeviceTokenType = {
 };
 
 const initProfileState = {
-  _id: null,
+  _id: undefined,
   email: null,
   name: null,
   avatar: null,

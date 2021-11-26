@@ -1,13 +1,6 @@
-import React, {
-  ChangeEvent,
-  MouseEvent,
-  ReactElement,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, MouseEvent, ReactElement, useEffect, useState } from 'react';
 
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
@@ -15,18 +8,20 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
 import { useDebounce } from './CustomUseDebaunceHook';
-import { SetValueCardsCountPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
 import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
+  const userId = useSelector<AppRootStateType, string | undefined>(
+    state => state.profile._id,
+  );
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const dispatch = useDispatch();
   const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
   const [searchedMinValue, setSearchedMinValue] = useState<number>(3);
   const [searchedMaxValue, setSearchedMaxValue] = useState<number>(9);
+  const [isSearchOnlyMe, setIsSearchOnlyMe] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [searchCommonRequestPack, setSearchCommonRequestPack] =
     useState<getPacksCommonRequestParamsType>({});
@@ -48,6 +43,23 @@ export const CardPacksContainer = (): ReactElement => {
       dispatch(getCardPacksTC({ ...searchCommonRequestPack, page: currentPage }));
     }
   }, [currentPage]);
+
+  const onlyMeSearchHandler = (checked: boolean): void => {
+    if (checked) {
+      dispatch(getCardPacksTC({ user_id: userId }));
+    } else {
+      dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
+    }
+  };
+  // useEffect(() => {
+  //   if (isSearchOnlyMe) {
+  //     console.log(userId);
+  //     setSearchCommonRequestPack({ ...searchCommonRequestPack, user_id: userId });
+  //   } else {
+  //     setSearchCommonRequestPack({ ...searchCommonRequestPack, user_id: '' });
+  //     console.log(searchCommonRequestPack.user_id);
+  //   }
+  // }, [isSearchOnlyMe]);
   useEffect(() => {
     // Убедиться что у нас есть значение (пользователь ввел что-то)
     if (debouncedSearchTerm) {
@@ -58,17 +70,6 @@ export const CardPacksContainer = (): ReactElement => {
     }
   }, [debouncedSearchTerm]);
 
-  const Search = (e: MouseEvent<HTMLButtonElement>): void => {
-    // } else if (e.currentTarget.name === 'searchMyCards') {
-    //   if (userId) {
-    //     dispatch(
-    //       getCardPacksTC({
-    //         min: data.minCardsCount,
-    //         max: data.maxCardsCount,
-    //         page: data.page,
-    //         user_id: userId,
-    //       }),
-  };
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
       const max = Number(event.currentTarget.value);
@@ -95,9 +96,21 @@ export const CardPacksContainer = (): ReactElement => {
           type="text"
           placeholder="Enter card pack name for search..."
         />
-        <Button onClick={Search} name="searchMyCards">
-          Search only my Cards
-        </Button>
+        <div style={{ marginTop: '20px' }}>
+          <label
+            className="form-check-label text-capitalize bg-gradient bg-info"
+            htmlFor="searchOnlyMePacks"
+          >
+            Search only me packs
+          </label>
+          <input
+            onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="searchOnlyMePacks"
+          />
+        </div>
       </Form.Group>
       <Form.Group>
         <Form.Label>Range Min {searchedMinValue}</Form.Label>
