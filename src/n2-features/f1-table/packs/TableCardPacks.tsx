@@ -71,7 +71,8 @@ export const TableCardPacks: React.FC<ITableProps> = ({
       {disabled ? (
         <Loader />
       ) : (
-        <div
+        <table
+          className="table table-striped"
           style={{
             border: '1px solid grey',
             width: '100%',
@@ -81,9 +82,10 @@ export const TableCardPacks: React.FC<ITableProps> = ({
           }}
         >
           {data.map((dataItem: any, dataIndex: number) => (
-            <div
+            <tr
               key={dataItem._id || dataIndex}
               style={{
+                padding: '8px',
                 width: '100%',
                 display: 'flex',
                 flexFlow: 'row',
@@ -93,9 +95,9 @@ export const TableCardPacks: React.FC<ITableProps> = ({
               }}
             >
               {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-            </div>
+            </tr>
           ))}
-        </div>
+        </table>
       )}
     </div>
   );
