@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useRef } from 'react';
 
-import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { AddPackThunk, DeletePackThunk } from './PacksReducer';

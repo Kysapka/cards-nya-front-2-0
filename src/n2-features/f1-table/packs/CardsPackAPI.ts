@@ -6,17 +6,6 @@ import { ApiResponseTypes } from '../../../n1-main/m3-dal/ApiResponseTypes';
 import { getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardInPackType, CardPacksType } from './types';
 
-const cardsPack: cardsPackType = {
-  name: 'no Name',
-  path: '/master',
-  grade: 0,
-  shots: 0,
-  rating: 0,
-  deckCover: 'url or base64',
-  private: false,
-  type: 'pack',
-};
-
 type cardsPackType = {
   name: string;
   path: string;
@@ -36,6 +25,16 @@ export const cardPacksAPI = {
       },
     }),
   createCardPack: (name?: string) => {
+    const cardsPack: cardsPackType = {
+      name: 'no Name',
+      path: '/master',
+      grade: 0,
+      shots: 0,
+      rating: 0,
+      deckCover: 'url or base64',
+      private: false,
+      type: 'pack',
+    };
     if (name) {
       cardsPack.name = name;
     }
