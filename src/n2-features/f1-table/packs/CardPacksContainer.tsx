@@ -21,7 +21,6 @@ export const CardPacksContainer = (): ReactElement => {
   const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
   const [searchedMinValue, setSearchedMinValue] = useState<number>(3);
   const [searchedMaxValue, setSearchedMaxValue] = useState<number>(9);
-  const [isSearchOnlyMe, setIsSearchOnlyMe] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [searchCommonRequestPack, setSearchCommonRequestPack] =
     useState<getPacksCommonRequestParamsType>({});
@@ -51,15 +50,9 @@ export const CardPacksContainer = (): ReactElement => {
       dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
     }
   };
-  // useEffect(() => {
-  //   if (isSearchOnlyMe) {
-  //     console.log(userId);
-  //     setSearchCommonRequestPack({ ...searchCommonRequestPack, user_id: userId });
-  //   } else {
-  //     setSearchCommonRequestPack({ ...searchCommonRequestPack, user_id: '' });
-  //     console.log(searchCommonRequestPack.user_id);
-  //   }
-  // }, [isSearchOnlyMe]);
+  const pageCountHandler = (value: string): void => {
+    dispatch(getCardPacksTC({ ...searchCommonRequestPack, pageCount: +value }));
+  };
   useEffect(() => {
     // Убедиться что у нас есть значение (пользователь ввел что-то)
     if (debouncedSearchTerm) {
@@ -96,20 +89,49 @@ export const CardPacksContainer = (): ReactElement => {
           type="text"
           placeholder="Enter card pack name for search..."
         />
-        <div style={{ marginTop: '20px' }}>
-          <label
-            className="form-check-label text-capitalize bg-gradient bg-info"
-            htmlFor="searchOnlyMePacks"
-          >
-            Search only me packs
-          </label>
-          <input
-            onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="searchOnlyMePacks"
-          />
+        <div
+          style={{
+            width: '1000px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div className="form-check form-switch" style={{ marginTop: '20px' }}>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Search only me packs
+            </label>
+            <input
+              onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="searchOnlyMePacks"
+            />
+          </div>
+          <div>
+            <select
+              onChange={e => pageCountHandler(e.currentTarget.value)}
+              style={{ width: '240px' }}
+              className="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
+            </select>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Select count of packs on page
+            </label>
+          </div>
         </div>
       </Form.Group>
       <Form.Group>
