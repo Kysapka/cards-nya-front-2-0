@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -19,6 +19,7 @@ import {
 import style from './Header.module.css';
 
 export const Header = (): React.ReactElement => {
+  const [flag, setFlag] = useState<boolean>(false);
   const isAuth = useSelector((state: AppRootStateType) => state.app.isAuth);
 
   const variate = publicRoutes.map(({ path }) =>
@@ -34,11 +35,12 @@ export const Header = (): React.ReactElement => {
 
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column' }}>
-      <div className={style.dropdown}>
-        <div className={style.DropButton}>
-          <div className={style.middleLine} />
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div onClick={() => setFlag(!flag)} className={style.dropdown}>
+        <div className={flag ? style.DropButton : style.DropButtonOn}>
+          <div className={flag ? style.middleLine : style.middleLineOn} />
         </div>
-        <div className={style.DropdownContent}>
+        <div className={flag ? style.DropdownContent : style.DropdownContentOn}>
           <NavLink className={style.Link} to={isAuth ? LOGIN_ROUTE : PROFILE_ROUTE}>
             {isAuth ? 'Profile' : 'Login'}
           </NavLink>
@@ -47,7 +49,6 @@ export const Header = (): React.ReactElement => {
           </NavLink>
         </div>
       </div>
-
       <div className={style.dropdown}>
         <div className={style.DropButton}>
           <div className={style.middleLine} />
