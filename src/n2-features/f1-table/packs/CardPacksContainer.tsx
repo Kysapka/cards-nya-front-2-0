@@ -7,6 +7,7 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 
 import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
+import { usePacksRequestSettings } from './CustomRequestSettingsHook';
 import { useDebounce } from './CustomUseDebaunceHook';
 import { PaginationComponent } from './pagination/Pagination';
 import { TableCardPacks } from './TableCardPacks';
@@ -18,13 +19,21 @@ export const CardPacksContainer = (): ReactElement => {
   );
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const dispatch = useDispatch();
-  const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
-  const [searchedMinValue, setSearchedMinValue] = useState<number>(3);
-  const [searchedMaxValue, setSearchedMaxValue] = useState<number>(9);
-  const [currentPage, setCurrentPage] = useState<number>(0);
+
+  const {
+    searchedPackNameValue,
+    searchedMinValue,
+    searchedMaxValue,
+    currentPage,
+    setSearchedPackNameValue,
+    setSearchedMinValue,
+    setSearchedMaxValue,
+    setCurrentPage,
+  } = usePacksRequestSettings();
+
   const [searchCommonRequestPack, setSearchCommonRequestPack] =
     useState<getPacksCommonRequestParamsType>({});
-  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 3000);
+  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
 
   useEffect(() => {
     setSearchCommonRequestPack({
