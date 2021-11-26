@@ -1,11 +1,4 @@
-import React, {
-  ChangeEvent,
-  MouseEvent,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -209,16 +202,10 @@ export const CardPacksContainer = (): ReactElement => {
         </div>
       </Form.Group>
       <Form.Group>
-        <Form.Label>RangeMin {data.minCardsCount}</Form.Label>
-        <Form.Range value={data.minCardsCount} name="min" onChange={changeValue} />
-        <Form.Label>RangeMax {data.maxCardsCount}</Form.Label>
-        <Form.Range value={data.maxCardsCount} name="max" onChange={changeValue} />
-        <Button onClick={Search} name="search">
-          search
-        </Button>
-        <Button onClick={Search} name="searchMyCards">
-          search My Cards
-        </Button>
+        <Form.Label>RangeMin {searchedMinValue}</Form.Label>
+        <Form.Range value={searchedMinValue} name="min" onChange={changeValue} />
+        <Form.Label>RangeMax {searchedMaxValue}</Form.Label>
+        <Form.Range value={searchedMaxValue} name="max" onChange={changeValue} />
       </Form.Group>
       <TableCardPacks
         model={CardTableModel()}
