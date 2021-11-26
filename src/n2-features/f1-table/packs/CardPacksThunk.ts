@@ -27,7 +27,7 @@ export const getCardPacksTC =
   (getPacksCommonRequestParams: getPacksCommonRequestParamsType) =>
   (dispatch: Dispatch) => {
     dispatch(SetDisabledPacksAC(true));
-    console.dir(getPacksCommonRequestParams);
+    // console.dir(getPacksCommonRequestParams);
     cardPacksAPI
       .getCardPacks({ ...getPacksCommonRequestParams })
       .then(res => {

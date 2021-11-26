@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 
-export const useDebounce = (value: string, delay: number): string => {
+import { getPacksCommonRequestParamsType } from './CardPacksThunk';
+
+export const useDebounce = (
+  value: getPacksCommonRequestParamsType,
+  delay: number,
+): getPacksCommonRequestParamsType => {
   // Состояние и сеттер для отложенного значения
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debouncedValue, setDebouncedValue] = useState({});
 
   useEffect(
     () => {

@@ -3,7 +3,7 @@ import React, {
   MouseEvent,
   ReactElement,
   useEffect,
-  useRef,
+  useLayoutEffect,
   useState,
 } from 'react';
 
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 
-import { getCardPacksTC } from './CardPacksThunk';
+import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
 import { useDebounce } from './CustomUseDebaunceHook';
 import { SetValueCardsCountPacksAC } from './PacksReducer';
@@ -25,24 +25,33 @@ export const CardPacksContainer = (): ReactElement => {
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const dispatch = useDispatch();
   const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
-  const debouncedSearchTerm = useDebounce(searchedPackNameValue, 3000);
+  const [searchedMinValue, setSearchedMinValue] = useState<number>(3);
+  const [searchedMaxValue, setSearchedMaxValue] = useState<number>(9);
+  const [searchCommonRequestPack, setSearchCommonRequestPack] =
+    useState<getPacksCommonRequestParamsType>({});
+  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 3000);
 
+  useEffect(() => {
+    setSearchCommonRequestPack({
+      packName: searchedPackNameValue,
+      min: searchedMinValue,
+      max: searchedMaxValue,
+      sortPacks: '0updated',
+      page: data.page,
+      pageCount: 20,
+      user_id: '',
+    });
+  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue]);
+  /*  useEffect(() => {
+    dispatch(getCardPacksTC({ ...setSearchCommonRequestPack, page: data.page }));
+  }, [data.page]); */
   useEffect(() => {
     // Убедиться что у нас есть значение (пользователь ввел что-то)
     if (debouncedSearchTerm) {
-      console.log(debouncedSearchTerm);
       // Сделать запрос к АПИ
-      dispatch(
-        getCardPacksTC({
-          packName: debouncedSearchTerm,
-          min: data.minCardsCount,
-          max: data.maxCardsCount,
-          sortPacks: '0updated',
-          page: data.page,
-          pageCount: 20,
-          user_id: '',
-        }),
-      );
+      if (Object.keys(searchCommonRequestPack).length !== 0) {
+        dispatch(getCardPacksTC(debouncedSearchTerm));
+      }
     }
   }, [debouncedSearchTerm]);
 
@@ -81,11 +90,13 @@ export const CardPacksContainer = (): ReactElement => {
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
       const max = Number(event.currentTarget.value);
-      dispatch(SetValueCardsCountPacksAC(data.minCardsCount, max));
+      setSearchedMaxValue(max);
+      // dispatch(SetValueCardsCountPacksAC(data.minCardsCount, max));
     }
     if (event.currentTarget.name === 'min') {
       const min = Number(event.currentTarget.value);
-      dispatch(SetValueCardsCountPacksAC(min, data.maxCardsCount));
+      setSearchedMinValue(min);
+      // dispatch(SetValueCardsCountPacksAC(min, data.maxCardsCount));
     }
   };
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -107,10 +118,10 @@ export const CardPacksContainer = (): ReactElement => {
         </Button>
       </Form.Group>
       <Form.Group>
-        <Form.Label>RangeMin {data.minCardsCount}</Form.Label>
-        <Form.Range value={data.minCardsCount} name="min" onChange={changeValue} />
-        <Form.Label>RangeMax {data.maxCardsCount}</Form.Label>
-        <Form.Range value={data.maxCardsCount} name="max" onChange={changeValue} />
+        <Form.Label>RangeMin {searchedMinValue}</Form.Label>
+        <Form.Range value={searchedMinValue} name="min" onChange={changeValue} />
+        <Form.Label>RangeMax {searchedMaxValue}</Form.Label>
+        <Form.Range value={searchedMaxValue} name="max" onChange={changeValue} />
         <Button onClick={Search} name="search">
           search
         </Button>
