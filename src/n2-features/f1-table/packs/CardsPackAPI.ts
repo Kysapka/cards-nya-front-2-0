@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { axiosInst } from '../../../n1-main/m3-dal/apiConfig';
 import { ApiResponseTypes } from '../../../n1-main/m3-dal/ApiResponseTypes';
 
+import { getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardInPackType, CardPacksType } from './types';
 
 type cardsPackType = {
@@ -17,21 +18,10 @@ type cardsPackType = {
 };
 
 export const cardPacksAPI = {
-  getCardPacks: (
-    minCards: number,
-    maxCards: number,
-    page: number,
-    userId?: string,
-    packName?: string,
-  ) =>
+  getCardPacks: (getPacksCommonRequestParams: getPacksCommonRequestParamsType) =>
     axiosInst.get<any, ApiResponseTypes<CardPacksType>>('cards/pack', {
       params: {
-        pageCount: 10,
-        min: minCards,
-        max: maxCards,
-        page,
-        user_id: userId,
-        packName,
+        ...getPacksCommonRequestParams,
       },
     }),
   createCardPack: (name?: string) => {

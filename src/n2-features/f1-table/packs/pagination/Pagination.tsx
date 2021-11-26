@@ -12,6 +12,7 @@ type PaginationComponentPropsType = {
   totalCards: number;
   pageCardsTotal: number;
   disabled: boolean;
+  callback: (currentPage: number) => void;
 };
 
 export const PaginationComponent = (
@@ -23,7 +24,8 @@ export const PaginationComponent = (
   createPages(items, pageTotalCount, activePage);
   const dispatch = useDispatch();
   const onClickHandler = (page: number): void => {
-    dispatch(SetPagePacksAC(page));
+    props.callback(page);
+    // dispatch(SetPagePacksAC(page));
   };
   return (
     <Pagination>

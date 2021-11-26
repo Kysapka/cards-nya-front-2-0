@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 
 import { Field, Form, Formik } from 'formik';
+import { FormCheck } from 'react-bootstrap';
+import FormCheckInput from 'react-bootstrap/FormCheckInput';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
@@ -45,9 +47,26 @@ export const Login = (props: LoginPropsType): ReactElement => {
                   <TextField label="E-mail" name="email" type="text" />
                   <TextField label="Password" name="password" type="password" />
                   <div>
-                    <Field type="checkbox" name="rememberMe" />
+                    {/* <FormCheck label="remember me" type="checkbox" name="rememberMe" /> */}
+
+                    <div
+                      className="custom-control custom-checkbox"
+                      style={{ margin: '20px 0px' }}
+                    >
+                      <FormCheckInput name="rememberMe" type="checkbox" />
+                      <label
+                        className="custom-control-label"
+                        style={{ marginLeft: '5px' }}
+                        htmlFor="rememberMe"
+                      >
+                        remember me
+                      </label>
+                    </div>
                   </div>
-                  <NavLink style={{ display: 'block' }} to={RECOVERY_PASS_ROUTE}>
+                  <NavLink
+                    style={{ display: 'block', margin: '10px 0px' }}
+                    to={RECOVERY_PASS_ROUTE}
+                  >
                     Forgot Password
                   </NavLink>
                   <button className="btn btn-primary mt-3" type="submit">

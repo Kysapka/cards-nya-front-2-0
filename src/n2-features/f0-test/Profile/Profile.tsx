@@ -33,10 +33,6 @@ export const Profile = (): React.ReactElement => {
     dispatch(LogOut());
   };
 
-  if (!isAppInitializated) {
-    return <Loader />;
-  }
-
   const fileUpload = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event && userName) {
       if (event.currentTarget.files) {

@@ -7,70 +7,212 @@ import React, {
   useState,
 } from 'react';
 
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
+import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 
-import { getCardPacksTC } from './CardPacksThunk';
+import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
+import { usePacksRequestSettings } from './CustomRequestSettingsHook';
+import { useDebounce } from './CustomUseDebaunceHook';
 import { PaginationComponent } from './pagination/Pagination';
 import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  const valueSearch = useRef<string>();
+  const userId = useSelector<AppRootStateType, string | undefined>(
+    state => state.profile._id,
+  );
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
-  const [minValue, setMinValue] = useState<number>(data.minCardsCount);
-  const [maxValue, setMaxValue] = useState<number>(150);
+
+  const {
+    searchedPackNameValue,
+    searchedMinValue,
+    searchedMaxValue,
+    currentPage,
+    pageCount,
+    onlyMe,
+    sortFilter,
+    setSearchedPackNameValue,
+    setSearchedMinValue,
+    setSearchedMaxValue,
+    setCurrentPage,
+    setPageCount,
+    setOnlyMe,
+    setSortFilter,
+  } = usePacksRequestSettings();
+
+  const [searchCommonRequestPack, setSearchCommonRequestPack] =
+    useState<getPacksCommonRequestParamsType>({});
+  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 1000);
+
   useEffect(() => {
-    dispatch(getCardPacksTC(minValue, maxValue, data.page, valueSearch.current));
-  }, [data.page]);
-  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
-  const Search = (e: MouseEvent<HTMLButtonElement>): void => {
-    if (e.currentTarget.name === 'search') {
-      dispatch(getCardPacksTC(minValue, maxValue, data.page));
-    } else if (e.currentTarget.name === 'searchMyCards') {
-      if (userId) {
-        dispatch(getCardPacksTC(minValue, maxValue, data.page, '', userId));
-      }
-    } else if (e.currentTarget.name === 'searchInputCardPack') {
-      dispatch(getCardPacksTC(minValue, maxValue, data.page, valueSearch.current));
+    setSearchCommonRequestPack({
+      packName: searchedPackNameValue,
+      min: searchedMinValue,
+      max: searchedMaxValue,
+      sortPacks: sortFilter,
+      page: currentPage,
+      pageCount,
+    });
+  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount, sortFilter]);
+  useEffect(() => {
+    if (currentPage !== 0) {
+      dispatch(getCardPacksTC({ ...searchCommonRequestPack, page: currentPage }));
+    }
+  }, [currentPage]);
+
+  const onlyMeSearchHandler = (checked: boolean): void => {
+    if (checked) {
+      setOnlyMe(true);
+      dispatch(getCardPacksTC({ user_id: userId }));
+    } else {
+      setOnlyMe(false);
+      dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
     }
   };
+
+  const setSortFilterHandler = (value: string): void => {
+    setSortFilter(value);
+  };
+
+  const pageCountHandler = (value: string): void => {
+    setPageCount(+value);
+  };
+  useEffect(() => {
+    // Убедиться что у нас есть значение (пользователь ввел что-то)
+    if (debouncedSearchTerm) {
+      // Сделать запрос к АПИ
+      if (Object.keys(searchCommonRequestPack).length !== 0) {
+        setOnlyMe(false);
+        dispatch(getCardPacksTC(debouncedSearchTerm));
+      }
+    }
+  }, [debouncedSearchTerm]);
+
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
       const max = Number(event.currentTarget.value);
-      setMaxValue(max);
+      setSearchedMaxValue(max);
     }
     if (event.currentTarget.name === 'min') {
       const min = Number(event.currentTarget.value);
-      setMinValue(min);
+      setSearchedMinValue(min);
     }
   };
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    valueSearch.current = event.currentTarget.value;
+    setSearchedPackNameValue(event.currentTarget.value);
   };
-
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
   return (
-    <div>
-      <Form.Group className="mb-3" style={{ width: '400px' }} controlId="formBasicEmail">
+    <div className="col-9 align-content-center m-lg-auto">
+      <Form.Group
+        className="mb-3"
+        style={{ width: '400px', marginTop: '40px' }}
+        controlId="PacksCardTable"
+      >
         <Form.Control
           onChange={onChangeHandler}
-          type="email"
-          placeholder="input Card Pack Name"
+          type="text"
+          placeholder="Enter card pack name for search..."
         />
-        <Form.Text className="text-muted">Input name pack</Form.Text>
-        <Button onClick={Search} name="searchInputCardPack">
-          search
-        </Button>
+        <div
+          style={{
+            marginTop: '20px',
+            width: '1000px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div className="form-check form-switch" style={{ marginTop: '20px' }}>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Search only me packs
+            </label>
+            <input
+              onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
+              className="form-check-input"
+              type="checkbox"
+              checked={onlyMe}
+              id="searchOnlyMePacks"
+            />
+          </div>
+          <div>
+            <select
+              onChange={e => setSortFilterHandler(e.currentTarget.value)}
+              style={{ width: '240px' }}
+              className="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option defaultChecked={sortFilter === '0packName'} value="0packName">
+                sort by name
+              </option>
+              <option defaultChecked={sortFilter === '0cardsCount'} value="0cardsCount">
+                sort by cards count
+              </option>
+              <option defaultChecked={sortFilter === '0updated'} value="0updated">
+                sort by updated data
+              </option>
+            </select>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Select count of packs on page
+            </label>
+          </div>
+
+          <div>
+            <select
+              onChange={e => pageCountHandler(e.currentTarget.value)}
+              style={{ width: '240px' }}
+              className="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option defaultChecked={pageCount === 5} value="5">
+                5
+              </option>
+              <option defaultChecked={pageCount === 10} value="10">
+                10
+              </option>
+              <option defaultChecked={pageCount === 25} value="25">
+                25
+              </option>
+              <option defaultChecked={pageCount === 50} value="50">
+                50
+              </option>
+              <option defaultChecked={pageCount === 75} value="75">
+                75
+              </option>
+              <option defaultChecked={pageCount === 100} value="100">
+                100
+              </option>
+            </select>
+            <label
+              className="form-check-label text-capitalize bg-gradient bg-info"
+              htmlFor="searchOnlyMePacks"
+            >
+              Select count of packs on page
+            </label>
+          </div>
+        </div>
       </Form.Group>
       <Form.Group>
-        <Form.Label>RangeMin {minValue}</Form.Label>
-        <Form.Range value={minValue} name="min" onChange={changeValue} />
-        <Form.Label>RangeMax {maxValue}</Form.Label>
-        <Form.Range value={maxValue} name="max" onChange={changeValue} />
+        <Form.Label>RangeMin {data.minCardsCount}</Form.Label>
+        <Form.Range value={data.minCardsCount} name="min" onChange={changeValue} />
+        <Form.Label>RangeMax {data.maxCardsCount}</Form.Label>
+        <Form.Range value={data.maxCardsCount} name="max" onChange={changeValue} />
         <Button onClick={Search} name="search">
           search
         </Button>
@@ -82,12 +224,14 @@ export const CardPacksContainer = (): ReactElement => {
         model={CardTableModel()}
         data={data.cardPacks}
         disabled={data.disabled}
+        loading={isLoading}
       />
       <PaginationComponent
         pageCardsTotal={10}
         totalCards={data.cardPacksTotalCount}
         activePage={data.page}
         disabled={data.disabled}
+        callback={setCurrentPage}
       />
     </div>
   );

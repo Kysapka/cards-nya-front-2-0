@@ -1,5 +1,6 @@
-import { ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 
+import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { AddPackThunk, DeletePackThunk } from './PacksReducer';
@@ -19,7 +20,7 @@ export const CardTableModel = (): ITableModel[] => {
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          CardPacks
+          <b>Card Packs</b>
         </div>
       ),
 
@@ -32,7 +33,7 @@ export const CardTableModel = (): ITableModel[] => {
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          CardsCount
+          <b>Cards Count</b>
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
@@ -44,7 +45,7 @@ export const CardTableModel = (): ITableModel[] => {
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          UpdatedCard
+          <b>Update Card</b>
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
@@ -56,21 +57,36 @@ export const CardTableModel = (): ITableModel[] => {
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          settings
-          <input onChange={ChangeHandler} />
-          <button onClick={onClickHandler}>Add</button>
+          <input
+            className="shadow bg-gradient border-primary opacity-75 border-3"
+            style={{ borderRadius: '5%', padding: '5px' }}
+            onChange={ChangeHandler}
+            type="text"
+            placeholder="name"
+          />
+          {/* <input onChange={ChangeHandler} /> */}
+          <button
+            className="btn-sm btn btn-primary"
+            style={{ marginLeft: '20px', borderRadius: '5%' }}
+            onClick={onClickHandler}
+          >
+            Add new card
+          </button>
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
           <button
+            className="btn-sm"
             onClick={() => {
               dispatch(DeletePackThunk(d._id));
             }}
           >
-            Delate
+            Delete
           </button>
-          <button>Update</button>
+          <button className="btn-sm" style={{ marginLeft: '10px' }}>
+            Update
+          </button>
         </div>
       ),
     },

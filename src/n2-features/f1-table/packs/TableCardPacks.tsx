@@ -8,7 +8,7 @@ export interface ITableModel {
 }
 
 interface ITableProps {
-  // loading: boolean;
+  loading: boolean;
   // error: string;
   //
   // logoutCallback: () => void;
@@ -22,7 +22,7 @@ interface ITableProps {
 }
 
 export const TableCardPacks: React.FC<ITableProps> = ({
-  // loading,
+  loading,
   // error,
   // logoutCallback,
   model,
@@ -32,64 +32,73 @@ export const TableCardPacks: React.FC<ITableProps> = ({
   rowsStyle,
   rowStyle,
   disabled,
-}): ReactElement => (
-  <div
-    style={{
-      margin: '0 10px',
-      // minHeight: '80vh',
-      display: 'flex',
-      flexFlow: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      ...tableStyle,
-    }}
-  >
-    table
-    {/* {loading */}
-    {/* ? <div style={{color: 'orange'}}>loading...</div> */}
-    {/*: error */}
-    {/* ? <div style={{color: 'red'}}>{error}</div> */}
-    {/*: <div><br/></div> */}
-    {/* } */}
+}): ReactElement => {
+  if (loading) return <Loader />;
+  return (
     <div
       style={{
-        border: '1px solid red',
-        width: '100%',
+        margin: '0 10px',
+        // minHeight: '80vh',
         display: 'flex',
-        flexFlow: 'row',
+        flexFlow: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        ...headerStyle,
+        ...tableStyle,
       }}
     >
-      {model.map((m: ITableModel, index: number) => m.title(index))}
-    </div>
-    {disabled ? (
-      <Loader />
-    ) : (
+      <h2>CADR PACKS</h2>
+      {/* {loading */}
+      {/* ? <div style={{color: 'orange'}}>loading...</div> */}
+      {/*: error */}
+      {/* ? <div style={{color: 'red'}}>{error}</div> */}
+      {/*: <div><br/></div> */}
+      {/* } */}
       <div
         style={{
-          border: '1px solid lime',
+          border: '1px solid grey',
           width: '100%',
-          ...rowsStyle,
+          display: 'flex',
+          flexFlow: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '5px',
+          padding: '10px',
+          ...headerStyle,
         }}
       >
-        {data.map((dataItem: any, dataIndex: number) => (
-          <div
-            key={dataItem._id || dataIndex}
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexFlow: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              ...rowStyle,
-            }}
-          >
-            {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-          </div>
-        ))}
+        {model.map((m: ITableModel, index: number) => m.title(index))}
       </div>
-    )}
-  </div>
-);
+      {disabled ? (
+        <Loader />
+      ) : (
+        <table
+          className="table table-striped"
+          style={{
+            border: '1px solid grey',
+            width: '100%',
+            margin: '20px',
+            padding: '10px',
+            ...rowsStyle,
+          }}
+        >
+          {data.map((dataItem: any, dataIndex: number) => (
+            <tr
+              key={dataItem._id || dataIndex}
+              style={{
+                padding: '8px',
+                width: '100%',
+                display: 'flex',
+                flexFlow: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...rowStyle,
+              }}
+            >
+              {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+            </tr>
+          ))}
+        </table>
+      )}
+    </div>
+  );
+};
