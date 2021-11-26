@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/cards-nya-front-2-0/static/css/main.dd423196.chunk.css",
-    "main.js": "/cards-nya-front-2-0/static/js/main.8ade1daa.chunk.js",
-    "main.js.map": "/cards-nya-front-2-0/static/js/main.8ade1daa.chunk.js.map",
-    "runtime-main.js": "/cards-nya-front-2-0/static/js/runtime-main.5604a77a.js",
-    "runtime-main.js.map": "/cards-nya-front-2-0/static/js/runtime-main.5604a77a.js.map",
+    "main.css": "/cards-nya-front-2-0/static/css/main.ef71db48.chunk.css",
+    "main.js": "/cards-nya-front-2-0/static/js/main.be4cbcd9.chunk.js",
+    "main.js.map": "/cards-nya-front-2-0/static/js/main.be4cbcd9.chunk.js.map",
+    "runtime-main.js": "/cards-nya-front-2-0/static/js/runtime-main.37b847e7.js",
+    "runtime-main.js.map": "/cards-nya-front-2-0/static/js/runtime-main.37b847e7.js.map",
     "static/css/2.383c0125.chunk.css": "/cards-nya-front-2-0/static/css/2.383c0125.chunk.css",
-    "static/js/2.79b31c7c.chunk.js": "/cards-nya-front-2-0/static/js/2.79b31c7c.chunk.js",
-    "static/js/2.79b31c7c.chunk.js.map": "/cards-nya-front-2-0/static/js/2.79b31c7c.chunk.js.map",
-    "static/js/3.c09fabfd.chunk.js": "/cards-nya-front-2-0/static/js/3.c09fabfd.chunk.js",
-    "static/js/3.c09fabfd.chunk.js.map": "/cards-nya-front-2-0/static/js/3.c09fabfd.chunk.js.map",
+    "static/js/2.51bb6d5b.chunk.js": "/cards-nya-front-2-0/static/js/2.51bb6d5b.chunk.js",
+    "static/js/2.51bb6d5b.chunk.js.map": "/cards-nya-front-2-0/static/js/2.51bb6d5b.chunk.js.map",
+    "static/js/3.9c754bba.chunk.js": "/cards-nya-front-2-0/static/js/3.9c754bba.chunk.js",
+    "static/js/3.9c754bba.chunk.js.map": "/cards-nya-front-2-0/static/js/3.9c754bba.chunk.js.map",
     "index.html": "/cards-nya-front-2-0/index.html",
     "static/css/2.383c0125.chunk.css.map": "/cards-nya-front-2-0/static/css/2.383c0125.chunk.css.map",
-    "static/css/main.dd423196.chunk.css.map": "/cards-nya-front-2-0/static/css/main.dd423196.chunk.css.map",
-    "static/js/2.79b31c7c.chunk.js.LICENSE.txt": "/cards-nya-front-2-0/static/js/2.79b31c7c.chunk.js.LICENSE.txt",
+    "static/css/main.ef71db48.chunk.css.map": "/cards-nya-front-2-0/static/css/main.ef71db48.chunk.css.map",
+    "static/js/2.51bb6d5b.chunk.js.LICENSE.txt": "/cards-nya-front-2-0/static/js/2.51bb6d5b.chunk.js.LICENSE.txt",
     "static/media/Rocket.fc7a629f.jpg": "/cards-nya-front-2-0/static/media/Rocket.fc7a629f.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5604a77a.js",
+    "static/js/runtime-main.37b847e7.js",
     "static/css/2.383c0125.chunk.css",
-    "static/js/2.79b31c7c.chunk.js",
-    "static/css/main.dd423196.chunk.css",
-    "static/js/main.8ade1daa.chunk.js"
+    "static/js/2.51bb6d5b.chunk.js",
+    "static/css/main.ef71db48.chunk.css",
+    "static/js/main.be4cbcd9.chunk.js"
   ]
 }
