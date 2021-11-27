@@ -22,7 +22,7 @@ export type getPacksCommonRequestParamsType = {
   page?: number;
   pageCount?: number;
   // eslint-disable-next-line camelcase
-  user_id?: string;
+  user_id?: string | null;
 };
 
 export const getCardPacksTC =

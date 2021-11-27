@@ -4,7 +4,6 @@ import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
@@ -19,9 +18,7 @@ import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  const userId = useSelector<AppRootStateType, string | undefined>(
-    state => state.profile._id,
-  );
+  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
   const {
     cardPacks,
     pageCount,
@@ -39,6 +36,7 @@ export const CardPacksContainer = (): ReactElement => {
   const [searchedMinValue, setSearchedMinValue] = useState<number>(minCardsCount!);
   const [searchedMaxValue, setSearchedMaxValue] = useState<number>(maxCardsCount!);
   const [search, setSearch] = useState<string>('');
+  const [userID, setUserID] = useState<string | null>(null);
 
   if (!isAuth) {
     return <Navigate to={LOGIN_ROUTE} />;
@@ -80,15 +78,11 @@ export const CardPacksContainer = (): ReactElement => {
   // }, [debouncedSearchTerm]);
 
   const onlyMeSearchHandler = (checked: boolean): void => {
-    // if (checked) {
-    //   setOnlyMe(true);
-    //   setUserID(userId);
-    //   dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: userId }));
-    // } else {
-    //   setOnlyMe(false);
-    //   setUserID(undefined);
-    //   dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: undefined }));
-    // }
+    if (checked) {
+      setUserID(userId);
+    } else {
+      setUserID(null);
+    }
   };
 
   const setCurrentPageHandler = (value: number): void => {
@@ -126,6 +120,7 @@ export const CardPacksContainer = (): ReactElement => {
   useEffect(() => {
     dispatch(
       getCardPacksTC({
+        user_id: userID,
         packName: debaunceSearch,
         pageCount,
         page,
@@ -133,7 +128,14 @@ export const CardPacksContainer = (): ReactElement => {
         max: debauncedMaxRangeValue,
       }),
     );
-  }, [pageCount, page, debauncedMinRangeValue, debauncedMaxRangeValue, debaunceSearch]);
+  }, [
+    pageCount,
+    page,
+    debauncedMinRangeValue,
+    debauncedMaxRangeValue,
+    debaunceSearch,
+    userID,
+  ]);
 
   return (
     <div className="col-9 align-content-center m-lg-auto">
@@ -167,7 +169,7 @@ export const CardPacksContainer = (): ReactElement => {
               onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
               className="form-check-input"
               type="checkbox"
-              // checked={onlyMe}
+              checked={!!userID}
               id="searchOnlyMePacks"
             />
           </div>
