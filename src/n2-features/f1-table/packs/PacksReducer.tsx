@@ -27,9 +27,9 @@ const initCardPacksState = {
   token: '',
   cardPacksTotalCount: 0,
   maxCardsCount: 0,
-  minCardsCount: 0,
-  page: 0,
-  pageCount: 0,
+  minCardsCount: 9,
+  page: 1,
+  pageCount: 10,
   disabled: false,
 };
 
@@ -46,20 +46,19 @@ export const CardPacksReducer = (
     case 'ADD-PACK': {
       return {
         ...state,
-        cardPacks: [...state.cardPacks, { ...action.newCardsPack }],
+        cardPacks: [...state.cardPacks!, { ...action.newCardsPack }],
       };
     }
     case 'DELETE-PACK': {
       return {
         ...state,
-        cardPacks: state.cardPacks.filter(element => element._id !== action.id),
+        cardPacks: state.cardPacks!.filter(element => element._id !== action.id),
       };
     }
     case 'CHANGE-PACK-NAME': {
-      console.log(action.name);
       return {
         ...state,
-        cardPacks: state.cardPacks.map(el =>
+        cardPacks: state.cardPacks!.map(el =>
           el._id === action.id ? { ...el, name: action.name } : el,
         ),
       };
@@ -99,7 +98,6 @@ export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
     })
     .catch(err => {
       if (axios.isAxiosError(err) && err.response) {
-        console.log(err.response.data.error);
         dispatch(SetDisabledPacksAC(false));
       }
     });
@@ -117,7 +115,6 @@ export const ChangePackNameThunk = (id: string, name: string) => (dispatch: Disp
     })
     .catch(err => {
       if (axios.isAxiosError(err) && err.response) {
-        console.log(err.response.data.error);
         dispatch(SetDisabledPacksAC(false));
       }
     });
@@ -128,13 +125,11 @@ export const AddPackThunk = (name?: string) => (dispatch: Dispatch) => {
   cardPacksAPI
     .createCardPack(name)
     .then(resp => {
-      console.log(resp.data);
       dispatch(AddPackAC(resp.data.newCardsPack));
       dispatch(SetDisabledPacksAC(false));
     })
     .catch(err => {
       if (axios.isAxiosError(err) && err.response) {
-        console.log(err.response.data.error);
         dispatch(SetDisabledPacksAC(false));
       }
     });

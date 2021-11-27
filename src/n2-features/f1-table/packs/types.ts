@@ -17,12 +17,12 @@ export type CardInPackType = {
   private: boolean;
 };
 export type CardPacksType = {
-  cardPacks: Array<CardInPackType>;
-  cardPacksTotalCount: number;
-  maxCardsCount: number;
-  minCardsCount: number;
-  page: number;
-  pageCount: number;
-  token: string;
-  disabled: boolean;
+  cardPacks?: Array<CardInPackType>;
+  cardPacksTotalCount?: number;
+  maxCardsCount?: number;
+  minCardsCount?: number;
+  page?: number;
+  pageCount?: number;
+  token?: string;
+  disabled?: boolean;
 };

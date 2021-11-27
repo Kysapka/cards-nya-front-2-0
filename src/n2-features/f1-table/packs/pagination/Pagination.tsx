@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { Pagination } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 
 import { createPages } from './createPage';
 

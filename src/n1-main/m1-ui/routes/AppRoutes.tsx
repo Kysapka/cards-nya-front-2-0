@@ -2,12 +2,11 @@ import React from 'react';
 
 import {
   Demonstration,
+  ForgetPasswordContainer,
   LoginContainer,
   NewPassword,
   NotFound,
   Profile,
-  Registration,
-  ForgetPasswordContainer,
 } from 'n2-features';
 import { Route, Routes } from 'react-router-dom';
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle, setAuth } from '../../../n1-main/m2-bll/app-reducer';
@@ -9,14 +10,14 @@ export const LogOut = () => (dispatch: Dispatch) => {
   dispatch(preloaderToggle(true));
   API.logout
     .logout()
-    .then(res => {
-      console.dir(res);
+    .then(() => {
       dispatch(setAuth(false));
       dispatch(LogOutClearState());
       dispatch(preloaderToggle(false));
     })
     .catch((err: ErrorResponseType) => {
-      console.dir('get Auth server error', err.response.data.error);
-      dispatch(preloaderToggle(false));
+      if (axios.isAxiosError(err) && err.response) {
+        dispatch(preloaderToggle(false));
+      }
     });
 };

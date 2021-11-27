@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { EditableSpan } from '../EditableSpan/EditableSpan';
 import { LogOut } from '../LogOut/LogOutThunk';
 
-import { addAvatarTC, changeUserNameAC, changeUserNameTC } from './Profile-Reducer';
+import { addAvatarTC, changeUserNameTC } from './Profile-Reducer';
 import style from './profile-style.module.scss';
 
 export const Profile = (): React.ReactElement => {

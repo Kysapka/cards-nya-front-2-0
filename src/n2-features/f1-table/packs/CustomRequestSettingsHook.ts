@@ -6,7 +6,7 @@ import { AppRootStateType } from '../../../n1-main/m2-bll';
 
 export const usePacksRequestSettings = (): any => {
   const max = useSelector<AppRootStateType, number>(
-    state => state.cardPacks.maxCardsCount,
+    state => state.cardPacks.maxCardsCount!,
   );
   const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
   const [searchedMinValue, setSearchedMinValue] = useState<number>(0);

@@ -22,7 +22,6 @@ const SignupSchema = yup
 export type SignupSchemaLoginType = typeof SignupSchema;
 
 export const LoginContainer = (): ReactElement => {
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
   const dispatch = useDispatch();
 
   const callback = (values: {

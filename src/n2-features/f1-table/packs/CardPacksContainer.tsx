@@ -4,14 +4,17 @@ import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
 
-import { getCardPacksTC, getPacksCommonRequestParamsType } from './CardPacksThunk';
+import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
-import { usePacksRequestSettings } from './CustomRequestSettingsHook';
-import { useDebounce } from './CustomUseDebaunceHook';
+import { SetCardPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
+import { useRangeDebounce } from './RangeDebaunceHook';
+import { useSearchDebounce } from './SearchDebaunceHook';
 import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
@@ -19,90 +22,88 @@ export const CardPacksContainer = (): ReactElement => {
   const userId = useSelector<AppRootStateType, string | undefined>(
     state => state.profile._id,
   );
-  const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
-  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  // const currentPage = useSelector<AppRootStateType, number>(state => state.cardPacks.page);
+  const {
+    cardPacks,
+    pageCount,
+    cardPacksTotalCount,
+    maxCardsCount,
+    minCardsCount,
+    page,
+    disabled,
+  } = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
+  const { isLoading, isAuth } = useSelector<AppRootStateType, initAppStateType>(
+    state => state.app,
+  );
   const dispatch = useDispatch();
+
+  const [searchedMinValue, setSearchedMinValue] = useState<number>(minCardsCount!);
+  const [searchedMaxValue, setSearchedMaxValue] = useState<number>(maxCardsCount!);
+  const [search, setSearch] = useState<string>('');
 
   if (!isAuth) {
     return <Navigate to={LOGIN_ROUTE} />;
   }
-  const [searchCommonRequestPack, setSearchCommonRequestPack] =
-    useState<getPacksCommonRequestParamsType>({});
-  const {
-    searchedPackNameValue,
-    searchedMinValue,
-    searchedMaxValue,
-    pageCount,
-    onlyMe,
-    sortFilter,
-    userID,
-    currentPage,
-    setSearchedPackNameValue,
-    setSearchedMinValue,
-    setSearchedMaxValue,
-    setCurrentPage,
-    setPageCount,
-    setOnlyMe,
-    setSortFilter,
-    setUserID,
-  } = usePacksRequestSettings();
 
-  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
+  // const [searchCommonRequestPack, setSearchCommonRequestPack] =
+  //   useState<getPacksCommonRequestParamsType>({});
+  // const {
+  //   searchedPackNameValue,
+  //   searchedMinValue,
+  //   searchedMaxValue,
+  //   pageCount,
+  //   onlyMe,
+  //   sortFilter,
+  //   userID,
+  //   currentPage,
+  //   setSearchedPackNameValue,
+  //   setSearchedMinValue,
+  //   setSearchedMaxValue,
+  //   setCurrentPage,
+  //   setPageCount,
+  //   setOnlyMe,
+  //   setSortFilter,
+  //   setUserID,
+  // } = usePacksRequestSettings();
 
-  useEffect(() => {
-    setSearchCommonRequestPack({
-      packName: searchedPackNameValue,
-      min: searchedMinValue,
-      max: searchedMaxValue,
-      sortPacks: sortFilter,
-      page: currentPage,
-      pageCount,
-      user_id: userID,
-    });
-  }, [
-    searchedPackNameValue,
-    searchedMinValue,
-    searchedMaxValue,
-    pageCount,
-    currentPage,
-    sortFilter,
-  ]);
+  // const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
 
-  useEffect(() => {
-    // Убедиться что у нас есть значение (пользователь ввел что-то)
-    console.log(searchCommonRequestPack);
-    if (debouncedSearchTerm) {
-      // Сделать запрос к АПИ
-      if (Object.keys(searchCommonRequestPack).length !== 0) {
-        // setOnlyMe(false);
-        dispatch(getCardPacksTC(debouncedSearchTerm));
-      }
-    }
-  }, [debouncedSearchTerm]);
+  // useEffect(() => {
+  //   // Убедиться что у нас есть значение (пользователь ввел что-то)
+  //   console.log(searchCommonRequestPack);
+  //   if (debouncedSearchTerm) {
+  //     // Сделать запрос к АПИ
+  //     if (Object.keys(searchCommonRequestPack).length !== 0) {
+  //       // setOnlyMe(false);
+  //       dispatch(getCardPacksTC(debouncedSearchTerm));
+  //     }
+  //   }
+  // }, [debouncedSearchTerm]);
 
   const onlyMeSearchHandler = (checked: boolean): void => {
-    if (checked) {
-      setOnlyMe(true);
-      setUserID(userId);
-      dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: userId }));
-    } else {
-      setOnlyMe(false);
-      setUserID(undefined);
-      dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: undefined }));
-    }
+    // if (checked) {
+    //   setOnlyMe(true);
+    //   setUserID(userId);
+    //   dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: userId }));
+    // } else {
+    //   setOnlyMe(false);
+    //   setUserID(undefined);
+    //   dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: undefined }));
+    // }
   };
 
+  const setCurrentPageHandler = (value: number): void => {
+    dispatch(SetCardPacksAC({ page: value }));
+  };
   const setSortFilterHandler = (value: string): void => {
-    setSortFilter(value);
+    // setSortFilter(value);
   };
 
-  const pageCountHandler = (value: string): void => {
-    setPageCount(+value);
+  const pageCountHandler = (value: number): void => {
+    dispatch(SetCardPacksAC({ pageCount: value }));
+    // setPageCount(+value);
   };
 
-  const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
+  const changeRangeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
       const max = Number(event.currentTarget.value);
       setSearchedMaxValue(max);
@@ -112,9 +113,27 @@ export const CardPacksContainer = (): ReactElement => {
       setSearchedMinValue(min);
     }
   };
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchedPackNameValue(event.currentTarget.value);
+
+  const debauncedMinRangeValue = useRangeDebounce(searchedMinValue, 2000);
+  const debauncedMaxRangeValue = useRangeDebounce(searchedMaxValue, 2000);
+
+  const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(event.currentTarget.value);
   };
+
+  const debaunceSearch = useSearchDebounce(search, 3000);
+
+  useEffect(() => {
+    dispatch(
+      getCardPacksTC({
+        packName: debaunceSearch,
+        pageCount,
+        page,
+        min: debauncedMinRangeValue,
+        max: debauncedMaxRangeValue,
+      }),
+    );
+  }, [pageCount, page, debauncedMinRangeValue, debauncedMaxRangeValue, debaunceSearch]);
 
   return (
     <div className="col-9 align-content-center m-lg-auto">
@@ -124,7 +143,7 @@ export const CardPacksContainer = (): ReactElement => {
         controlId="PacksCardTable"
       >
         <Form.Control
-          onChange={onChangeHandler}
+          onChange={onSearchChangeHandler}
           type="text"
           placeholder="Enter card pack name for search..."
         />
@@ -148,7 +167,7 @@ export const CardPacksContainer = (): ReactElement => {
               onChange={e => onlyMeSearchHandler(e.currentTarget.checked)}
               className="form-check-input"
               type="checkbox"
-              checked={onlyMe}
+              // checked={onlyMe}
               id="searchOnlyMePacks"
             />
           </div>
@@ -159,15 +178,9 @@ export const CardPacksContainer = (): ReactElement => {
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
             >
-              <option defaultChecked={sortFilter === '0packName'} value="0packName">
-                sort by name
-              </option>
-              <option defaultChecked={sortFilter === '0cardsCount'} value="0cardsCount">
-                sort by cards count
-              </option>
-              <option defaultChecked={sortFilter === '0updated'} value="0updated">
-                sort by updated data
-              </option>
+              <option value="0packName">sort by name</option>
+              <option value="0cardsCount">sort by cards count</option>
+              <option value="0updated">sort by updated data</option>
             </select>
             <label
               className="form-check-label text-capitalize bg-gradient bg-info"
@@ -180,7 +193,7 @@ export const CardPacksContainer = (): ReactElement => {
           <div>
             <select
               value={pageCount}
-              onChange={e => pageCountHandler(e.currentTarget.value)}
+              onChange={e => pageCountHandler(+e.currentTarget.value)}
               style={{ width: '240px' }}
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
@@ -202,23 +215,23 @@ export const CardPacksContainer = (): ReactElement => {
         </div>
       </Form.Group>
       <Form.Group>
-        <Form.Label>RangeMin {searchedMinValue}</Form.Label>
-        <Form.Range value={searchedMinValue} name="min" onChange={changeValue} />
+        <Form.Label>RangeMin {searchedMinValue} </Form.Label>
+        <Form.Range value={searchedMinValue} name="min" onChange={changeRangeValue} />
         <Form.Label>RangeMax {searchedMaxValue}</Form.Label>
-        <Form.Range value={searchedMaxValue} name="max" onChange={changeValue} />
+        <Form.Range value={searchedMaxValue} name="max" onChange={changeRangeValue} />
       </Form.Group>
       <TableCardPacks
         model={CardTableModel()}
-        data={data.cardPacks}
-        disabled={data.disabled}
+        data={cardPacks}
+        disabled={disabled!}
         loading={isLoading}
       />
       <PaginationComponent
-        pageCardsTotal={pageCount}
-        totalCards={data.cardPacksTotalCount}
-        activePage={data.page}
-        disabled={data.disabled}
-        callback={setCurrentPage}
+        pageCardsTotal={pageCount!}
+        totalCards={cardPacksTotalCount!}
+        activePage={page!}
+        disabled={disabled!}
+        callback={setCurrentPageHandler}
       />
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { Field, Form, Formik } from 'formik';
-import { FormCheck } from 'react-bootstrap';
+import { Form, Formik } from 'formik';
 import FormCheckInput from 'react-bootstrap/FormCheckInput';
 import { useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
-import { AppActionTypes } from '../../../n1-main/m2-bll/app-reducer';
+import { AppActionTypes, preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
 import { authMeThunk } from '../../../n1-main/m2-bll/AppThunks';
 import { ErrorActionTypes, setError } from '../../../n1-main/m2-bll/ErrorReducer';
 import { API } from '../../../n1-main/m3-dal';
@@ -102,13 +102,17 @@ export const addAvatarTC =
 export const changeUserNameTC =
   (userName: string) =>
   (dispatch: ThunkDispatch<void, AppRootStateType, AppActionTypes>) => {
+    dispatch(preloaderToggle(true));
     API.profile
       .updateUserName(userName)
-      .then(res => {
+      .then(() => {
         dispatch(authMeThunk());
+        dispatch(preloaderToggle(false));
       })
       .catch(err => {
-        console.dir({ ...err });
+        if (axios.isAxiosError(err) && err.response) {
+          dispatch(preloaderToggle(false));
+        }
       });
   };
 

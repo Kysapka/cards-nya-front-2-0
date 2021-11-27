@@ -30,9 +30,8 @@ export const getCardPacksTC =
   (dispatch: Dispatch) => {
     dispatch(preloaderToggle(true));
     dispatch(SetDisabledPacksAC(true));
-    // console.dir(getPacksCommonRequestParams);
     cardPacksAPI
-      .getCardPacks({ ...getPacksCommonRequestParams })
+      .getCardPacks(getPacksCommonRequestParams)
       .then(res => {
         dispatch(SetCardPacksAC(res.data));
         dispatch(SetDisabledPacksAC(false));

@@ -1,9 +1,8 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { profileAction } from '../../n2-features/f0-test/Profile/Profile-Reducer';
 import { API } from '../m3-dal';
-import { ErrorResponseType } from '../m3-dal/ApiResponseTypes';
 
 import { preloaderToggle, setAppInitializate, setAuth } from './app-reducer';
 

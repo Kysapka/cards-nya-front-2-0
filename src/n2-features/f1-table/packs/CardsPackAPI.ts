@@ -45,9 +45,7 @@ type CardsUpdateNameType = {
 export const cardPacksAPI = {
   getCardPacks: (getPacksCommonRequestParams: getPacksCommonRequestParamsType) =>
     axiosInst.get<any, ApiResponseTypes<CardPacksType>>('cards/pack', {
-      params: {
-        ...getPacksCommonRequestParams,
-      },
+      params: getPacksCommonRequestParams,
     }),
   createCardPack: (name?: string) => {
     const cardsPack: cardsPackType = {
