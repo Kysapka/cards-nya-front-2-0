@@ -37,7 +37,7 @@ export const LoginContainer = (): ReactElement => {
   );
   return (
     <Login
-      isAuth={isAuth}
+      // isAuth={isAuth}
       Error={Error}
       textError={textError}
       callback={values => callback(values)}

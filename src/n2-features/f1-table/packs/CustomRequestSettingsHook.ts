@@ -11,10 +11,11 @@ export const usePacksRequestSettings = (): any => {
   const [searchedPackNameValue, setSearchedPackNameValue] = useState<string>('');
   const [searchedMinValue, setSearchedMinValue] = useState<number>(0);
   const [searchedMaxValue, setSearchedMaxValue] = useState<number>(max);
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(10);
   const [onlyMe, setOnlyMe] = useState<boolean>(false);
   const [sortFilter, setSortFilter] = useState<string>('0updated');
+  const [userID, setUserID] = useState<string | undefined>(undefined);
 
   return {
     searchedPackNameValue,
@@ -24,6 +25,7 @@ export const usePacksRequestSettings = (): any => {
     pageCount,
     onlyMe,
     sortFilter,
+    userID,
     setSearchedPackNameValue,
     setSearchedMinValue,
     setSearchedMaxValue,
@@ -31,5 +33,6 @@ export const usePacksRequestSettings = (): any => {
     setPageCount,
     setOnlyMe,
     setSortFilter,
+    setUserID,
   };
 };

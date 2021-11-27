@@ -61,6 +61,7 @@ export const CardTableModel = (): ITableModel[] => {
         </div>
       ),
     },
+
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>

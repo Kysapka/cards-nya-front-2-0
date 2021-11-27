@@ -3,8 +3,6 @@ import { ReactElement } from 'react';
 import { Pagination } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import { SetPagePacksAC } from '../PacksReducer';
-
 import { createPages } from './createPage';
 
 type PaginationComponentPropsType = {
@@ -22,7 +20,6 @@ export const PaginationComponent = (
   const pageTotalCount: number = Math.ceil(totalCards / pageCardsTotal);
   const items: Array<number> = [];
   createPages(items, pageTotalCount, activePage);
-  const dispatch = useDispatch();
   const onClickHandler = (page: number): void => {
     props.callback(page);
     // dispatch(SetPagePacksAC(page));

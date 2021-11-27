@@ -22,16 +22,23 @@ export const CardPacksContainer = (): ReactElement => {
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+  // const currentPage = useSelector<AppRootStateType, number>(state => state.cardPacks.page);
   const dispatch = useDispatch();
 
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
+  const [searchCommonRequestPack, setSearchCommonRequestPack] =
+    useState<getPacksCommonRequestParamsType>({});
   const {
     searchedPackNameValue,
     searchedMinValue,
     searchedMaxValue,
-    currentPage,
     pageCount,
     onlyMe,
     sortFilter,
+    userID,
+    currentPage,
     setSearchedPackNameValue,
     setSearchedMinValue,
     setSearchedMaxValue,
@@ -39,11 +46,10 @@ export const CardPacksContainer = (): ReactElement => {
     setPageCount,
     setOnlyMe,
     setSortFilter,
+    setUserID,
   } = usePacksRequestSettings();
 
-  const [searchCommonRequestPack, setSearchCommonRequestPack] =
-    useState<getPacksCommonRequestParamsType>({});
-  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 1000);
+  const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
 
   useEffect(() => {
     setSearchCommonRequestPack({
@@ -53,21 +59,38 @@ export const CardPacksContainer = (): ReactElement => {
       sortPacks: sortFilter,
       page: currentPage,
       pageCount,
+      user_id: userID,
     });
-  }, [searchedPackNameValue, searchedMinValue, searchedMaxValue, pageCount, sortFilter]);
+  }, [
+    searchedPackNameValue,
+    searchedMinValue,
+    searchedMaxValue,
+    pageCount,
+    currentPage,
+    sortFilter,
+  ]);
+
   useEffect(() => {
-    if (currentPage !== 0) {
-      dispatch(getCardPacksTC({ ...searchCommonRequestPack, page: currentPage }));
+    // Убедиться что у нас есть значение (пользователь ввел что-то)
+    console.log(searchCommonRequestPack);
+    if (debouncedSearchTerm) {
+      // Сделать запрос к АПИ
+      if (Object.keys(searchCommonRequestPack).length !== 0) {
+        // setOnlyMe(false);
+        dispatch(getCardPacksTC(debouncedSearchTerm));
+      }
     }
-  }, [currentPage]);
+  }, [debouncedSearchTerm]);
 
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
       setOnlyMe(true);
-      dispatch(getCardPacksTC({ user_id: userId }));
+      setUserID(userId);
+      dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: userId }));
     } else {
       setOnlyMe(false);
-      dispatch(getCardPacksTC({ ...searchCommonRequestPack }));
+      setUserID(undefined);
+      dispatch(getCardPacksTC({ ...searchCommonRequestPack, user_id: undefined }));
     }
   };
 
@@ -78,16 +101,6 @@ export const CardPacksContainer = (): ReactElement => {
   const pageCountHandler = (value: string): void => {
     setPageCount(+value);
   };
-  useEffect(() => {
-    // Убедиться что у нас есть значение (пользователь ввел что-то)
-    if (debouncedSearchTerm) {
-      // Сделать запрос к АПИ
-      if (Object.keys(searchCommonRequestPack).length !== 0) {
-        setOnlyMe(false);
-        dispatch(getCardPacksTC(debouncedSearchTerm));
-      }
-    }
-  }, [debouncedSearchTerm]);
 
   const changeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.name === 'max') {
@@ -102,9 +115,7 @@ export const CardPacksContainer = (): ReactElement => {
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchedPackNameValue(event.currentTarget.value);
   };
-  if (!isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
+
   return (
     <div className="col-9 align-content-center m-lg-auto">
       <Form.Group
@@ -162,35 +173,24 @@ export const CardPacksContainer = (): ReactElement => {
               className="form-check-label text-capitalize bg-gradient bg-info"
               htmlFor="searchOnlyMePacks"
             >
-              Select count of packs on page
+              Sort packs
             </label>
           </div>
 
           <div>
             <select
+              value={pageCount}
               onChange={e => pageCountHandler(e.currentTarget.value)}
               style={{ width: '240px' }}
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
             >
-              <option defaultChecked={pageCount === 5} value="5">
-                5
-              </option>
-              <option defaultChecked={pageCount === 10} value="10">
-                10
-              </option>
-              <option defaultChecked={pageCount === 25} value="25">
-                25
-              </option>
-              <option defaultChecked={pageCount === 50} value="50">
-                50
-              </option>
-              <option defaultChecked={pageCount === 75} value="75">
-                75
-              </option>
-              <option defaultChecked={pageCount === 100} value="100">
-                100
-              </option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
             </select>
             <label
               className="form-check-label text-capitalize bg-gradient bg-info"
@@ -214,7 +214,7 @@ export const CardPacksContainer = (): ReactElement => {
         loading={isLoading}
       />
       <PaginationComponent
-        pageCardsTotal={10}
+        pageCardsTotal={pageCount}
         totalCards={data.cardPacksTotalCount}
         activePage={data.page}
         disabled={data.disabled}

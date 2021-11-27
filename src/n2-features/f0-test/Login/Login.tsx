@@ -3,10 +3,13 @@ import React, { ReactElement } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { FormCheck } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/FormCheckInput';
+import { useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { PROFILE_ROUTE, RECOVERY_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
+import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { ModalError } from '../modalWindow/ModalError';
 import { TextField } from '../Registration/TextField';
 
@@ -14,14 +17,21 @@ import { SignupSchemaLoginType } from './LoginContainer';
 
 type LoginPropsType = {
   Error: boolean;
-  isAuth: boolean;
+  // isAuth: boolean;
   textError: string;
   SignupSchema: SignupSchemaLoginType;
   callback: (values: { email: string; password: string; rememberMe: boolean }) => void;
 };
 
 export const Login = (props: LoginPropsType): ReactElement => {
-  if (props.isAuth) {
+  const isAppInitializated = useSelector<AppRootStateType, boolean>(
+    state => state.app.isAppInitializated,
+  );
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+  if (!isAppInitializated) {
+    return <Loader />;
+  }
+  if (isAuth) {
     return <Navigate to={PROFILE_ROUTE} />;
   }
   return (
