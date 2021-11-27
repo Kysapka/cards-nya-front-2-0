@@ -15,6 +15,31 @@ type cardsPackType = {
   deckCover: string;
   private: boolean;
   type: string;
+  _id?: string;
+};
+export type UpdatedCardsPack = {
+  cardsCount: number;
+  created: string;
+  deckCover: string;
+  grade: number;
+  name: string;
+  path: string;
+  private: false;
+  rating: number;
+  shots: number;
+  type: string;
+  updated: string;
+  __v: number;
+  _id: string;
+};
+type DataUpdatePackName = {
+  token: string;
+  tokenDeathTime: string;
+  updatedCardsPack: UpdatedCardsPack;
+};
+type CardsUpdateNameType = {
+  _id: string;
+  name: string;
 };
 
 export const cardPacksAPI = {
@@ -53,4 +78,11 @@ export const cardPacksAPI = {
     axiosInst.delete('cards/pack', {
       params: { id },
     }),
+  changePackName: (_id: string, name: string) =>
+    axiosInst.put<CardsUpdateNameType, ApiResponseTypes<DataUpdatePackName>>(
+      'cards/pack',
+      {
+        cardsPack: { _id, name },
+      },
+    ),
 };
