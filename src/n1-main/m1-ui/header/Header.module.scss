@@ -81,3 +81,17 @@
 /*.dropdown:hover .DropButton {*/
 /*  transition: 1s;*/
 /*}*/
+
+.dropdown {
+    position: relative;
+    transition: 1s;
+    display: inline-block;
+    z-index: 12;
+
+    &:hover {
+        .DropdownContent {
+            left: 62px;
+            transition: 0.5s;
+        }
+    }
+}

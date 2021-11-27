@@ -44,6 +44,9 @@ export const Profile = (): React.ReactElement => {
       }
     }
   };
+  const handlerChangeNickName = (name: string): void => {
+    dispatch(changeUserNameTC(name));
+  };
   return (
     <div className={style.profileContainer}>
       <div className={style.avatarContainer}>
@@ -64,7 +67,7 @@ export const Profile = (): React.ReactElement => {
         <div className={style.descriptionBox}>
           <h2 className={style.titleName}>
             {' '}
-            <EditableSpan name={userName!} thunk={changeUserNameTC} />
+            <EditableSpan name={userName!} thunk={handlerChangeNickName} />
           </h2>
           <p className={style.description}>Date of Create:{profileState.created}</p>
           <NavLink to={NEW_PASS_ROUTE}>Change Password</NavLink>

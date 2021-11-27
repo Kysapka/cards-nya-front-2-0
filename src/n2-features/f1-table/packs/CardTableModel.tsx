@@ -2,7 +2,9 @@ import React, { ChangeEvent, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { AddPackThunk, DeletePackThunk } from './PacksReducer';
+import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
+
+import { AddPackThunk, ChangePackNameThunk, DeletePackThunk } from './PacksReducer';
 import { ITableModel } from './TableCardPacks';
 import { CardInPackType } from './types';
 
@@ -15,6 +17,9 @@ export const CardTableModel = (): ITableModel[] => {
   const onClickHandler = (): void => {
     dispatch(AddPackThunk(searchValue.current));
   };
+  const onClickHandlerPackNameChange = (id: string, packName: string): void => {
+    dispatch(ChangePackNameThunk(id, packName));
+  };
   return [
     {
       title: (i: number) => (
@@ -25,7 +30,10 @@ export const CardTableModel = (): ITableModel[] => {
 
       render: (d: CardInPackType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          {d.name}
+          <EditableSpan
+            name={d.name}
+            thunk={(title: string) => onClickHandlerPackNameChange(d._id, title)}
+          />
         </div>
       ),
     },
@@ -82,9 +90,6 @@ export const CardTableModel = (): ITableModel[] => {
             }}
           >
             Delete
-          </button>
-          <button className="btn-sm" style={{ marginLeft: '10px' }}>
-            Update
           </button>
         </div>
       ),

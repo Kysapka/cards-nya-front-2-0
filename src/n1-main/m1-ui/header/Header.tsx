@@ -8,6 +8,7 @@ import { initAppStateType } from '../../m2-bll/app-reducer';
 import { publicRoutes } from '../routes';
 import {
   BASE_ROUTE,
+  CARD_PACKS_ROUTE,
   LOGIN_ROUTE,
   NEW_PASS_ROUTE,
   PROFILE_ROUTE,
@@ -16,12 +17,13 @@ import {
   REG_ROUTE,
 } from '../routes/consts';
 
-import style from './Header.module.css';
+import style from './Header.module.scss';
 
 export const Header = (): React.ReactElement => {
   const [flag, setFlag] = useState<boolean>(false);
   const isAuth = useSelector((state: AppRootStateType) => state.app.isAuth);
 
+  const packLogic = isAuth ? {} : { display: 'none' };
   const variate = publicRoutes.map(({ path }) =>
     isAuth && path === LOGIN_ROUTE ? (
       ''
@@ -46,6 +48,13 @@ export const Header = (): React.ReactElement => {
           </NavLink>
           <NavLink className={style.Link} to={isAuth ? NEW_PASS_ROUTE : REG_ROUTE}>
             {isAuth ? 'Change Password' : 'Registration'}
+          </NavLink>
+          <NavLink
+            style={packLogic}
+            className={style.Link}
+            to={isAuth ? CARD_PACKS_ROUTE : ''}
+          >
+            Cards Pack
           </NavLink>
         </div>
       </div>

@@ -55,6 +55,15 @@ export const CardPacksReducer = (
         cardPacks: state.cardPacks.filter(element => element._id !== action.id),
       };
     }
+    case 'CHANGE-PACK-NAME': {
+      console.log(action.name);
+      return {
+        ...state,
+        cardPacks: state.cardPacks.map(el =>
+          el._id === action.id ? { ...el, name: action.name } : el,
+        ),
+      };
+    }
     default:
       return state;
   }
@@ -68,6 +77,8 @@ export const SetDisabledPacksAC = (disabled: boolean) =>
   ({ type: 'SET-DISABLED', payload: { disabled } } as const);
 
 export const DeletPackAC = (id: string) => ({ type: 'DELETE-PACK', id } as const);
+export const ChangePackNameAC = (id: string, name: string) =>
+  ({ type: 'CHANGE-PACK-NAME', id, name } as const);
 export const AddPackAC = (newCardsPack: CardInPackType) =>
   ({ type: 'ADD-PACK', newCardsPack } as const);
 
@@ -76,6 +87,7 @@ export type SetPagePacksACType = ReturnType<typeof SetPagePacksAC>;
 export type SetDisabledPacksACType = ReturnType<typeof SetDisabledPacksAC>;
 export type DeletPackACType = ReturnType<typeof DeletPackAC>;
 export type AddPackACType = ReturnType<typeof AddPackAC>;
+export type ChangePackNameType = ReturnType<typeof ChangePackNameAC>;
 
 export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(SetDisabledPacksAC(true));
@@ -83,6 +95,24 @@ export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
     .deleteCardsPacks(id)
     .then(resp => {
       dispatch(DeletPackAC(resp.data.deletedCardsPack._id));
+      dispatch(SetDisabledPacksAC(false));
+    })
+    .catch(err => {
+      if (axios.isAxiosError(err) && err.response) {
+        console.log(err.response.data.error);
+        dispatch(SetDisabledPacksAC(false));
+      }
+    });
+};
+
+export const ChangePackNameThunk = (id: string, name: string) => (dispatch: Dispatch) => {
+  dispatch(SetDisabledPacksAC(true));
+  cardPacksAPI
+    .changePackName(id, name)
+    .then(resp => {
+      dispatch(
+        ChangePackNameAC(resp.data.updatedCardsPack._id, resp.data.updatedCardsPack.name),
+      );
       dispatch(SetDisabledPacksAC(false));
     })
     .catch(err => {
@@ -115,4 +145,5 @@ type ActionTypes =
   | SetPagePacksACType
   | SetDisabledPacksACType
   | DeletPackACType
-  | AddPackACType;
+  | AddPackACType
+  | ChangePackNameType;
