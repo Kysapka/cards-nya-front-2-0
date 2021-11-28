@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
+import { ChangeModalAgreeStatusAC } from '../../f0-test/modalWindow/ModalConfirm/ModuleConfirmReducer';
+
 import { cardPacksAPI } from './CardsPackAPI';
 import { SET_CARD_PACKS } from './consts';
 import { CardInPackType, CardPacksType } from './types';

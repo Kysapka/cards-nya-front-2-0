@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Form, Formik } from 'formik';
-import rocketImg from 'n1-main/m1-ui/common/assets/Rocket.jpg';
 import { Navigate } from 'react-router-dom';
 
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
 
+import girlImg from './girl.png';
 import { SignupSchemaRegistrationType } from './RegistrationContainer';
 import { TextField } from './TextField';
 
@@ -70,7 +70,12 @@ export const Registration = (props: RegistrationPropsType): React.ReactElement =
           </Formik>
         </div>
         <div className="col-md-7 my-auto">
-          <img className="img-fluid w-75" src={rocketImg} alt="rocket" />
+          <img
+            style={{ height: '835px' }}
+            className="img-fluid w-75 "
+            src={girlImg}
+            alt="rocket"
+          />
         </div>
       </div>
     </div>

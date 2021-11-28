@@ -36,33 +36,24 @@ export const Header = (): React.ReactElement => {
   );
 
   return (
-    <div style={{ display: 'inline-flex', flexDirection: 'column' }}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={() => setFlag(!flag)} className={style.dropdown}>
-        <div className={flag ? style.DropButton : style.DropButtonOn}>
-          <div className={flag ? style.middleLine : style.middleLineOn} />
-        </div>
-        <div className={flag ? style.DropdownContent : style.DropdownContentOn}>
-          <NavLink className={style.Link} to={isAuth ? LOGIN_ROUTE : PROFILE_ROUTE}>
-            {isAuth ? 'Profile' : 'Login'}
-          </NavLink>
-          <NavLink className={style.Link} to={isAuth ? NEW_PASS_ROUTE : REG_ROUTE}>
-            {isAuth ? 'Change Password' : 'Registration'}
-          </NavLink>
-          <NavLink
-            style={packLogic}
-            className={style.Link}
-            to={isAuth ? CARD_PACKS_ROUTE : ''}
-          >
-            Cards Pack
-          </NavLink>
-        </div>
-      </div>
-      <div className={style.dropdown}>
+    <div>
+      <div className={style.mainNav}>
         <div className={style.DropButton}>
           <div className={style.middleLine} />
-        </div>
-        <div className={style.DropdownContent}>{variate}</div>
+        </div>{' '}
+        <NavLink className={style.mainNavLink} to={isAuth ? LOGIN_ROUTE : PROFILE_ROUTE}>
+          {isAuth ? 'Profile' : 'Login'}
+        </NavLink>
+        <NavLink
+          style={packLogic}
+          className={style.mainNavLink}
+          to={isAuth ? CARD_PACKS_ROUTE : ''}
+        >
+          Cards Pack
+        </NavLink>
+        <NavLink className={style.mainNavLink} to={isAuth ? NEW_PASS_ROUTE : REG_ROUTE}>
+          {isAuth ? 'Change Password' : 'Registration'}
+        </NavLink>
       </div>
     </div>
   );

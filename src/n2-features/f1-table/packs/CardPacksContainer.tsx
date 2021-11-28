@@ -19,6 +19,7 @@ export const CardPacksContainer = (): ReactElement => {
   const userId = useSelector<AppRootStateType, string | undefined>(
     state => state.profile._id,
   );
+  const [flag, setFlag] = useState<boolean>(false);
   const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);

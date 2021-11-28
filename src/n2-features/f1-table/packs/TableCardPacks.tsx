@@ -1,6 +1,7 @@
-import React, { CSSProperties, ReactElement, ReactNode } from 'react';
+import React, { CSSProperties, ReactElement, ReactNode, useState } from 'react';
 
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
+import { ModalConfirm } from '../../f0-test/modalWindow/ModalConfirm/ModalConfirm';
 
 export interface ITableModel {
   title: (index: number) => ReactNode;
@@ -46,7 +47,7 @@ export const TableCardPacks: React.FC<ITableProps> = ({
         ...tableStyle,
       }}
     >
-      <h2>CADR PACKS</h2>
+      <h2>CARD PACKS</h2>
       {/* {loading */}
       {/* ? <div style={{color: 'orange'}}>loading...</div> */}
       {/*: error */}
@@ -63,6 +64,7 @@ export const TableCardPacks: React.FC<ITableProps> = ({
           justifyContent: 'center',
           margin: '5px',
           padding: '10px',
+          background: 'white',
           ...headerStyle,
         }}
       >
@@ -78,6 +80,7 @@ export const TableCardPacks: React.FC<ITableProps> = ({
             width: '100%',
             margin: '20px',
             padding: '10px',
+            background: 'white',
             ...rowsStyle,
           }}
         >

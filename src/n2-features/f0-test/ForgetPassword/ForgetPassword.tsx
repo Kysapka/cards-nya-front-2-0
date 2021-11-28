@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { Navigate } from 'react-router-dom';
 
-import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
+import rocketImg from '../../../n1-main/m1-ui/common/anime_girl_forgot_password.png';
 import { PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { ModalInfo } from '../modalWindow/ModaInfo';
 import { ModalError } from '../modalWindow/ModalError';
