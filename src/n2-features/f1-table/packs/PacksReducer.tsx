@@ -26,11 +26,12 @@ const initCardPacksState = {
   ],
   token: '',
   cardPacksTotalCount: 0,
-  maxCardsCount: 0,
-  minCardsCount: 9,
+  maxCardsCount: 12,
+  minCardsCount: 0,
   page: 1,
   pageCount: 10,
   disabled: false,
+  filter: '',
 };
 
 export const CardPacksReducer = (
@@ -40,6 +41,7 @@ export const CardPacksReducer = (
   switch (action.type) {
     case SET_CARD_PACKS:
     case 'SET-PAGE':
+    case 'SET-FILTER':
     case 'SET-DISABLED': {
       return { ...state, ...action.payload };
     }
@@ -74,6 +76,8 @@ export const SetPagePacksAC = (page: number) =>
   ({ type: 'SET-PAGE', payload: { page } } as const);
 export const SetDisabledPacksAC = (disabled: boolean) =>
   ({ type: 'SET-DISABLED', payload: { disabled } } as const);
+export const SetFilterPacksAC = (filter: string) =>
+  ({ type: 'SET-FILTER', payload: { filter } } as const);
 
 export const DeletPackAC = (id: string) => ({ type: 'DELETE-PACK', id } as const);
 export const ChangePackNameAC = (id: string, name: string) =>
@@ -87,6 +91,7 @@ export type SetDisabledPacksACType = ReturnType<typeof SetDisabledPacksAC>;
 export type DeletPackACType = ReturnType<typeof DeletPackAC>;
 export type AddPackACType = ReturnType<typeof AddPackAC>;
 export type ChangePackNameType = ReturnType<typeof ChangePackNameAC>;
+export type SetFilterPacksACType = ReturnType<typeof SetFilterPacksAC>;
 
 export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(SetDisabledPacksAC(true));
@@ -141,4 +146,5 @@ type ActionTypes =
   | SetDisabledPacksACType
   | DeletPackACType
   | AddPackACType
+  | SetFilterPacksACType
   | ChangePackNameType;

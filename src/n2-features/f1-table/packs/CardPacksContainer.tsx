@@ -10,7 +10,7 @@ import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
 
 import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
-import { SetCardPacksAC } from './PacksReducer';
+import { SetCardPacksAC, SetFilterPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
 import { useRangeDebounce } from './RangeDebaunceHook';
 import { useSearchDebounce } from './SearchDebaunceHook';
@@ -27,12 +27,12 @@ export const CardPacksContainer = (): ReactElement => {
     minCardsCount,
     page,
     disabled,
+    filter,
   } = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
   const { isLoading, isAuth } = useSelector<AppRootStateType, initAppStateType>(
     state => state.app,
   );
   const dispatch = useDispatch();
-
   const [searchedMinValue, setSearchedMinValue] = useState<number>(minCardsCount!);
   const [searchedMaxValue, setSearchedMaxValue] = useState<number>(maxCardsCount!);
   const [search, setSearch] = useState<string>('');
@@ -41,41 +41,6 @@ export const CardPacksContainer = (): ReactElement => {
   if (!isAuth) {
     return <Navigate to={LOGIN_ROUTE} />;
   }
-
-  // const [searchCommonRequestPack, setSearchCommonRequestPack] =
-  //   useState<getPacksCommonRequestParamsType>({});
-  // const {
-  //   searchedPackNameValue,
-  //   searchedMinValue,
-  //   searchedMaxValue,
-  //   pageCount,
-  //   onlyMe,
-  //   sortFilter,
-  //   userID,
-  //   currentPage,
-  //   setSearchedPackNameValue,
-  //   setSearchedMinValue,
-  //   setSearchedMaxValue,
-  //   setCurrentPage,
-  //   setPageCount,
-  //   setOnlyMe,
-  //   setSortFilter,
-  //   setUserID,
-  // } = usePacksRequestSettings();
-
-  // const debouncedSearchTerm = useDebounce(searchCommonRequestPack, 2000);
-
-  // useEffect(() => {
-  //   // Убедиться что у нас есть значение (пользователь ввел что-то)
-  //   console.log(searchCommonRequestPack);
-  //   if (debouncedSearchTerm) {
-  //     // Сделать запрос к АПИ
-  //     if (Object.keys(searchCommonRequestPack).length !== 0) {
-  //       // setOnlyMe(false);
-  //       dispatch(getCardPacksTC(debouncedSearchTerm));
-  //     }
-  //   }
-  // }, [debouncedSearchTerm]);
 
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
@@ -89,7 +54,7 @@ export const CardPacksContainer = (): ReactElement => {
     dispatch(SetCardPacksAC({ page: value }));
   };
   const setSortFilterHandler = (value: string): void => {
-    // setSortFilter(value);
+    dispatch(SetFilterPacksAC('0cardsCount'));
   };
 
   const pageCountHandler = (value: number): void => {
@@ -126,6 +91,7 @@ export const CardPacksContainer = (): ReactElement => {
         page,
         min: debauncedMinRangeValue,
         max: debauncedMaxRangeValue,
+        sortPacks: filter,
       }),
     );
   }, [
@@ -135,6 +101,7 @@ export const CardPacksContainer = (): ReactElement => {
     debauncedMaxRangeValue,
     debaunceSearch,
     userID,
+    filter,
   ]);
 
   return (
@@ -175,25 +142,6 @@ export const CardPacksContainer = (): ReactElement => {
           </div>
           <div>
             <select
-              onChange={e => setSortFilterHandler(e.currentTarget.value)}
-              style={{ width: '240px' }}
-              className="form-select form-select-sm"
-              aria-label=".form-select-sm example"
-            >
-              <option value="0packName">sort by name</option>
-              <option value="0cardsCount">sort by cards count</option>
-              <option value="0updated">sort by updated data</option>
-            </select>
-            <label
-              className="form-check-label text-capitalize bg-gradient bg-info"
-              htmlFor="searchOnlyMePacks"
-            >
-              Sort packs
-            </label>
-          </div>
-
-          <div>
-            <select
               value={pageCount}
               onChange={e => pageCountHandler(+e.currentTarget.value)}
               style={{ width: '240px' }}
@@ -226,7 +174,7 @@ export const CardPacksContainer = (): ReactElement => {
         model={CardTableModel()}
         data={cardPacks}
         disabled={disabled!}
-        loading={isLoading}
+        // loading={isLoading}
       />
       <PaginationComponent
         pageCardsTotal={pageCount!}

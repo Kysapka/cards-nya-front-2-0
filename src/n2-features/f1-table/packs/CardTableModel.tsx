@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
 
 import { AddPackThunk, ChangePackNameThunk, DeletePackThunk } from './PacksReducer';
+import { SortButtons } from './SortPacks';
 import { ITableModel } from './TableCardPacks';
 import { CardInPackType } from './types';
 
@@ -23,8 +24,17 @@ export const CardTableModel = (): ITableModel[] => {
   return [
     {
       title: (i: number) => (
-        <div key={i} style={{ width: '60%' }}>
+        <div
+          key={i}
+          style={{
+            width: '75%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <b>Card Packs</b>
+          <SortButtons sortTypeUp="sortByNameUp" sortTypeDown="sortByNameDown" />
         </div>
       ),
 
@@ -39,8 +49,20 @@ export const CardTableModel = (): ITableModel[] => {
     },
     {
       title: (i: number) => (
-        <div key={i} style={{ width: '60%' }}>
+        <div
+          key={i}
+          style={{
+            width: '75%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <b>Cards Count</b>
+          <SortButtons
+            sortTypeUp="sortByCardsCountUp"
+            sortTypeDown="sortByCardsCountDown"
+          />
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
@@ -51,8 +73,17 @@ export const CardTableModel = (): ITableModel[] => {
     },
     {
       title: (i: number) => (
-        <div key={i} style={{ width: '60%' }}>
+        <div
+          key={i}
+          style={{
+            width: '75%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <b>Update Card</b>
+          <SortButtons sortTypeUp="sortByUpdatedUp" sortTypeDown="sortByUpdatedDown" />
         </div>
       ),
       render: (d: CardInPackType, i: number) => (

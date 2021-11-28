@@ -25,4 +25,5 @@ export type CardPacksType = {
   pageCount?: number;
   token?: string;
   disabled?: boolean;
+  filter?: string;
 };
