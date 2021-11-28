@@ -1,67 +1,73 @@
-import React, { ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 
-import { CARDS_ROUTE } from 'n1-main/m1-ui/routes/consts';
-import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { GetCardsThunk } from '../cards/CardsReducer';
+import { AppRootStateType } from '../../../n1-main/m2-bll';
 
-import { AddPackThunk, DeletePackThunk } from './PacksReducer';
-import { ITableModel } from './TableCardPacks';
-import { CardInPackType } from './types';
+import { AddCardsThunk, CardType } from './CardsReducer';
+import { ITableModel } from './TableCardCards';
 
-export const CardTableModel = (): ITableModel[] => {
+export const CardsTableModelCards = (): ITableModel[] => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const packId = useSelector<AppRootStateType, string | null>(
+    state => state.cards._idPackCards,
+  );
   const searchValue = useRef<string>();
   const ChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     searchValue.current = event.currentTarget.value;
   };
   const onClickHandler = (): void => {
-    dispatch(AddPackThunk(searchValue.current));
+    if (packId) {
+      dispatch(AddCardsThunk(packId));
+    }
   };
-  const onClickHandlerCards = (d: CardInPackType): void => {
-    dispatch(GetCardsThunk(d._id));
-    navigate(CARDS_ROUTE);
-  };
-
   return [
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <b>Card Packs</b>
+          <b>Cards question</b>
         </div>
       ),
 
-      render: (d: CardInPackType, i: number) => (
+      render: (d: CardType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <button key={d._id} onClick={() => onClickHandlerCards(d)}>
-            {d.name}
-          </button>
+          {d.question}
         </div>
       ),
     },
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <b>Cards Count</b>
+          <b>Cards Anwanser</b>
         </div>
       ),
-      render: (d: CardInPackType, i: number) => (
+      render: (d: CardType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          {d.cardsCount}
+          {d.answer}
         </div>
       ),
     },
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <b>Update Card</b>
+          <b>Update Cards</b>
         </div>
       ),
-      render: (d: CardInPackType, i: number) => (
+      render: (d: CardType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
           {d.updated}
+        </div>
+      ),
+    },
+    {
+      title: (i: number) => (
+        <div key={i} style={{ width: '60%' }}>
+          <b>Grade</b>
+        </div>
+      ),
+      render: (d: CardType, i: number) => (
+        <div key={i} style={{ width: '60%' }}>
+          {d.grade}
         </div>
       ),
     },
@@ -75,24 +81,18 @@ export const CardTableModel = (): ITableModel[] => {
             type="text"
             placeholder="name"
           />
-          {/* <input onChange={ChangeHandler} /> */}
           <button
             className="btn-sm btn btn-primary"
             style={{ marginLeft: '20px', borderRadius: '5%' }}
             onClick={onClickHandler}
           >
-            Add new card
+            Add new cards
           </button>
         </div>
       ),
-      render: (d: CardInPackType, i: number) => (
+      render: (d: CardType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <button
-            className="btn-sm"
-            onClick={() => {
-              dispatch(DeletePackThunk(d._id));
-            }}
-          >
+          <button className="btn-sm" onClick={() => {}}>
             Delete
           </button>
           <button className="btn-sm" style={{ marginLeft: '10px' }}>
