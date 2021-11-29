@@ -36,6 +36,7 @@ export const initCardsState: initCardsStateType = {
   token: null,
   tokenDeathTime: null,
   _idPackCards: null,
+  add: false,
 };
 export type initCardsStateType = {
   cards: Array<CardType>;
@@ -48,6 +49,7 @@ export type initCardsStateType = {
   token: string | null;
   tokenDeathTime: number | null;
   _idPackCards: string | null;
+  add?: boolean;
 };
 
 export type CardType = {
@@ -77,25 +79,39 @@ export const CardsReducer = (
     case 'SET-CARDS': {
       return { ...state, ...action.data };
     }
+    case 'SHOW-CARD-MODAL': {
+      return { ...state, ...action.payload };
+    }
+    case 'ADD-CARDS': {
+      return { ...state, cards: [...state.cards, action.newCard] };
+    }
     default:
       return state;
   }
 };
 
+export const ShowCardModalAC = (add: boolean) =>
+  ({
+    type: 'SHOW-CARD-MODAL',
+    payload: { add },
+  } as const);
 const SetCardsAC = (data: initCardsStateType) =>
   ({
     type: 'SET-CARDS',
     data,
   } as const);
 
-type SetCardsACType = ReturnType<typeof SetCardsAC>;
+const AddCardsAC = (newCard: CardType) =>
+  ({
+    type: 'ADD-CARDS',
+    newCard,
+  } as const);
 
 export const GetCardsThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(preloaderToggle(true));
   cardsAPI
     .getCards(id)
     .then(resp => {
-      console.log(resp);
       const data = { ...resp.data, _idPackCards: id };
       dispatch(SetCardsAC(data));
     })
@@ -109,26 +125,31 @@ export const GetCardsThunk = (id: string) => (dispatch: Dispatch) => {
     });
 };
 
-export const AddCardsThunk = (id: string) => (dispatch: Dispatch) => {
-  debugger;
-  dispatch(preloaderToggle(true));
-  const card = {
-    cardsPack_id: id,
+export const AddCardsThunk =
+  (id: string, answer: string, question: string) => (dispatch: Dispatch) => {
+    dispatch(preloaderToggle(true));
+    const card = {
+      cardsPack_id: id,
+      answer,
+      question,
+    };
+    cardsAPI
+      .addCards(card)
+      .then(resp => {
+        dispatch(AddCardsAC(resp.data.newCard));
+      })
+      .catch(err => {
+        if (axios.isAxiosError(err) && err.response) {
+          console.log(err.response.data);
+        }
+      })
+      .finally(() => {
+        dispatch(preloaderToggle(false));
+      });
   };
-  debugger;
-  cardsAPI
-    .addCards(card)
-    .then(resp => {
-      console.log(resp);
-    })
-    .catch(err => {
-      if (axios.isAxiosError(err) && err.response) {
-        console.log(err.response.data);
-      }
-    })
-    .finally(() => {
-      dispatch(preloaderToggle(false));
-    });
-};
 
-type ActionTypes = SetCardsACType;
+export type AddShowCardModalACType = ReturnType<typeof ShowCardModalAC>;
+type SetCardsACType = ReturnType<typeof SetCardsAC>;
+type AddCardsACType = ReturnType<typeof AddCardsAC>;
+
+type ActionTypes = SetCardsACType | AddShowCardModalACType | AddCardsACType;

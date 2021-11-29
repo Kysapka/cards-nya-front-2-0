@@ -9,7 +9,14 @@ export const cardsAPI = {
     axiosInst.get<any, AxiosResponse<ResponseCardsType>>('cards/card', {
       params: { cardsPack_id: id },
     }),
-  addCards: (card: AddCard) => axiosInst.post('cards/card', { card }),
+  addCards: (card: AddCard) =>
+    axiosInst.post<AddCard, AxiosResponse<AddCardResponseType>>('cards/card', { card }),
+};
+
+export type AddCardResponseType = {
+  newCard: CardType;
+  token: string;
+  tokenDeathTime: number;
 };
 
 export type ResponseCardsType = {
