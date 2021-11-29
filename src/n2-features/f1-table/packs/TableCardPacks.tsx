@@ -12,6 +12,7 @@ interface ITableProps {
   // error: string;
   //
   // logoutCallback: () => void;
+  //
   model: ITableModel[];
   data: any;
   headerStyle?: CSSProperties;
