@@ -18,7 +18,15 @@ import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
+  const userId = useSelector<AppRootStateType, string | undefined>(
+    state => state.profile._id,
+  );
+  const [flag, setFlag] = useState<boolean>(false);
+  const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+  const dispatch = useDispatch();
+
   const {
     cardPacks,
     pageCount,
@@ -105,7 +113,7 @@ export const CardPacksContainer = (): ReactElement => {
   ]);
 
   return (
-    <div className="col-6 align-content-center m-lg-auto">
+    <div className="col-9 align-content-center m-lg-auto">
       <Form.Group
         className="mb-3"
         style={{ width: '400px', marginTop: '40px' }}

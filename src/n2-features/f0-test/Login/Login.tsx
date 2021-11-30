@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
+import { FormCheck } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/FormCheckInput';
 import { useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
+import rocketImg from '../../../n1-main/m1-ui/common/anime_girl_login2.png';
 import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { PROFILE_ROUTE, RECOVERY_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
@@ -16,7 +18,7 @@ import { SignupSchemaLoginType } from './LoginContainer';
 
 type LoginPropsType = {
   Error: boolean;
-  // isAuth: boolean;
+  isAuth: boolean;
   textError: string;
   SignupSchema: SignupSchemaLoginType;
   callback: (values: { email: string; password: string; rememberMe: boolean }) => void;
@@ -93,8 +95,13 @@ export const Login = (props: LoginPropsType): ReactElement => {
             )}
           </Formik>
         </div>
-        <div className="col-md-7 my-auto">
-          <img className="img-fluid w-75" src={rocketImg} alt="rocket" />
+        <div style={{ height: '92.1vh' }} className="col-md-7 my-auto">
+          <img
+            style={{ height: '100%' }}
+            className="img-fluid w-75"
+            src={rocketImg}
+            alt="rocket"
+          />
         </div>
       </div>
     </div>

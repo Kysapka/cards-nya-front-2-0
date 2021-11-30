@@ -7,7 +7,7 @@
 }
 
 .DropButton {
-    display: inline-flex;
+    display: none;
     position: relative;
     cursor: pointer;
     line-height: 1;
@@ -20,7 +20,7 @@
     height: 50px;
     z-index: 1;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     border-radius: 5px;
 }
 
@@ -60,16 +60,14 @@
 }
 
 .Link {
-    color: yellow;
+    display: block;
+    color: pink;
+    font-weight: bold;
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
-    transition: 1s;
 }
 
 .Link:hover {
-    transition: 1s;
-    background-color: grey;
     /*border-radius: 30px;*/
 }
 
@@ -78,9 +76,6 @@
     transition: 0.5s;
 }
 
-/*.dropdown:hover .DropButton {*/
-/*  transition: 1s;*/
-/*}*/
 
 .dropdown {
     position: relative;
@@ -93,5 +88,35 @@
             left: 62px;
             transition: 0.5s;
         }
+    }
+}
+.mainNav{
+    display: flex;
+    background-color: #a4e5f3;
+    border: 2px solid blue;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    .mainNavLink{
+        display: block;
+        color: black;
+        font-weight: bold;
+        padding: 12px 16px;
+        text-decoration: none;
+        transition: 1s;
+        &:hover{
+            color: red;
+            transition: 0.5s;
+        }
+        &:active{
+           opacity: 50%;
+            transition: 0s;
+        }
+    }
+}
+@media screen and (max-width: 820px) {
+    .DropButton {
+        display: flex;
     }
 }
