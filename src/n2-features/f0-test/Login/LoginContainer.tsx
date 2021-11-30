@@ -23,6 +23,7 @@ export type SignupSchemaLoginType = typeof SignupSchema;
 
 export const LoginContainer = (): ReactElement => {
   const dispatch = useDispatch();
+  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
 
   const callback = (values: {
     email: string;
@@ -36,7 +37,7 @@ export const LoginContainer = (): ReactElement => {
   );
   return (
     <Login
-      // isAuth={isAuth}
+      isAuth={isAuth}
       Error={Error}
       textError={textError}
       callback={values => callback(values)}

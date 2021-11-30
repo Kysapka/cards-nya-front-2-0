@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import rocketImg from '../../../n1-main/m1-ui/common/anime_girl_login2.png';
-import rocketImg from '../../../n1-main/m1-ui/common/assets/Rocket.jpg';
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { PROFILE_ROUTE, RECOVERY_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
@@ -28,11 +27,11 @@ export const Login = (props: LoginPropsType): ReactElement => {
   const isAppInitializated = useSelector<AppRootStateType, boolean>(
     state => state.app.isAppInitializated,
   );
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
+
   if (!isAppInitializated) {
     return <Loader />;
   }
-  if (isAuth) {
+  if (props.isAuth) {
     return <Navigate to={PROFILE_ROUTE} />;
   }
   return (

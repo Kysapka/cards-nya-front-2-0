@@ -1,7 +1,6 @@
-import React, { CSSProperties, ReactElement, ReactNode, useState } from 'react';
+import React, { CSSProperties, ReactElement, ReactNode } from 'react';
 
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
-import { ModalConfirm } from '../../f0-test/modalWindow/ModalConfirm/ModalConfirm';
 
 export interface ITableModel {
   title: (index: number) => ReactNode;

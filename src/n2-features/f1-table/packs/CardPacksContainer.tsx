@@ -10,7 +10,7 @@ import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
 
 import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
-import { SetCardPacksAC, SetFilterPacksAC } from './PacksReducer';
+import { SetCardPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
 import { useRangeDebounce } from './RangeDebaunceHook';
 import { useSearchDebounce } from './SearchDebaunceHook';
@@ -18,15 +18,7 @@ import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  const userId = useSelector<AppRootStateType, string | undefined>(
-    state => state.profile._id,
-  );
-  const [flag, setFlag] = useState<boolean>(false);
-  const data = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
-  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  const dispatch = useDispatch();
-
+  const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
   const {
     cardPacks,
     pageCount,
@@ -37,6 +29,7 @@ export const CardPacksContainer = (): ReactElement => {
     disabled,
     filter,
   } = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
+
   const { isLoading, isAuth } = useSelector<AppRootStateType, initAppStateType>(
     state => state.app,
   );
@@ -61,13 +54,9 @@ export const CardPacksContainer = (): ReactElement => {
   const setCurrentPageHandler = (value: number): void => {
     dispatch(SetCardPacksAC({ page: value }));
   };
-  const setSortFilterHandler = (value: string): void => {
-    dispatch(SetFilterPacksAC('0cardsCount'));
-  };
 
   const pageCountHandler = (value: number): void => {
     dispatch(SetCardPacksAC({ pageCount: value }));
-    // setPageCount(+value);
   };
 
   const changeRangeValue = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -182,7 +171,7 @@ export const CardPacksContainer = (): ReactElement => {
         model={CardTableModel()}
         data={cardPacks}
         disabled={disabled!}
-        // loading={isLoading}
+        loading={isLoading}
       />
       <PaginationComponent
         pageCardsTotal={pageCount!}

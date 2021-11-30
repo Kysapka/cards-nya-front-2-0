@@ -1,10 +1,9 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 
 import { CARDS_ROUTE } from 'n1-main/m1-ui/routes/consts';
 import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
 import { ModalConfirm } from '../../f0-test/modalWindow/ModalConfirm/ModalConfirm';
 import { ChangeModalShowStatusAC } from '../../f0-test/modalWindow/ModalConfirm/ModuleConfirmReducer';
