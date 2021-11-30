@@ -4,12 +4,11 @@ import { CARDS_ROUTE } from 'n1-main/m1-ui/routes/consts';
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import { GetCardsThunk } from '../cards/CardsReducer';
-
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
 import { ModalConfirm } from '../../f0-test/modalWindow/ModalConfirm/ModalConfirm';
 import { ChangeModalShowStatusAC } from '../../f0-test/modalWindow/ModalConfirm/ModuleConfirmReducer';
+import { GetCardsThunk } from '../cards/CardsReducer';
 
 import { AddPackThunk, ChangePackNameThunk, DeletePackThunk } from './PacksReducer';
 import { SortButtons } from './SortPacks';
@@ -145,15 +144,8 @@ export const CardTableModel = (): ITableModel[] => {
           >
             Delete
           </button>
-
-          <button
-            style={{ marginLeft: '10px' }}
-            type="button"
-            className="btn btn-outline-primary"
-          >
-            View Cards
           <button key={d._id} onClick={() => onClickHandlerCards(d)}>
-            Open
+            Open Pack
           </button>
         </div>
       ),

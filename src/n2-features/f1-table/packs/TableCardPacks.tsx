@@ -9,11 +9,10 @@ export interface ITableModel {
 }
 
 interface ITableProps {
-  // loading: boolean;
+  loading: boolean;
   // error: string;
   //
   // logoutCallback: () => void;
-  //
   model: ITableModel[];
   data: any;
   headerStyle?: CSSProperties;
@@ -33,9 +32,9 @@ export const TableCardPacks: React.FC<ITableProps> = ({
   tableStyle,
   rowsStyle,
   rowStyle,
-  disabled, }): ReactElement => {
+  disabled,
 }): ReactElement => {
-  // if (loading) return <Loader />;
+  if (loading) return <Loader />;
   return (
     <div
       style={{
@@ -49,12 +48,12 @@ export const TableCardPacks: React.FC<ITableProps> = ({
       }}
     >
       <h2>CARD PACKS</h2>
-      {/* {loading */}
-      {/* ? <div style={{color: 'orange'}}>loading...</div> */}
-      {/*: error */}
-      {/* ? <div style={{color: 'red'}}>{error}</div> */}
-      {/*: <div><br/></div> */}
-      {/* } */}
+      {/* {loading /}
+      {/ ? <div style={{color: 'orange'}}>loading...</div> /}
+      {/: error /}
+      {/ ? <div style={{color: 'red'}}>{error}</div> /}
+      {/: <div><br/></div> /}
+      {/ } */}
       <div
         style={{
           border: '1px solid grey',
