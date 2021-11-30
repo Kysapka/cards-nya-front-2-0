@@ -105,7 +105,7 @@ export const CardPacksContainer = (): ReactElement => {
   ]);
 
   return (
-    <div className="col-9 align-content-center m-lg-auto">
+    <div className="col-6 align-content-center m-lg-auto">
       <Form.Group
         className="mb-3"
         style={{ width: '400px', marginTop: '40px' }}
