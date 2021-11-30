@@ -35,9 +35,7 @@ export const CardTableModel = (): ITableModel[] => {
 
       render: (d: CardInPackType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          <button key={d._id} onClick={() => onClickHandlerCards(d)}>
-            {d.name}
-          </button>
+          {d.name}
         </div>
       ),
     },
@@ -97,6 +95,9 @@ export const CardTableModel = (): ITableModel[] => {
           </button>
           <button className="btn-sm" style={{ marginLeft: '10px' }}>
             Update
+          </button>
+          <button key={d._id} onClick={() => onClickHandlerCards(d)}>
+            Open
           </button>
         </div>
       ),
