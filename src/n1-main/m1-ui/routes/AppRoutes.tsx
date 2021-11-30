@@ -8,6 +8,7 @@ import {
   NotFound,
   Profile,
 } from 'n2-features';
+import { CardsContainer } from 'n2-features/f1-table/cards/CardsContainer';
 import { Route, Routes } from 'react-router-dom';
 
 import { RegistrationContainer } from '../../../n2-features/f0-test/Registration/RegistrationContainer';
@@ -16,6 +17,7 @@ import { CardPacksContainer } from '../../../n2-features/f1-table/packs/CardPack
 import {
   BASE_ROUTE,
   CARD_PACKS_ROUTE,
+  CARDS_ROUTE,
   DEMONSTRATION_ROUTE,
   LOGIN_ROUTE,
   NEW_PASS_ROUTE,
@@ -66,6 +68,10 @@ export const publicRoutes = [
   {
     path: CARD_PACKS_ROUTE,
     component: <CardPacksContainer />,
+  },
+  {
+    path: CARDS_ROUTE,
+    component: <CardsContainer />,
   },
 ];
 

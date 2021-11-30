@@ -1,6 +1,10 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { CARDS_ROUTE } from 'n1-main/m1-ui/routes/consts';
+import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import { GetCardsThunk } from '../cards/CardsReducer';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
@@ -14,6 +18,7 @@ import { CardInPackType } from './types';
 
 export const CardTableModel = (): ITableModel[] => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchValue = useRef<string>();
   const ChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     searchValue.current = event.currentTarget.value;
@@ -21,6 +26,11 @@ export const CardTableModel = (): ITableModel[] => {
   const onClickHandler = (): void => {
     dispatch(AddPackThunk(searchValue.current));
   };
+  const onClickHandlerCards = (d: CardInPackType): void => {
+    dispatch(GetCardsThunk(d._id));
+    navigate(CARDS_ROUTE);
+  };
+
   const onClickHandlerPackNameChange = (id: string, packName: string): void => {
     dispatch(ChangePackNameThunk(id, packName));
   };
@@ -104,7 +114,6 @@ export const CardTableModel = (): ITableModel[] => {
         </div>
       ),
     },
-
     {
       title: (i: number) => (
         <div key={i} style={{ width: '60%' }}>
@@ -143,6 +152,8 @@ export const CardTableModel = (): ITableModel[] => {
             className="btn btn-outline-primary"
           >
             View Cards
+          <button key={d._id} onClick={() => onClickHandlerCards(d)}>
+            Open
           </button>
         </div>
       ),
