@@ -53,7 +53,13 @@ export const SortButtons = ({
     }
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: '10px',
+      }}
+    >
       <button id={sortTypeUp} onClick={sortUpHandler} className="btn-sm bg-gradient">
         up
       </button>

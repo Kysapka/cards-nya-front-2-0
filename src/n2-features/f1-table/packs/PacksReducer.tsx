@@ -81,7 +81,7 @@ export const SetDisabledPacksAC = (disabled: boolean) =>
 export const SetFilterPacksAC = (filter: string) =>
   ({ type: 'SET-FILTER', payload: { filter } } as const);
 
-export const DeletPackAC = (id: string) => ({ type: 'DELETE-PACK', id } as const);
+export const DeletePackAC = (id: string) => ({ type: 'DELETE-PACK', id } as const);
 export const ChangePackNameAC = (id: string, name: string) =>
   ({ type: 'CHANGE-PACK-NAME', id, name } as const);
 export const AddPackAC = (newCardsPack: CardInPackType) =>
@@ -90,7 +90,7 @@ export const AddPackAC = (newCardsPack: CardInPackType) =>
 export type CardPacksActionTypes = ReturnType<typeof SetCardPacksAC>;
 export type SetPagePacksACType = ReturnType<typeof SetPagePacksAC>;
 export type SetDisabledPacksACType = ReturnType<typeof SetDisabledPacksAC>;
-export type DeletPackACType = ReturnType<typeof DeletPackAC>;
+export type DeletePackACType = ReturnType<typeof DeletePackAC>;
 export type AddPackACType = ReturnType<typeof AddPackAC>;
 export type ChangePackNameType = ReturnType<typeof ChangePackNameAC>;
 export type SetFilterPacksACType = ReturnType<typeof SetFilterPacksAC>;
@@ -100,7 +100,7 @@ export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
   cardPacksAPI
     .deleteCardsPacks(id)
     .then(resp => {
-      dispatch(DeletPackAC(resp.data.deletedCardsPack._id));
+      dispatch(DeletePackAC(resp.data.deletedCardsPack._id));
       dispatch(SetDisabledPacksAC(false));
     })
     .catch(err => {
@@ -146,7 +146,7 @@ type ActionTypes =
   | CardPacksActionTypes
   | SetPagePacksACType
   | SetDisabledPacksACType
-  | DeletPackACType
+  | DeletePackACType
   | AddPackACType
   | SetFilterPacksACType
   | ChangePackNameType;
