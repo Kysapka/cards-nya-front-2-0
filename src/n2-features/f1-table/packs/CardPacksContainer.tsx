@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,13 +12,12 @@ import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
 import { SetCardPacksAC } from './PacksReducer';
 import { PaginationComponent } from './pagination/Pagination';
-import { useRangeDebounce } from './RangeDebaunceHook';
-import { useSearchDebounce } from './SearchDebaunceHook';
+import { SearchNamePack } from './SearchNamePack';
+import { SearchRange } from './SearchRange';
 import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
-  console.log('COMPONENT RENRERED');
   const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
   const {
     cardPacks,
@@ -33,7 +26,7 @@ export const CardPacksContainer = (): ReactElement => {
     maxCardsCount,
     minCardsCount,
     page,
-    disabled,
+    // disabled,
     filter,
   } = useSelector<AppRootStateType, CardPacksType>(state => state.cardPacks);
 
@@ -41,9 +34,12 @@ export const CardPacksContainer = (): ReactElement => {
     state => state.app,
   );
   const dispatch = useDispatch();
-  const [searchedMinValue, setSearchedMinValue] = useState<number>(minCardsCount!);
-  const [searchedMaxValue, setSearchedMaxValue] = useState<number>(maxCardsCount!);
-  const [search, setSearch] = useState<string>('');
+
+  const [searchRange, setSearchRange] = useState<{ min: number; max: number }>({
+    min: minCardsCount!,
+    max: maxCardsCount!,
+  });
+  const [packName, setPackName] = useState<string>('');
   const [userID, setUserID] = useState<string | null>(null);
 
   if (!isAuth) {
@@ -57,7 +53,10 @@ export const CardPacksContainer = (): ReactElement => {
       setUserID(null);
     }
   };
-
+  const onSetRange = (searchedMinValue: number, searchedMaxValue: number): void => {
+    setSearchRange({ min: searchedMinValue, max: searchedMaxValue });
+  };
+  const { min, max } = searchRange;
   const setCurrentPageHandler = (value: number): void => {
     dispatch(SetCardPacksAC({ page: value }));
   };
@@ -66,47 +65,19 @@ export const CardPacksContainer = (): ReactElement => {
     dispatch(SetCardPacksAC({ pageCount: value }));
   };
 
-  const changeRangeValue = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.currentTarget.name === 'max') {
-      const max = Number(event.currentTarget.value);
-      setSearchedMaxValue(max);
-    }
-    if (event.currentTarget.name === 'min') {
-      const min = Number(event.currentTarget.value);
-      setSearchedMinValue(min);
-    }
-  };
-
-  const debauncedMinRangeValue = useRangeDebounce(searchedMinValue, 2000);
-  const debauncedMaxRangeValue = useRangeDebounce(searchedMaxValue, 2000);
-
-  const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(event.currentTarget.value);
-  };
-
-  const debaunceSearch = useSearchDebounce(search, 3000);
-
   useEffect(() => {
     dispatch(
       getCardPacksTC({
         user_id: userID,
-        packName: debaunceSearch,
+        packName,
         pageCount,
         page,
-        min: debauncedMinRangeValue,
-        max: debauncedMaxRangeValue,
+        min,
+        max,
         sortPacks: filter,
       }),
     );
-  }, [
-    pageCount,
-    page,
-    debauncedMinRangeValue,
-    debauncedMaxRangeValue,
-    debaunceSearch,
-    userID,
-    filter,
-  ]);
+  }, [pageCount, page, min, max, packName, userID, filter]);
 
   return (
     <div className="col-9 align-content-center m-lg-auto">
@@ -115,11 +86,7 @@ export const CardPacksContainer = (): ReactElement => {
         style={{ width: '400px', marginTop: '40px' }}
         controlId="PacksCardTable"
       >
-        <Form.Control
-          onChange={onSearchChangeHandler}
-          type="text"
-          placeholder="Enter card pack name for search..."
-        />
+        <SearchNamePack callback={setPackName} />
         <div
           style={{
             marginTop: '20px',
@@ -168,33 +135,18 @@ export const CardPacksContainer = (): ReactElement => {
           </div>
         </div>
       </Form.Group>
-      <Form.Group>
-        <Form.Label>RangeMin {searchedMinValue} </Form.Label>
-        <Form.Range
-          value={searchedMinValue}
-          disabled={isLoading}
-          name="min"
-          onChange={changeRangeValue}
-        />
-        <Form.Label>RangeMax {searchedMaxValue}</Form.Label>
-        <Form.Range
-          value={searchedMaxValue}
-          disabled={isLoading}
-          name="max"
-          onChange={changeRangeValue}
-        />
-      </Form.Group>
+      <SearchRange callback={onSetRange} />
       <TableCardPacks
         model={CardTableModel()}
-        data={cardPacks}
-        disabled={disabled!}
-        loading={isLoading}
+        // data={cardPacks}
+        // disabled={disabled!}
+        // loading={isLoading}
       />
       <PaginationComponent
         pageCardsTotal={pageCount!}
         totalCards={cardPacksTotalCount!}
         activePage={page!}
-        disabled={disabled!}
+        // disabled={disabled!}
         callback={setCurrentPageHandler}
       />
     </div>

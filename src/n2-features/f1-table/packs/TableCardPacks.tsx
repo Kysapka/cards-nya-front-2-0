@@ -1,6 +1,12 @@
 import React, { CSSProperties, ReactElement, ReactNode } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
+import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
+
+import { CardInPackType, CardPacksType } from './types';
 
 export interface ITableModel {
   title: (index: number) => ReactNode;
@@ -8,32 +14,42 @@ export interface ITableModel {
 }
 
 interface ITableProps {
-  loading: boolean;
+  // loading: boolean;
   // error: string;
   //
   // logoutCallback: () => void;
   model: ITableModel[];
-  data: any;
+  // data: any;
   headerStyle?: CSSProperties;
   tableStyle?: CSSProperties;
   rowsStyle?: CSSProperties;
   rowStyle?: CSSProperties;
-  disabled: boolean;
+  // disabled: boolean;
 }
 
 export const TableCardPacks: React.FC<ITableProps> = ({
-  loading,
+  // loading,
   // error,
   // logoutCallback,
   model,
-  data,
+  // data,
   headerStyle,
   tableStyle,
   rowsStyle,
   rowStyle,
-  disabled,
+  // disabled,
 }): ReactElement => {
-  if (loading) return <Loader />;
+  console.log('CARDTableRender');
+  const data = useSelector<AppRootStateType, CardInPackType[]>(
+    state => state.cardPacks.cardPacks!,
+  );
+  const disabled = useSelector<AppRootStateType, boolean>(
+    state => state.cardPacks.disabled!,
+  );
+  const { isLoading } = useSelector<AppRootStateType, initAppStateType>(
+    state => state.app,
+  );
+  if (isLoading) return <Loader />;
   return (
     <div
       style={{
