@@ -6,11 +6,17 @@ import { CardType } from './CardsReducer';
 
 export const cardsAPI = {
   getCards: (id: string) =>
-    axiosInst.get<any, AxiosResponse<ResponseCardsType>>('cards/card', {
+    axiosInst.get<string, AxiosResponse<ResponseCardsType>>('cards/card', {
       params: { cardsPack_id: id },
     }),
   addCards: (card: AddCard) =>
     axiosInst.post<AddCard, AxiosResponse<AddCardResponseType>>('cards/card', { card }),
+  deleteCard: (idCard: string) =>
+    axiosInst.delete<string, AxiosResponse<DeleteCard>>('cards/card', {
+      params: { id: idCard },
+    }),
+  updateCard: (card: UpdateCardType) =>
+    axiosInst.put<UpdateCardType, AxiosResponse<UpdatedCardType>>('cards/card', { card }),
 };
 
 export type AddCardResponseType = {
@@ -44,4 +50,59 @@ export type AddCard = {
   questionVideo?: string;
   answerVideo?: string;
   type?: string;
+};
+export type DeleteCard = {
+  deletedCard: {
+    answer: string;
+    // eslint-disable-next-line camelcase
+    cardsPack_id: string;
+    comments: string;
+    created: string;
+    grade: number;
+    // eslint-disable-next-line camelcase
+    more_id: string;
+    question: string;
+    rating: number;
+    shots: number;
+    type: string;
+    updated: string;
+    // eslint-disable-next-line camelcase
+    user_id: string;
+    __v: number;
+    _id: string;
+  };
+  token: string;
+  tokenDeathTime: number;
+};
+export type UpdatedCardType = {
+  updatedCard: {
+    answer: string;
+    answerImg: string;
+    answerVideo: string;
+    // eslint-disable-next-line camelcase
+    cardsPack_id: string;
+    comments: string;
+    created: string;
+    grade: number;
+    // eslint-disable-next-line camelcase
+    more_id: string;
+    question: string;
+    questionImg: string;
+    questionVideo: string;
+    rating: number;
+    shots: number;
+    type: string;
+    updated: string;
+    // eslint-disable-next-line camelcase
+    user_id: string;
+    __v: number;
+    _id: string;
+  };
+  token: string;
+  tokenDeathTime: number;
+};
+export type UpdateCardType = {
+  _id: string;
+  question: string;
+  answer: string;
 };

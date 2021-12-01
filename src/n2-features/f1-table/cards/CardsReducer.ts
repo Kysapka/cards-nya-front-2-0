@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
 
-import { cardsAPI } from './CardsAPI';
+import { cardsAPI, UpdateCardType } from './CardsAPI';
 
 export const initCardsState: initCardsStateType = {
   cards: [
@@ -37,6 +37,8 @@ export const initCardsState: initCardsStateType = {
   tokenDeathTime: null,
   _idPackCards: null,
   add: false,
+  modalType: '',
+  cardsId: null,
 };
 export type initCardsStateType = {
   cards: Array<CardType>;
@@ -50,8 +52,12 @@ export type initCardsStateType = {
   tokenDeathTime: number | null;
   _idPackCards: string | null;
   add?: boolean;
+  modalType?: ModalType;
+  // eslint-disable-next-line camelcase
+  cardsId?: string | null;
 };
 
+export type ModalType = 'Add Card' | 'Update Card' | '';
 export type CardType = {
   answer: string | null;
   // eslint-disable-next-line camelcase
@@ -85,15 +91,34 @@ export const CardsReducer = (
     case 'ADD-CARDS': {
       return { ...state, cards: [...state.cards, action.newCard] };
     }
+    case 'DELETE-CARD':
+      return {
+        ...state,
+        cards: state.cards!.filter(element => element._id !== action.id),
+      };
+    case 'UPDATE-CARDS': {
+      return {
+        ...state,
+        cards: state.cards.map(el =>
+          el._id === action.updateCard._id
+            ? {
+                ...el,
+                question: action.updateCard.question,
+                answer: action.updateCard.answer,
+              }
+            : el,
+        ),
+      };
+    }
     default:
       return state;
   }
 };
 
-export const ShowCardModalAC = (add: boolean) =>
+export const ShowCardModalAC = (add: boolean, modalType: ModalType, cardsId?: string) =>
   ({
     type: 'SHOW-CARD-MODAL',
-    payload: { add },
+    payload: { add, modalType, cardsId },
   } as const);
 const SetCardsAC = (data: initCardsStateType) =>
   ({
@@ -106,6 +131,12 @@ const AddCardsAC = (newCard: CardType) =>
     type: 'ADD-CARDS',
     newCard,
   } as const);
+const UpdateCardsAC = (updateCard: UpdateCardType) =>
+  ({
+    type: 'UPDATE-CARDS',
+    updateCard,
+  } as const);
+export const DeleteCardAC = (id: string) => ({ type: 'DELETE-CARD', id } as const);
 
 export const GetCardsThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(preloaderToggle(true));
@@ -147,9 +178,54 @@ export const AddCardsThunk =
         dispatch(preloaderToggle(false));
       });
   };
+export const UpdateCardsThunk =
+  (id: string, question: string, answer: string) => (dispatch: Dispatch) => {
+    dispatch(preloaderToggle(true));
+    const card = {
+      _id: id,
+      question,
+      answer,
+    };
+    cardsAPI
+      .updateCard(card)
+      .then(resp => {
+        dispatch(UpdateCardsAC(resp.data.updatedCard));
+      })
+      .catch(err => {
+        if (axios.isAxiosError(err) && err.response) {
+          console.log(err.response.data);
+        }
+      })
+      .finally(() => {
+        dispatch(preloaderToggle(false));
+      });
+  };
+export const DeleteCardThunk = (id: string) => (dispatch: Dispatch) => {
+  dispatch(preloaderToggle(true));
+  cardsAPI
+    .deleteCard(id)
+    .then(resp => {
+      dispatch(DeleteCardAC(resp.data.deletedCard._id));
+    })
+    .catch(err => {
+      if (axios.isAxiosError(err) && err.response) {
+        console.log(err.response.data);
+      }
+    })
+    .finally(() => {
+      dispatch(preloaderToggle(false));
+    });
+};
 
 export type AddShowCardModalACType = ReturnType<typeof ShowCardModalAC>;
 type SetCardsACType = ReturnType<typeof SetCardsAC>;
 type AddCardsACType = ReturnType<typeof AddCardsAC>;
+type DeleteCardACType = ReturnType<typeof DeleteCardAC>;
+type UpdateCardACType = ReturnType<typeof UpdateCardsAC>;
 
-type ActionTypes = SetCardsACType | AddShowCardModalACType | AddCardsACType;
+type ActionTypes =
+  | SetCardsACType
+  | AddShowCardModalACType
+  | AddCardsACType
+  | DeleteCardACType
+  | UpdateCardACType;

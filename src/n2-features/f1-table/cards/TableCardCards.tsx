@@ -47,12 +47,6 @@ export const TableCardCards: React.FC<ITableProps> = ({
       }}
     >
       <h2>CARDS</h2>
-      {/* {loading */}
-      {/* ? <div style={{color: 'orange'}}>loading...</div> */}
-      {/*: error */}
-      {/* ? <div style={{color: 'red'}}>{error}</div> */}
-      {/*: <div><br/></div> */}
-      {/* } */}
       <div
         style={{
           border: '1px solid grey',

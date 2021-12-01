@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Formik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
@@ -7,13 +7,19 @@ import * as yup from 'yup';
 
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 
-import { AddCardsThunk, initCardsStateType, ShowCardModalAC } from './CardsReducer';
+import {
+  AddCardsThunk,
+  initCardsStateType,
+  ShowCardModalAC,
+  UpdateCardsThunk,
+} from './CardsReducer';
 
-export const AddCardModal = (): React.ReactElement => {
+export const AddAndUpdateCardModal = (): React.ReactElement => {
   const dispatch = useDispatch();
-  const { _idPackCards, add } = useSelector<AppRootStateType, initCardsStateType>(
-    state => state.cards,
-  );
+  const { _idPackCards, add, modalType, cards, cardsId } = useSelector<
+    AppRootStateType,
+    initCardsStateType
+  >(state => state.cards);
   const SignupSchema = yup
     .object({
       answer: yup
@@ -28,19 +34,23 @@ export const AddCardModal = (): React.ReactElement => {
     .required();
   return (
     <Modal show={add}>
-      <Modal.Header closeButton>
-        <Modal.Title>Add Card</Modal.Title>
+      <Modal.Header>
+        <Modal.Title>{modalType}</Modal.Title>
       </Modal.Header>
       <Formik
         initialValues={{ answer: '', question: '' }}
         validationSchema={SignupSchema}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
-          dispatch(AddCardsThunk(_idPackCards!, values.question, values.answer));
-          dispatch(ShowCardModalAC(false));
+          if (modalType === 'Add Card') {
+            dispatch(AddCardsThunk(_idPackCards!, values.answer, values.question));
+          } else {
+            dispatch(UpdateCardsThunk(cardsId!, values.question, values.answer));
+          }
+          dispatch(ShowCardModalAC(false, ''));
         }}
         onReset={() => {
-          dispatch(ShowCardModalAC(false));
+          dispatch(ShowCardModalAC(false, ''));
         }}
       >
         {({
@@ -57,18 +67,6 @@ export const AddCardModal = (): React.ReactElement => {
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Answer</Form.Label>
-                <Form.Control
-                  type="answer"
-                  name="answer"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.answer}
-                  placeholder="Input answer please"
-                />
-                {errors.answer && touched.answer && errors.answer}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Question</Form.Label>
                 <Form.Control
                   type="question"
@@ -76,11 +74,23 @@ export const AddCardModal = (): React.ReactElement => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.question}
-                  as="textarea"
-                  rows={3}
                   placeholder="Input question please"
                 />
                 {errors.question && touched.question && errors.question}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label> Answer</Form.Label>
+                <Form.Control
+                  type="answer"
+                  name="answer"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.answer}
+                  as="textarea"
+                  rows={3}
+                  placeholder="Input answer please"
+                />
+                {errors.answer && touched.answer && errors.answer}
               </Form.Group>
             </Modal.Body>
 

@@ -3,6 +3,9 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-image: url("https://img1.goodfon.ru/original/1920x1080/9/6f/minimalizm-gradient-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh
 }
 
 label {

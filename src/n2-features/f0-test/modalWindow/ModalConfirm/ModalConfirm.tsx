@@ -9,6 +9,7 @@ import { ChangeModalShowStatusAC } from './ModuleConfirmReducer';
 
 type ModalConfirmType = {
   callBack: () => void;
+  title: string;
 };
 export const ModalConfirm = (props: ModalConfirmType): React.ReactElement => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const ModalConfirm = (props: ModalConfirmType): React.ReactElement => {
   return (
     <Modal show={stateShow}>
       <Modal.Header>
-        <Modal.Title>Do you want to delete Pack</Modal.Title>
+        <Modal.Title>Do you want to delete {props.title}</Modal.Title>
       </Modal.Header>
 
       <Modal.Footer>

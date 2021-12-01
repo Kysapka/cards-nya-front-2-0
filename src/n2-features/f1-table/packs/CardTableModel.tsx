@@ -58,8 +58,7 @@ export const CardTableModel = (): ITableModel[] => {
 
       render: (d: CardInPackType, i: number) => (
         <div key={i} style={{ width: '60%' }}>
-          {/* {confirmModalStateAgree ? dispatch(DeletePackThunk(d._id)) : undefined} */}
-          <ModalConfirm callBack={() => callBackForDeletePackThunk(d._id)} />
+          <ModalConfirm title="Pack" callBack={() => callBackForDeletePackThunk(d._id)} />
           <EditableSpan
             name={d.name}
             thunk={(title: string) => onClickHandlerPackNameChange(d._id, title)}
@@ -107,7 +106,7 @@ export const CardTableModel = (): ITableModel[] => {
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
-        <div key={i} style={{ width: '60%' }}>
+        <div key={i} style={{ width: '60%', alignItems: 'center' }}>
           {d.updated}
         </div>
       ),
@@ -128,12 +127,15 @@ export const CardTableModel = (): ITableModel[] => {
             style={{ marginLeft: '20px', borderRadius: '5%' }}
             onClick={onClickHandler}
           >
-            Add new card
+            Add new Pack
           </button>
         </div>
       ),
       render: (d: CardInPackType, i: number) => (
-        <div key={i} style={{ width: '60%' }}>
+        <div
+          key={i}
+          style={{ width: '60%', display: 'flex', justifyContent: 'space-between' }}
+        >
           <button
             type="button"
             className="btn btn-outline-danger"
@@ -143,7 +145,12 @@ export const CardTableModel = (): ITableModel[] => {
           >
             Delete
           </button>
-          <button key={d._id} onClick={() => onClickHandlerCards(d)}>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            key={d._id}
+            onClick={() => onClickHandlerCards(d)}
+          >
             Open Pack
           </button>
         </div>
