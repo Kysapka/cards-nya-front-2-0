@@ -1,4 +1,10 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +24,7 @@ import { TableCardPacks } from './TableCardPacks';
 import { CardPacksType } from './types';
 
 export const CardPacksContainer = (): ReactElement => {
+  console.log('COMPONENT RENRERED');
   const userId = useSelector<AppRootStateType, string | null>(state => state.profile._id);
   const {
     cardPacks,
@@ -163,9 +170,19 @@ export const CardPacksContainer = (): ReactElement => {
       </Form.Group>
       <Form.Group>
         <Form.Label>RangeMin {searchedMinValue} </Form.Label>
-        <Form.Range value={searchedMinValue} name="min" onChange={changeRangeValue} />
+        <Form.Range
+          value={searchedMinValue}
+          disabled={isLoading}
+          name="min"
+          onChange={changeRangeValue}
+        />
         <Form.Label>RangeMax {searchedMaxValue}</Form.Label>
-        <Form.Range value={searchedMaxValue} name="max" onChange={changeRangeValue} />
+        <Form.Range
+          value={searchedMaxValue}
+          disabled={isLoading}
+          name="max"
+          onChange={changeRangeValue}
+        />
       </Form.Group>
       <TableCardPacks
         model={CardTableModel()}
