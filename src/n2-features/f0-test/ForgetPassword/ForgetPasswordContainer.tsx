@@ -31,9 +31,6 @@ export const ForgetPasswordContainer = (): React.ReactElement => {
     dispatch(RecoveryPassThunk(email));
   };
 
-  if (isAuth) {
-    return <Navigate to={PROFILE_ROUTE} />;
-  }
   return (
     <ForgetPassword
       Info={Info}

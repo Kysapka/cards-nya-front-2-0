@@ -25,8 +25,7 @@ export const CardTableModel = (): ITableModel[] => {
     dispatch(AddPackThunk(searchValue.current));
   };
   const onClickHandlerCards = (d: CardInPackType): void => {
-    dispatch(GetCardsThunk(d._id));
-    navigate(CARDS_ROUTE);
+    navigate(/cards/ + d._id);
   };
 
   const onClickHandlerPackNameChange = (id: string, packName: string): void => {
