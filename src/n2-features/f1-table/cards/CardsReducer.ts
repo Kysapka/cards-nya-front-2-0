@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
+import { setPlayCardStateAC } from '../../gamePlay/Bll/PlayCardReducer';
 
 import { cardsAPI } from './CardsAPI';
 

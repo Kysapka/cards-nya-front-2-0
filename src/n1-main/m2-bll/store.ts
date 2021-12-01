@@ -9,6 +9,7 @@ import { ProfileReducer } from '../../n2-features/f0-test/Profile/Profile-Reduce
 import { RegistrationReducer } from '../../n2-features/f0-test/Registration/RegistrationReducer';
 import { CardsReducer } from '../../n2-features/f1-table/cards/CardsReducer';
 import { CardPacksReducer } from '../../n2-features/f1-table/packs/PacksReducer';
+import { PlayCardReducer } from '../../n2-features/gamePlay/Bll/PlayCardReducer';
 
 import { AppReducer } from './app-reducer';
 import { ErrorReducer } from './ErrorReducer';
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   cardPacks: CardPacksReducer,
   cards: CardsReducer,
   modalConfirm: ModalConfirmReducer,
+  playCard: PlayCardReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
