@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { RegistrationContainer } from '../../../n2-features/f0-test/Registration/RegistrationContainer';
 import { CardPacksContainer } from '../../../n2-features/f1-table/packs/CardPacksContainer';
+import { PlayGround } from '../../../n2-features/gamePlay/PlayGround';
 
 import {
   BASE_ROUTE,
@@ -26,6 +27,7 @@ import {
   RECOVERY_PASS_ROUTE,
   RECOVERYPASSWORD_ROUTE,
   REG_ROUTE,
+  PLAY_CARDS_ROUTE,
 } from './consts';
 
 export const publicRoutes = [
@@ -72,6 +74,10 @@ export const publicRoutes = [
   {
     path: CARDS_ROUTE,
     component: <CardsContainer />,
+  },
+  {
+    path: PLAY_CARDS_ROUTE,
+    component: <PlayGround />,
   },
 ];
 

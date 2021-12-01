@@ -17,6 +17,10 @@ export const cardsAPI = {
     }),
   updateCard: (card: UpdateCardType) =>
     axiosInst.put<UpdateCardType, AxiosResponse<UpdatedCardType>>('cards/card', { card }),
+  getAllCards: (id: string, pageCount: number) =>
+    axiosInst.get<any, AxiosResponse<ResponseCardsType>>('cards/card', {
+      params: { cardsPack_id: id, pageCount },
+    }),
 };
 
 export type AddCardResponseType = {

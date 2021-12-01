@@ -9,3 +9,4 @@ export const RECOVERYPASSWORD_ROUTE = '/set-new-password/:token';
 export const CARD_PACKS_ROUTE = '/cardpacks';
 export const CARDS_ROUTE = '/cards';
 export const NOT_FOUND_ROUTE = '*';
+export const PLAY_CARDS_ROUTE = '/playcard';
