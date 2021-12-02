@@ -22,18 +22,13 @@ export const PlayGround: FC = (): React.ReactElement => {
     state => state.app,
   );
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
-  const { _idPackCards, cardsTotalCount } = useSelector<
-    AppRootStateType,
-    initCardsStateType
-  >(state => state.cards);
 
   useEffect(() => {
     if (param.idPack) {
       dispatch(SetPlayCardThunk(param.idPack, 1000));
     }
   }, []);
-    dispatch(SetPlayCardThunk(_idPackCards!, cardsTotalCount!));
-  }, [_idPackCards]);
+
   const [flipCard, setFlipCard] = useState<boolean>(false);
   const card = pseudoRandom(
     useSelector<AppRootStateType, Array<CardType> | null>(state => state.playCard.cards),
@@ -41,7 +36,6 @@ export const PlayGround: FC = (): React.ReactElement => {
   if (!card || !param.idPack) {
     return <Loader />;
   }
-
 
   if (!isAppInitializated) {
     return <Loader />;
@@ -105,7 +99,7 @@ export const PlayGround: FC = (): React.ReactElement => {
           </div>
 
           <div className={style.butContainer}>
-            <Button variant="secondary" onClick={() => window.history.back()}>
+            <Button variant="secondary" onClick={() => navigate(-1)}>
               Exit game
             </Button>
 
@@ -119,7 +113,9 @@ export const PlayGround: FC = (): React.ReactElement => {
             <Button
               variant="secondary"
               onClick={() => {
-                dispatch(SetPlayCardThunk(_idPackCards!, cardsTotalCount!));
+                if (param.idPack) {
+                  dispatch(SetPlayCardThunk(param.idPack, 1000));
+                }
               }}
             >
               Next Card
@@ -141,29 +137,6 @@ export const PlayGround: FC = (): React.ReactElement => {
           </button>
         </div>
       </div>
-    <div>
-      <h1>{card.question}</h1>
-      <h2>{card.answer}</h2>
-      <div>
-        <span>raiting : {card.rating}</span>
-      </div>
-      <div>
-        <span>grade : {card.grade}</span>
-      </div>
-      <div>оценочка так сказать</div>
-      <Button variant="secondary" onClick={() => navigate(-1)}>
-        Back
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() => {
-          if (param.idPack) {
-            dispatch(SetPlayCardThunk(param.idPack, 1000));
-          }
-        }}
-      >
-        Next
-      </Button>
     </div>
   );
   return render;
