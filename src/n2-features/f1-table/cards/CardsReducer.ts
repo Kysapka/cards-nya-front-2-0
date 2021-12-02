@@ -2,32 +2,11 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
-import { setPlayCardStateAC } from '../../gamePlay/Bll/PlayCardReducer';
 
 import { cardsAPI, UpdateCardType } from './CardsAPI';
 
 export const initCardsState: initCardsStateType = {
-  cards: [
-    {
-      answer: 'aaaaa',
-      // eslint-disable-next-line camelcase
-      cardsPack_id: 'aaaaa',
-      comments: 'aaaaa',
-      created: 'aaaaa',
-      grade: 5,
-      // eslint-disable-next-line camelcase
-      more_id: 'aaaaa',
-      question: 'aaaaa',
-      rating: 3,
-      shots: 3,
-      type: 'aaaaa',
-      updated: 'aaaaa',
-      // eslint-disable-next-line camelcase
-      user_id: 'aaaaa',
-      __v: 88,
-      _id: 'aaaaa',
-    },
-  ],
+  cards: null,
   cardsTotalCount: null,
   maxGrade: null,
   minGrade: null,
@@ -42,7 +21,7 @@ export const initCardsState: initCardsStateType = {
   cardsId: null,
 };
 export type initCardsStateType = {
-  cards: Array<CardType>;
+  cards: Array<CardType> | null;
   cardsTotalCount: number | null;
   maxGrade: number | null;
   minGrade: number | null;
@@ -90,7 +69,7 @@ export const CardsReducer = (
       return { ...state, ...action.payload };
     }
     case 'ADD-CARDS': {
-      return { ...state, cards: [...state.cards, action.newCard] };
+      return { ...state, cards: [...state.cards!, action.newCard] };
     }
     case 'DELETE-CARD':
       return {
@@ -100,7 +79,7 @@ export const CardsReducer = (
     case 'UPDATE-CARDS': {
       return {
         ...state,
-        cards: state.cards.map(el =>
+        cards: state.cards!.map(el =>
           el._id === action.updateCard._id
             ? {
                 ...el,

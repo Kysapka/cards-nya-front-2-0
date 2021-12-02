@@ -6,6 +6,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import { Loader } from '../../../n1-main/m1-ui/common/Loader';
 import { LOGIN_ROUTE, NEW_PASS_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
+import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
 import { EditableSpan } from '../EditableSpan/EditableSpan';
 import { LogOut } from '../LogOut/LogOutThunk';
 
@@ -16,18 +17,9 @@ export const Profile = (): React.ReactElement => {
   const dispatch = useDispatch();
   const profileState = useSelector((state: AppRootStateType) => state.profile);
   const userName = useSelector((state: AppRootStateType) => state.profile.name);
-  const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  const isAppInitializated = useSelector<AppRootStateType, boolean>(
-    state => state.app.isAppInitializated,
+  const { isAuth, isAppInitializated } = useSelector<AppRootStateType, initAppStateType>(
+    state => state.app,
   );
-
-  if (!isAppInitializated) {
-    return <Loader />;
-  }
-
-  if (!isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
 
   const onLogoutClick = (): void => {
     dispatch(LogOut());
@@ -47,6 +39,14 @@ export const Profile = (): React.ReactElement => {
   const handlerChangeNickName = (name: string): void => {
     dispatch(changeUserNameTC(name));
   };
+
+  if (!isAppInitializated) {
+    return <Loader />;
+  }
+
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
   return (
     <div className={style.profileContainer}>
       <div className={style.avatarContainer}>
