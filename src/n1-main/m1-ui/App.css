@@ -5,7 +5,8 @@ body {
     background-image: url("https://img1.goodfon.ru/original/1920x1080/9/6f/minimalizm-gradient-background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    min-height: 100vh
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 label {
@@ -34,6 +35,7 @@ input.form-control, input.form-control:focus {
     width: 80px;
     height: 80px;
 }
+
 .lds-hourglass:after {
     content: " ";
     display: block;
@@ -46,6 +48,7 @@ input.form-control, input.form-control:focus {
     border-color: #cef transparent #cef transparent;
     animation: lds-hourglass 1.2s infinite;
 }
+
 @keyframes lds-hourglass {
     0% {
         transform: rotate(0);
