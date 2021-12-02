@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-import { ChangeModalAgreeStatusAC } from '../../f0-test/modalWindow/ModalConfirm/ModuleConfirmReducer';
+import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
 
 import { cardPacksAPI } from './CardsPackAPI';
 import { SET_CARD_PACKS } from './consts';
@@ -129,6 +129,7 @@ export const ChangePackNameThunk = (id: string, name: string) => (dispatch: Disp
 
 export const AddPackThunk = (name?: string) => (dispatch: Dispatch) => {
   dispatch(SetDisabledPacksAC(true));
+  dispatch(preloaderToggle(true));
   cardPacksAPI
     .createCardPack(name)
     .then(resp => {
@@ -139,7 +140,8 @@ export const AddPackThunk = (name?: string) => (dispatch: Dispatch) => {
       if (axios.isAxiosError(err) && err.response) {
         dispatch(SetDisabledPacksAC(false));
       }
-    });
+    })
+    .finally(() => dispatch(preloaderToggle(false)));
 };
 
 type ActionTypes =

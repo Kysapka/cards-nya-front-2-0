@@ -40,9 +40,9 @@ export const Profile = (): React.ReactElement => {
     dispatch(changeUserNameTC(name));
   };
 
-  if (!isAppInitializated) {
-    return <Loader />;
-  }
+  // if (!isAppInitializated) {
+  //   return <Loader />;
+  // }
 
   if (!isAuth) {
     return <Navigate to={LOGIN_ROUTE} />;

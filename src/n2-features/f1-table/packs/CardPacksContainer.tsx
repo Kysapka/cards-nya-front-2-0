@@ -109,6 +109,7 @@ export const CardPacksContainer = (): ReactElement => {
               type="checkbox"
               checked={!!userID}
               id="searchOnlyMePacks"
+              disabled={isLoading}
             />
           </div>
           <div>
@@ -118,6 +119,7 @@ export const CardPacksContainer = (): ReactElement => {
               style={{ width: '240px' }}
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
+              disabled={isLoading}
             >
               <option value="5">5</option>
               <option value="10">10</option>

@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useRef } from 'react';
 
-import { CARDS_ROUTE } from 'n1-main/m1-ui/routes/consts';
-import { useDispatch } from 'react-redux';
+import { AppRootStateType } from 'n1-main/m2-bll';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { EditableSpan } from '../../f0-test/EditableSpan/EditableSpan';
 import { ModalConfirm } from '../../f0-test/modalWindow/ModalConfirm/ModalConfirm';
 import { ChangeModalShowStatusAC } from '../../f0-test/modalWindow/ModalConfirm/ModuleConfirmReducer';
-import { GetCardsThunk } from '../cards/CardsReducer';
 
 import { AddPackThunk, ChangePackNameThunk, DeletePackThunk } from './PacksReducer';
 import { SortButtons } from './SortPacks';
@@ -18,6 +17,7 @@ export const CardTableModel = (): ITableModel[] => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchValue = useRef<string>();
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
   const ChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     searchValue.current = event.currentTarget.value;
   };
@@ -125,6 +125,7 @@ export const CardTableModel = (): ITableModel[] => {
             className="btn-sm btn btn-primary"
             style={{ marginLeft: '20px', borderRadius: '5%' }}
             onClick={onClickHandler}
+            disabled={isLoading}
           >
             Add new Pack
           </button>

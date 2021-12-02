@@ -1,6 +1,7 @@
-import React, { MouseEventHandler, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { AppRootStateType } from 'n1-main/m2-bll';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SetFilterPacksAC } from './PacksReducer';
 
@@ -13,6 +14,7 @@ export const SortButtons = ({
   sortTypeDown,
 }: SortButtonPropsType): ReactElement => {
   const dispatch = useDispatch();
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
   const sortUpHandler = (event: React.MouseEvent<HTMLElement>): void => {
     switch (event.currentTarget.id) {
       case 'sortByCardsCountUp': {
@@ -60,10 +62,20 @@ export const SortButtons = ({
         marginLeft: '10px',
       }}
     >
-      <button id={sortTypeUp} onClick={sortUpHandler} className="btn-sm bg-gradient">
+      <button
+        disabled={isLoading}
+        id={sortTypeUp}
+        onClick={sortUpHandler}
+        className="btn-sm btn btn-primary"
+      >
         up
       </button>
-      <button id={sortTypeDown} onClick={sortDownHandler} className="btn-sm bg-gradient">
+      <button
+        disabled={isLoading}
+        id={sortTypeDown}
+        onClick={sortDownHandler}
+        className="btn-sm btn btn-primary"
+      >
         down
       </button>
     </div>

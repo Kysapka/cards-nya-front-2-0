@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 
+import { AppRootStateType } from 'n1-main/m2-bll';
 import { Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import { useSearchDebounce } from './SearchDebaunceHook';
 
@@ -9,6 +11,7 @@ type SearchNamePackType = {
 };
 export const SearchNamePack: FC<SearchNamePackType> = memo(({ callback }) => {
   const [search, setSearch] = useState<string>('');
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
   const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearch(event.currentTarget.value);
   };
@@ -19,6 +22,7 @@ export const SearchNamePack: FC<SearchNamePackType> = memo(({ callback }) => {
   }, [debaunceSearch]);
   return (
     <Form.Control
+      disabled={isLoading}
       value={search}
       onChange={onSearchChangeHandler}
       type="text"

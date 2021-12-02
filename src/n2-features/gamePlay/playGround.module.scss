@@ -63,7 +63,6 @@
     .cardBack {
       position: absolute;
       display: flex;
-      top: 0;
       background: url('https://api.iconify.design/emojione-v1/exclamation-mark.svg?color=red') no-repeat center center / contain #a4e5f3;
       min-height: 600px;
       width: 400px;
@@ -74,14 +73,13 @@
       padding: 20px;
       transition: 1s;
       text-align: center;
+      top:0;
       backface-visibility: hidden;
     }
 
     .cardBackFlip {
       transition: 1s;
       transform: rotateY(180deg);
-
     }
   }
-
 }

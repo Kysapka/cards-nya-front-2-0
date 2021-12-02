@@ -31,7 +31,7 @@ export const CardsContainer = (): React.ReactElement => {
   }
   return (
     <div>
-      <Button disabled={data.cards?.length === 0 || false} onClick={onClickStartGame}>
+      <Button disabled={loading || data.cards?.length === 0} onClick={onClickStartGame}>
         Play Game
       </Button>
       <AddAndUpdateCardModal />
@@ -41,7 +41,9 @@ export const CardsContainer = (): React.ReactElement => {
         data={data.cards}
         disabled={loading}
       />
-      <Button onClick={() => navigate(-1)}>Back</Button>
+      <Button disabled={loading} onClick={() => navigate(-1)}>
+        Back
+      </Button>
     </div>
   );
 };
