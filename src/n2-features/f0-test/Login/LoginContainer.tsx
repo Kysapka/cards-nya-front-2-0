@@ -1,8 +1,10 @@
 import React, { ReactElement } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 
+import { LOGIN_ROUTE, PROFILE_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { initErrorStateType } from '../../../n1-main/m2-bll/ErrorReducer';
 
@@ -24,7 +26,9 @@ export type SignupSchemaLoginType = typeof SignupSchema;
 export const LoginContainer = (): ReactElement => {
   const dispatch = useDispatch();
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-
+  if (isAuth) {
+    return <Navigate to={PROFILE_ROUTE} />;
+  }
   const callback = (values: {
     email: string;
     password: string;
