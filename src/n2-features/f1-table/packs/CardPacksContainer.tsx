@@ -42,10 +42,6 @@ export const CardPacksContainer = (): ReactElement => {
   const [packName, setPackName] = useState<string>('');
   const [userID, setUserID] = useState<string | null>(null);
 
-  if (!isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
-
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
       setUserID(userId);
