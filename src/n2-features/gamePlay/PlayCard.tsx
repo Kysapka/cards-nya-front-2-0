@@ -1,9 +1,12 @@
 import React, { FC, useState } from 'react';
 
 import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { AppRootStateType } from '../../n1-main/m2-bll';
+import { initErrorStateType } from '../../n1-main/m2-bll/ErrorReducer';
+import { ModalError } from '../f0-test/modalWindow/ModalError';
 import { CardType } from '../f1-table/cards/CardsReducer';
 
 import { UpgradeCardGradeThunk } from './Bll/PlayCardReducer';
@@ -25,8 +28,12 @@ export const PlayCard: FC<propsCardPlayType> = ({
   const onHandlerGradeUpdate = (id: string, grade: number): void => {
     dispatch(UpgradeCardGradeThunk(id, grade));
   };
+  const { textError, Error } = useSelector<AppRootStateType, initErrorStateType>(
+    state => state.error,
+  );
   return (
     <div className={style.cardShowContainer}>
+      {Error && <ModalError error={textError} />}
       <div className={style.flipBox}>
         <div
           className={

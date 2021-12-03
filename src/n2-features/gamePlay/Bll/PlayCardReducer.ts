@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { preloaderToggle } from 'n1-main/m2-bll/app-reducer';
+import { setError } from 'n1-main/m2-bll/ErrorReducer';
 import { UpdateGradeAC } from 'n2-features/f1-table/cards/CardsReducer';
 import { Dispatch } from 'redux';
 
-import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
 import { cardsAPI } from '../../f1-table/cards/CardsAPI';
 
 import { initPlayCardStateType } from './types';
@@ -87,6 +88,7 @@ export const UpgradeCardGradeThunk =
       .catch(err => {
         if (axios.isAxiosError(err) && err.response) {
           console.log(err.response.data);
+          dispatch(setError(true, err.response.data.error));
         }
       })
       .finally(() => {

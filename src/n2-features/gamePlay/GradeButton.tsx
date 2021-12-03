@@ -6,7 +6,7 @@ export type GradeButtonType = {
   gradeNumber: number;
 };
 
-export function GradeButton(props: GradeButtonType): React.ReactElement {
+export const GradeButton = (props: GradeButtonType): React.ReactElement => {
   const { gradeName, gradeNumber, callBack } = props;
   return (
     <button
@@ -17,4 +17,4 @@ export function GradeButton(props: GradeButtonType): React.ReactElement {
       {gradeName}
     </button>
   );
-}
+};

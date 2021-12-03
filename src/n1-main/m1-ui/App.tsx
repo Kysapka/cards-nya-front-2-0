@@ -12,13 +12,7 @@ import { Main } from './Main';
 
 export const App = (): React.ReactElement => {
   const isloading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
-  const isAppInitializated = useSelector<AppRootStateType, boolean>(
-    state => state.app.isAppInitializated,
-  );
 
-  if (!isAppInitializated) {
-    return <Loader />;
-  }
   // eslint-disable-next-line consistent-return
   document.onkeydown = function gg(e) {
     if (isloading && e.keyCode === 116) return false;
