@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { UpdateGradeAC } from 'n2-features/f1-table/cards/CardsReducer';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
@@ -21,6 +22,22 @@ export const PlayCardReducer = (
   switch (action.type) {
     case 'SET-PLAY-CARD': {
       return { ...state, ...action.data };
+    }
+    case 'UPDATE-GRADE-CARD': {
+      if (state.cards) {
+        return {
+          ...state,
+          cards: state.cards.map(el =>
+            el._id === action.card._id
+              ? {
+                  ...el,
+                  grade: action.card.grade,
+                }
+              : el,
+          ),
+        };
+      }
+      return state;
     }
     default:
       return state;
@@ -55,5 +72,28 @@ export const SetPlayCardThunk =
         dispatch(preloaderToggle(false));
       });
   };
+export const UpgradeCardGradeThunk =
+  (id: string, grade: number) => (dispatch: Dispatch) => {
+    dispatch(preloaderToggle(true));
+    const updateGradeCard = {
+      _id: id,
+      grade,
+    };
+    cardsAPI
+      .updateCardGrade(updateGradeCard)
+      .then(resp => {
+        dispatch(UpdateGradeAC(resp.data.updatedCard));
+      })
+      .catch(err => {
+        if (axios.isAxiosError(err) && err.response) {
+          console.log(err.response.data);
+        }
+      })
+      .finally(() => {
+        dispatch(preloaderToggle(false));
+      });
+  };
+
 type setPlayCardStateACType = ReturnType<typeof setPlayCardStateAC>;
-type PlayCardActionTypes = setPlayCardStateACType;
+type UpdateGradeCardACType = ReturnType<typeof UpdateGradeAC>;
+type PlayCardActionTypes = setPlayCardStateACType | UpdateGradeCardACType;

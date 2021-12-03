@@ -1,10 +1,13 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { CardType } from '../f1-table/cards/CardsReducer';
 
+import { UpgradeCardGradeThunk } from './Bll/PlayCardReducer';
+import { GradeButton } from './GradeButton';
 import style from './playGround.module.scss';
 
 type propsCardPlayType = {
@@ -16,8 +19,12 @@ export const PlayCard: FC<propsCardPlayType> = ({
   card,
   callback,
 }): React.ReactElement => {
+  const dispatch = useDispatch();
   const [flipCard, setFlipCard] = useState<boolean>(false);
   const navigate = useNavigate();
+  const onHandlerGradeUpdate = (id: string, grade: number): void => {
+    dispatch(UpgradeCardGradeThunk(id, grade));
+  };
   return (
     <div className={style.cardShowContainer}>
       <div className={style.flipBox}>
@@ -29,44 +36,33 @@ export const PlayCard: FC<propsCardPlayType> = ({
           <p className={style.titleQuestion}>{card.question}</p>
 
           <div className={style.ratingGradeWrap}>
-            <span className={style.cardRating}>Rating Card : {card.rating}</span>
             <span className={style.cardGrade}>Grade Card : {card.grade}</span>
             <div className={style.ratingButContainer}>
-              <button
-                onClick={() => console.log(1)}
-                type="button"
-                className="btn btn-warning"
-              >
-                1
-              </button>
-              <button
-                onClick={() => console.log(2)}
-                type="button"
-                className="btn btn-warning"
-              >
-                2
-              </button>
-              <button
-                onClick={() => console.log(3)}
-                type="button"
-                className="btn btn-warning"
-              >
-                3
-              </button>
-              <button
-                onClick={() => console.log(4)}
-                type="button"
-                className="btn btn-warning"
-              >
-                4
-              </button>
-              <button
-                onClick={() => console.log(5)}
-                type="button"
-                className="btn btn-warning"
-              >
-                5
-              </button>
+              <GradeButton
+                gradeName="1"
+                gradeNumber={1}
+                callBack={grade => onHandlerGradeUpdate(card._id!, grade)}
+              />
+              <GradeButton
+                gradeName="2"
+                gradeNumber={2}
+                callBack={grade => onHandlerGradeUpdate(card._id!, grade)}
+              />
+              <GradeButton
+                gradeName="3"
+                gradeNumber={3}
+                callBack={grade => onHandlerGradeUpdate(card._id!, grade)}
+              />
+              <GradeButton
+                gradeName="4"
+                gradeNumber={4}
+                callBack={grade => onHandlerGradeUpdate(card._id!, grade)}
+              />
+              <GradeButton
+                gradeName="5"
+                gradeNumber={5}
+                callBack={grade => onHandlerGradeUpdate(card._id!, grade)}
+              />
             </div>
           </div>
 

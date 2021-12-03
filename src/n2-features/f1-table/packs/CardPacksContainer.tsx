@@ -7,6 +7,8 @@ import { Navigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../../n1-main/m1-ui/routes/consts';
 import { AppRootStateType } from '../../../n1-main/m2-bll';
 import { initAppStateType } from '../../../n1-main/m2-bll/app-reducer';
+import { initErrorStateType } from '../../../n1-main/m2-bll/ErrorReducer';
+import { ModalError } from '../../f0-test/modalWindow/ModalError';
 
 import { getCardPacksTC } from './CardPacksThunk';
 import { CardTableModel } from './CardTableModel';
@@ -33,6 +35,10 @@ export const CardPacksContainer = (): ReactElement => {
   const { isLoading, isAuth } = useSelector<AppRootStateType, initAppStateType>(
     state => state.app,
   );
+
+  const { textError, Error } = useSelector<AppRootStateType, initErrorStateType>(
+    state => state.error,
+  );
   const dispatch = useDispatch();
 
   const [searchRange, setSearchRange] = useState<{ min: number; max: number }>({
@@ -41,10 +47,6 @@ export const CardPacksContainer = (): ReactElement => {
   });
   const [packName, setPackName] = useState<string>('');
   const [userID, setUserID] = useState<string | null>(null);
-
-  if (!isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
 
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
@@ -78,9 +80,12 @@ export const CardPacksContainer = (): ReactElement => {
       }),
     );
   }, [pageCount, page, min, max, packName, userID, filter]);
-
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
   return (
     <div className="col-9 align-content-center m-lg-auto">
+      {Error && <ModalError error={textError} />}
       <Form.Group
         className="mb-3"
         style={{ width: '400px', marginTop: '40px' }}
