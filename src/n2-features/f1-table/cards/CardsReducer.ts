@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
 
-import { cardsAPI, UpdateCardType } from './CardsAPI';
+import { cardsAPI, UpdateCardType, UpgradeCards } from './CardsAPI';
 
 export const initCardsState: initCardsStateType = {
   cards: null,
@@ -19,6 +19,7 @@ export const initCardsState: initCardsStateType = {
   add: false,
   modalType: '',
   cardsId: null,
+  grade: null,
 };
 export type initCardsStateType = {
   cards: Array<CardType> | null;
@@ -35,6 +36,7 @@ export type initCardsStateType = {
   modalType?: ModalType;
   // eslint-disable-next-line camelcase
   cardsId?: string | null;
+  grade?: number | null;
 };
 
 export type ModalType = 'Add Card' | 'Update Card' | '';
@@ -99,6 +101,11 @@ export const ShowCardModalAC = (add: boolean, modalType: ModalType, cardsId?: st
   ({
     type: 'SHOW-CARD-MODAL',
     payload: { add, modalType, cardsId },
+  } as const);
+export const UpdateGradeAC = (card: UpgradeCards) =>
+  ({
+    type: 'UPDATE-GRADE-CARD',
+    card,
   } as const);
 const SetCardsAC = (data: initCardsStateType) =>
   ({
@@ -180,6 +187,7 @@ export const UpdateCardsThunk =
         dispatch(preloaderToggle(false));
       });
   };
+
 export const DeleteCardThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(preloaderToggle(true));
   cardsAPI

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { preloaderToggle } from '../../../n1-main/m2-bll/app-reducer';
+import { setError } from '../../../n1-main/m2-bll/ErrorReducer';
 
 import { cardPacksAPI } from './CardsPackAPI';
 import { SET_CARD_PACKS } from './consts';
@@ -97,16 +98,20 @@ export type SetFilterPacksACType = ReturnType<typeof SetFilterPacksAC>;
 
 export const DeletePackThunk = (id: string) => (dispatch: Dispatch) => {
   dispatch(SetDisabledPacksAC(true));
+  dispatch(preloaderToggle(true));
   cardPacksAPI
     .deleteCardsPacks(id)
     .then(resp => {
       dispatch(DeletePackAC(resp.data.deletedCardsPack._id));
-      dispatch(SetDisabledPacksAC(false));
     })
     .catch(err => {
       if (axios.isAxiosError(err) && err.response) {
-        dispatch(SetDisabledPacksAC(false));
+        dispatch(setError(true, err.response.data.error));
       }
+    })
+    .finally(() => {
+      dispatch(preloaderToggle(false));
+      dispatch(SetDisabledPacksAC(false));
     });
 };
 

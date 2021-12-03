@@ -17,6 +17,8 @@ export const cardsAPI = {
     }),
   updateCard: (card: UpdateCardType) =>
     axiosInst.put<UpdateCardType, AxiosResponse<UpdatedCardType>>('cards/card', { card }),
+  updateCardGrade: (card: UpdateCardGradeType) =>
+    axiosInst.put<UpdateCardType, AxiosResponse<UpdatedCardType>>('cards/card', { card }),
   getAllCards: (id: string, pageCount: number) =>
     axiosInst.get<any, AxiosResponse<ResponseCardsType>>('cards/card', {
       params: { cardsPack_id: id, pageCount },
@@ -79,29 +81,7 @@ export type DeleteCard = {
   tokenDeathTime: number;
 };
 export type UpdatedCardType = {
-  updatedCard: {
-    answer: string;
-    answerImg: string;
-    answerVideo: string;
-    // eslint-disable-next-line camelcase
-    cardsPack_id: string;
-    comments: string;
-    created: string;
-    grade: number;
-    // eslint-disable-next-line camelcase
-    more_id: string;
-    question: string;
-    questionImg: string;
-    questionVideo: string;
-    rating: number;
-    shots: number;
-    type: string;
-    updated: string;
-    // eslint-disable-next-line camelcase
-    user_id: string;
-    __v: number;
-    _id: string;
-  };
+  updatedCard: UpgradeCards;
   token: string;
   tokenDeathTime: number;
 };
@@ -109,4 +89,31 @@ export type UpdateCardType = {
   _id: string;
   question: string;
   answer: string;
+};
+export type UpdateCardGradeType = {
+  _id: string;
+  grade: number;
+};
+export type UpgradeCards = {
+  answer: string;
+  answerImg: string;
+  answerVideo: string;
+  // eslint-disable-next-line camelcase
+  cardsPack_id: string;
+  comments: string;
+  created: string;
+  grade: number;
+  // eslint-disable-next-line camelcase
+  more_id: string;
+  question: string;
+  questionImg: string;
+  questionVideo: string;
+  rating: number;
+  shots: number;
+  type: string;
+  updated: string;
+  // eslint-disable-next-line camelcase
+  user_id: string;
+  __v: number;
+  _id: string;
 };
