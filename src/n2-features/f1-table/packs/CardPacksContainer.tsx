@@ -46,10 +46,6 @@ export const CardPacksContainer = (): ReactElement => {
   const [search, setSearch] = useState<string>('');
   const [userID, setUserID] = useState<string | null>(null);
 
-  if (!isAuth) {
-    return <Navigate to={LOGIN_ROUTE} />;
-  }
-
   const onlyMeSearchHandler = (checked: boolean): void => {
     if (checked) {
       setUserID(userId);
@@ -107,7 +103,9 @@ export const CardPacksContainer = (): ReactElement => {
     userID,
     filter,
   ]);
-
+  if (!isAuth) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
   return (
     <div className="col-9 align-content-center m-lg-auto">
       <Form.Group
