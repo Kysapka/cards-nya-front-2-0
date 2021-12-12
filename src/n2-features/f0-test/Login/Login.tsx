@@ -17,7 +17,7 @@ import { SignupSchemaLoginType } from './LoginContainer';
 
 type LoginPropsType = {
   Error: boolean;
-  isAuth: boolean;
+  // isAuth: boolean;
   textError: string;
   SignupSchema: SignupSchemaLoginType;
   callback: (values: { email: string; password: string; rememberMe: boolean }) => void;
@@ -31,9 +31,9 @@ export const Login = (props: LoginPropsType): ReactElement => {
   if (!isAppInitializated) {
     return <Loader />;
   }
-  if (props.isAuth) {
-    return <Navigate to={PROFILE_ROUTE} />;
-  }
+  // if (props.isAuth) {
+  //   return <Navigate to={PROFILE_ROUTE} />;
+  // }
   return (
     <div className="container mt-3">
       {props.Error && <ModalError error={props.textError} />}

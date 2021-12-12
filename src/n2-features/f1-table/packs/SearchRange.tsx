@@ -36,7 +36,7 @@ export const SearchRange: React.FC<RangePropsType> = ({ callback }): ReactElemen
   const debauncedMaxRangeValue = useRangeDebounce(searchedMaxValue, 2000);
   useEffect(() => {
     callback(debauncedMinRangeValue, debauncedMaxRangeValue);
-  }, [debauncedMinRangeValue, debauncedMinRangeValue]);
+  }, [debauncedMinRangeValue, debauncedMaxRangeValue]);
   return (
     <Form.Group>
       <Form.Label>RangeMin {searchedMinValue} </Form.Label>

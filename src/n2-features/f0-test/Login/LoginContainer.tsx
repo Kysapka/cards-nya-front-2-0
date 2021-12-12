@@ -26,9 +26,7 @@ export type SignupSchemaLoginType = typeof SignupSchema;
 export const LoginContainer = (): ReactElement => {
   const dispatch = useDispatch();
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.app.isAuth);
-  if (isAuth) {
-    return <Navigate to={PROFILE_ROUTE} />;
-  }
+
   const callback = (values: {
     email: string;
     password: string;
@@ -39,9 +37,12 @@ export const LoginContainer = (): ReactElement => {
   const { Error, textError } = useSelector<AppRootStateType, initErrorStateType>(
     state => state.error,
   );
+  if (isAuth) {
+    return <Navigate to={PROFILE_ROUTE} />;
+  }
   return (
     <Login
-      isAuth={isAuth}
+      // isAuth={isAuth}
       Error={Error}
       textError={textError}
       callback={values => callback(values)}
