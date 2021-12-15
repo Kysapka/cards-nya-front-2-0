@@ -42,31 +42,25 @@ export const loginInThunk = (param: LoginPostType) => (dispatch: Dispatch) => {
       dispatch(profileAction(res.data));
       dispatch(preloaderToggle(false));
     })
-    // .catch(err => {
-    //   const error = err as AxiosError;
-    //   console.log(JSON.stringify(error));
-    //   // @ts-ignore
-    //   console.dir({ ...error });
-    //   console.dir(error.message);
-    //   console.dir(error.stack);
-    //   // dispatch(setAuth(false));
-    //   // dispatch(preloaderToggle(false));
-    //   // dispatch(setError(true, err.response.data.error));
-    //
-    //   // dispatch(setError(true, err.toJSON().message));
-    // })
-    .catch(error => {
-      if (axios.isAxiosError(error) && error.response) {
-        console.dir(error.response.data.error);
-        // dispatch(setAuth(false));
-        // dispatch(preloaderToggle(false));
-        // dispatch(setError(true, error.response.data.error));
-      } else if (axios.isAxiosError(error) && error.request) {
-        console.dir({ ...error });
-        console.dir(error.message);
-      }
-      // dispatch(setError(true, err.toJSON().message));
+    .catch(err => {
+      const error = err as AxiosError;
+      dispatch(setAuth(false));
+      dispatch(preloaderToggle(false));
+      dispatch(setError(true, err.response.data.error));
+
+      dispatch(setError(true, err.toJSON().message));
     });
+  // .catch(error => {
+  //   if (axios.isAxiosError(error) && error.response) {
+  //     console.dir(error.response.data.error);
+  //     // dispatch(setAuth(false));
+  //     // dispatch(preloaderToggle(false));
+  //     // dispatch(setError(true, error.response.data.error));
+  //   } else if (error.message === 'Network Error') {
+  //     console.dir(error.message);
+  //   }
+  //   // dispatch(setError(true, err.toJSON().message));
+  // });
 };
 
 export type LoginActionTypes = ReturnType<typeof LoginAction>;
