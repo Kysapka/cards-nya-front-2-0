@@ -16,7 +16,6 @@ import {
 import style from './Header.module.scss';
 
 export const Header = (): React.ReactElement => {
-  const [flag, setFlag] = useState<boolean>(false);
   const isAuth = useSelector((state: AppRootStateType) => state.app.isAuth);
 
   const packLogic = isAuth ? {} : { display: 'none' };
