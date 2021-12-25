@@ -29,7 +29,7 @@ export const Packs: FC = () => {
 
     useEffect(() => {
         dispatch(fetchCardPacks())
-    }, [page, pageCount, currentCardsCount, privatePacks, sortPacksMethod])
+    }, [dispatch, page, pageCount, currentCardsCount, privatePacks, sortPacksMethod])
 
     useEffect(() => {
         paginationScrollTopRef.current?.scrollIntoView({behavior: 'smooth'})

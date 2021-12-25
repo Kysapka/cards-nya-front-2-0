@@ -24,7 +24,7 @@ export const UpdatePacksModal: FC<UpdatePacksModalProps> = ({packID, buttonDisab
 
     useEffect(() => {
         setName(prevPackName)
-    }, [isOpen])
+    }, [isOpen, prevPackName])
 
     return (
         <>

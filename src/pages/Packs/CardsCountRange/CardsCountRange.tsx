@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Range } from 'rc-slider';
-import _ from 'lodash';
-import { setCurrentCardsCount } from '../../../store/reducers/packs-reducer';
-import { useDispatch } from 'react-redux';
+import React, {FC, useEffect, useMemo, useState} from 'react';
+import {Range} from 'rc-slider';
+import debounce from 'lodash.debounce';
+import {setCurrentCardsCount} from '../../../store/reducers/packs-reducer';
+import {useDispatch} from 'react-redux';
 
 type CardsCountRangeProps = {
     minCardsCount: number
@@ -23,7 +23,7 @@ export const CardsCountRange: FC<CardsCountRangeProps> = ({minCardsCount, maxCar
         debouncedRange(values)
     }
 
-    const debouncedRange = useCallback(_.debounce(values => dispatch(setCurrentCardsCount({values: values})), 500), [])
+    const debouncedRange = useMemo(() => debounce( values => dispatch(setCurrentCardsCount({values: values})), 500), [dispatch])
 
     useEffect(() => {
         setRangeValues([minCardsCount, maxCardsCount])

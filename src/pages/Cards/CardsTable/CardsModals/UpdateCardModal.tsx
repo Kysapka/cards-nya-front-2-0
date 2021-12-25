@@ -27,7 +27,7 @@ export const UpdateCardModal: FC<UpdatePacksModalProps> = ({cardID, buttonDisabl
     useEffect(() => {
         setQuestion(prevQuestion)
         setAnswer(prevAnswer)
-    }, [isOpen])
+    }, [isOpen, prevAnswer, prevQuestion])
 
     return (
         <>

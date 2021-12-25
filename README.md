@@ -1,4 +1,7 @@
 # Getting Started with Create React App
+You can try this project this [DEMO DEPLYMENT](https://kysapka.github.io/cards-nya-front-2-0/)
+
+This project helps to study with flash cards. Joint project, a team of 3 people. Technologies that used here : TypeScript,React, Redux, Redux-thunk, Hooks, Axios.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

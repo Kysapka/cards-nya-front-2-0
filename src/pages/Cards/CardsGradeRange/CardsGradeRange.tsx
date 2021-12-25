@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Range } from 'rc-slider';
-import _ from 'lodash';
-import { setCurrentGrade } from '../../../store/reducers/cards-reducer';
-import { useDispatch } from 'react-redux';
+import React, {FC, useEffect, useMemo, useState} from 'react';
+import {Range} from 'rc-slider';
+import debounce from 'lodash.debounce';
+import {setCurrentGrade} from '../../../store/reducers/cards-reducer';
+import {useDispatch} from 'react-redux';
 
 type CardsGradeRangeProps = {
     minGrade: number
@@ -23,7 +23,7 @@ export const CardsGradeRange: FC<CardsGradeRangeProps> = ({minGrade, maxGrade}) 
         debouncedRange(values)
     }
 
-    const debouncedRange = useCallback(_.debounce(values => dispatch(setCurrentGrade({values: values})), 500), [])
+    const debouncedRange = useMemo(() =>debounce(values => dispatch(setCurrentGrade({values: values})), 500), [dispatch])
 
     useEffect(() => {
         setRangeValues([minGrade, maxGrade])

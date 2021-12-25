@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FC, useCallback, useState } from 'react';
-import { Input } from '../../../components/UI/Input/Input';
+import React, {ChangeEvent, FC, useMemo, useState} from 'react';
+import {Input} from '../../../components/UI/Input/Input';
 import debounce from 'lodash.debounce';
-import { fetchCards } from '../../../store/reducers/cards-reducer';
-import { useDispatch } from 'react-redux';
+import {fetchCards} from '../../../store/reducers/cards-reducer';
+import {useDispatch} from 'react-redux';
 
 export const CardsSearch: FC = () => {
     const dispatch = useDispatch()
@@ -19,8 +19,8 @@ export const CardsSearch: FC = () => {
         debouncedAnswerSearch(e.currentTarget.value)
     }
 
-    const debouncedQuestionSearch = useCallback(debounce(value => dispatch(fetchCards({cardQuestion: value})), 500), [])
-    const debouncedAnswerSearch = useCallback(debounce(value => dispatch(fetchCards({cardAnswer: value})), 500), [])
+    const debouncedQuestionSearch = useMemo(() => debounce(value => dispatch(fetchCards({cardQuestion: value})), 500), [dispatch])
+    const debouncedAnswerSearch = useMemo(() => debounce(value => dispatch(fetchCards({cardAnswer: value})), 500), [dispatch])
     return (
         <>
             <label htmlFor='cards-question-search'>

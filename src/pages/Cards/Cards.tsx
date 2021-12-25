@@ -32,11 +32,11 @@ export const Cards: FC = () => {
 
     useEffect(() => {
         dispatch(setCurrentCardsPackID({id}))
-    }, [id])
+    }, [dispatch, id])
 
     useEffect(() => {
         id && dispatch(fetchCards())
-    }, [page, pageCount, currentGrade, sortCardsMethod])
+    }, [id, dispatch, page, pageCount, currentGrade, sortCardsMethod])
 
     useEffect(() => {
         paginationScrollTopRef.current?.scrollIntoView({behavior: 'smooth'})

@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FC, useCallback, useState } from 'react';
-import { Input } from '../../../components/UI/Input/Input';
-import { useDispatch } from 'react-redux';
-import { fetchCardPacks } from '../../../store/reducers/packs-reducer';
+import React, {ChangeEvent, FC, useMemo, useState} from 'react';
+import {Input} from '../../../components/UI/Input/Input';
+import {useDispatch} from 'react-redux';
+import {fetchCardPacks} from '../../../store/reducers/packs-reducer';
 import debounce from 'lodash.debounce';
 
 export const PacksSearch: FC = () => {
@@ -13,7 +13,7 @@ export const PacksSearch: FC = () => {
         debouncedSearch(e.currentTarget.value)
     }
 
-    const debouncedSearch = useCallback(debounce(value => dispatch(fetchCardPacks({packName: value})), 1000), [])
+    const debouncedSearch = useMemo(() => debounce(value => dispatch(fetchCardPacks({packName: value})), 1000),[dispatch])
 
     return (
         <label htmlFor='packs-search'>
