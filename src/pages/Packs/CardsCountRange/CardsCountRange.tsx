@@ -1,8 +1,8 @@
-import React, {FC, useCallback, useEffect, useState} from 'react'
-import {Range} from 'rc-slider'
-import _ from 'lodash'
-import {setCurrentCardsCount} from '../../../store/reducers/packs-reducer'
-import {useDispatch} from 'react-redux'
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Range } from 'rc-slider';
+import _ from 'lodash';
+import { setCurrentCardsCount } from '../../../store/reducers/packs-reducer';
+import { useDispatch } from 'react-redux';
 
 type CardsCountRangeProps = {
     minCardsCount: number

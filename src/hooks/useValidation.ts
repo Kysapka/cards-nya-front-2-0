@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState} from 'react'
+import { ChangeEvent, useEffect, useState } from 'react';
 
 export const useInput = (initialValue: string, validators: Validators) => {
     const [value, setValue] = useState(initialValue)

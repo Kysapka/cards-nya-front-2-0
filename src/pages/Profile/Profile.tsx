@@ -1,11 +1,11 @@
-import React, {FC, useEffect} from 'react'
-import {useTypedSelector} from '../../hooks/hooks'
-import {useDispatch} from 'react-redux'
-import {changeUsersInfo, checkAuth} from '../../store/reducers/auth-reducer'
-import {Redirect} from 'react-router-dom'
-import {PATH} from '../../routes/routes'
-import {EditableElement} from '../../components/UI/EditableElement/EditableElement'
-import s from './Profile.module.css'
+import React, { FC, useEffect } from 'react';
+import { useTypedSelector } from '../../hooks/hooks';
+import { useDispatch } from 'react-redux';
+import { changeUsersInfo, checkAuth } from '../../store/reducers/auth-reducer';
+import { Redirect } from 'react-router-dom';
+import { PATH } from '../../routes/routes';
+import { EditableElement } from '../../components/UI/EditableElement/EditableElement';
+import s from './Profile.module.css';
 
 export const Profile: FC = () => {
     const isLoggedIn = useTypedSelector(state => state.auth.isLoggedIn)

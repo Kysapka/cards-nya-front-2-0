@@ -1,6 +1,6 @@
-import React, {FC, useState} from 'react'
-import s from './Sort.module.css'
-import {checkTableActiveSort} from '../../../utils/checkTableActiveSort'
+import React, { FC, useState } from 'react';
+import s from './Sort.module.css';
+import { checkTableActiveSort } from '../../../utils/checkTableActiveSort';
 
 type SortPacksProps = {
     sortBy: string

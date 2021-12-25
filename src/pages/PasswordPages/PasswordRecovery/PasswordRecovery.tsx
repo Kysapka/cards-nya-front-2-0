@@ -1,11 +1,11 @@
-import React, {FC, FormEvent, useState} from 'react'
-import {Button} from '../../../components/UI/Button/Button'
-import {Input} from '../../../components/UI/Input/Input'
-import {useDispatch} from 'react-redux'
-import {passwordRecovery} from '../../../store/reducers/auth-reducer'
-import {useTypedSelector} from '../../../hooks/hooks'
-import {Redirect} from 'react-router-dom'
-import {PATH} from '../../../routes/routes'
+import React, { FC, FormEvent, useState } from 'react';
+import { Button } from '../../../components/UI/Button/Button';
+import { Input } from '../../../components/UI/Input/Input';
+import { useDispatch } from 'react-redux';
+import { passwordRecovery } from '../../../store/reducers/auth-reducer';
+import { useTypedSelector } from '../../../hooks/hooks';
+import { Redirect } from 'react-router-dom';
+import { PATH } from '../../../routes/routes';
 
 export const PasswordRecovery: FC = () => {
     const sendSuccessEmail = useTypedSelector(state => state.auth.sendSuccessEmail)

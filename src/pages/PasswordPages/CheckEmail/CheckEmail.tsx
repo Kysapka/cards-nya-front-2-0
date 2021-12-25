@@ -1,6 +1,6 @@
-import React from 'react'
-import {useTypedSelector} from '../../../hooks/hooks'
-import s from '../PasswordPages.module.css'
+import React from 'react';
+import { useTypedSelector } from '../../../hooks/hooks';
+import s from '../PasswordPages.module.css';
 
 export const CheckEmail = () => {
     const {recoveryEmail} = useTypedSelector(state => state.auth)

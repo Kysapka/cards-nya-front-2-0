@@ -1,8 +1,8 @@
-import React, {FC, useCallback, useEffect, useState} from 'react'
-import {Range} from 'rc-slider'
-import _ from 'lodash'
-import {setCurrentGrade, setMinMaxGrade} from '../../../store/reducers/cards-reducer'
-import {useDispatch} from 'react-redux'
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Range } from 'rc-slider';
+import _ from 'lodash';
+import { setCurrentGrade } from '../../../store/reducers/cards-reducer';
+import { useDispatch } from 'react-redux';
 
 type CardsGradeRangeProps = {
     minGrade: number

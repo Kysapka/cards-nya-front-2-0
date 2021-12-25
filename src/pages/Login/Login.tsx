@@ -1,21 +1,21 @@
-import React, {FC, FormEvent, useState} from 'react'
-import {Input} from '../../components/UI/Input/Input'
-import {Button} from '../../components/UI/Button/Button'
-import {Checkbox} from '../../components/UI/Checkbox/Checkbox'
-import {Link, Redirect} from 'react-router-dom'
-import {PATH} from '../../routes/routes'
-import {useDispatch} from 'react-redux'
-import {useTypedSelector} from '../../hooks/hooks'
-import {login} from '../../store/reducers/auth-reducer'
+import React, { FC, FormEvent, useState } from 'react';
+import { Input } from '../../components/UI/Input/Input';
+import { Button } from '../../components/UI/Button/Button';
+import { Checkbox } from '../../components/UI/Checkbox/Checkbox';
+import { Link, Redirect } from 'react-router-dom';
+import { PATH } from '../../routes/routes';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/hooks';
+import { login } from '../../store/reducers/auth-reducer';
 
 export const Login: FC = () => {
     const isLoggedIn = useTypedSelector(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
     const [values, setValues] = useState({
-        email: '',
-        password: '',
-        rememberMe: false
+        email: process.env.REACT_APP_EMAIL as string,
+        password: process.env.REACT_APP_PASSWORD as string,
+        rememberMe: true
     })
 
     const onSubmit = (e: FormEvent) => {

@@ -1,12 +1,12 @@
-import React, {FC, FormEvent, useState} from 'react'
-import {Input} from '../../components/UI/Input/Input'
-import {Button} from '../../components/UI/Button/Button'
-import {useTypedSelector} from '../../hooks/hooks'
-import {Link, Redirect} from 'react-router-dom'
-import {PATH} from '../../routes/routes'
-import {useDispatch} from 'react-redux'
-import {registration} from '../../store/reducers/auth-reducer'
-import {setAppError} from '../../store/reducers/app-reducer'
+import React, { FC, FormEvent, useState } from 'react';
+import { Input } from '../../components/UI/Input/Input';
+import { Button } from '../../components/UI/Button/Button';
+import { useTypedSelector } from '../../hooks/hooks';
+import { Link, Redirect } from 'react-router-dom';
+import { PATH } from '../../routes/routes';
+import { useDispatch } from 'react-redux';
+import { registration } from '../../store/reducers/auth-reducer';
+import { setAppError } from '../../store/reducers/app-reducer';
 
 export const Registration: FC = () => {
     const {registrationSuccess} = useTypedSelector(state => state.auth)

@@ -1,8 +1,8 @@
-import React, {FC, useCallback} from 'react'
-import {useDispatch} from 'react-redux'
-import {useTypedSelector} from '../../../../hooks/hooks'
-import {setAppError} from '../../../../store/reducers/app-reducer'
-import {Alert} from '../Alert'
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../../../hooks/hooks';
+import { setAppError } from '../../../../store/reducers/app-reducer';
+import { Alert } from '../Alert';
 
 export const AlertError: FC = () => {
     const error = useTypedSelector(state => state.app.error)

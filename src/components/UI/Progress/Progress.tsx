@@ -1,5 +1,5 @@
-import React, {FC} from 'react'
-import s from './Progress.module.css'
+import React, { FC } from 'react';
+import s from './Progress.module.css';
 
 export const Progress: FC = () => {
     return (

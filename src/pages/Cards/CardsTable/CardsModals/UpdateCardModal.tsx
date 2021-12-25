@@ -1,10 +1,10 @@
-import React, {FC, useEffect, useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {useModal} from '../../../../hooks/useModal'
-import {Button} from '../../../../components/UI/Button/Button'
-import {Modal} from '../../../../components/UI/Modal/Modal'
-import {Input} from '../../../../components/UI/Input/Input'
-import {updateCard} from '../../../../store/reducers/cards-reducer'
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../../../hooks/useModal';
+import { Button } from '../../../../components/UI/Button/Button';
+import { Modal } from '../../../../components/UI/Modal/Modal';
+import { Input } from '../../../../components/UI/Input/Input';
+import { updateCard } from '../../../../store/reducers/cards-reducer';
 
 type UpdatePacksModalProps = {
     cardID: string

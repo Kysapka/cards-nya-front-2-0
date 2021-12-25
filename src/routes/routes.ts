@@ -1,15 +1,15 @@
-import {FC} from 'react'
-import {Profile} from '../pages/Profile/Profile'
-import {Login} from '../pages/Login/Login'
-import {Registration} from '../pages/Registration/Registration'
-import {Error} from '../pages/Error/Error'
-import {PasswordRecovery} from '../pages/PasswordPages/PasswordRecovery/PasswordRecovery'
-import {NewPassword} from '../pages/PasswordPages/NewPassword/NewPassword'
-import {CheckEmail} from '../pages/PasswordPages/CheckEmail/CheckEmail'
-import {Home} from '../pages/Home/Home'
-import {Cards} from '../pages/Cards/Cards'
-import {Packs} from '../pages/Packs/Packs'
-import {Learn} from '../pages/Learn/Learn'
+import { FC } from 'react';
+import { Profile } from '../pages/Profile/Profile';
+import { Login } from '../pages/Login/Login';
+import { Registration } from '../pages/Registration/Registration';
+import { Error } from '../pages/Error/Error';
+import { PasswordRecovery } from '../pages/PasswordPages/PasswordRecovery/PasswordRecovery';
+import { NewPassword } from '../pages/PasswordPages/NewPassword/NewPassword';
+import { CheckEmail } from '../pages/PasswordPages/CheckEmail/CheckEmail';
+import { Home } from '../pages/Home/Home';
+import { Cards } from '../pages/Cards/Cards';
+import { Packs } from '../pages/Packs/Packs';
+import { Learn } from '../pages/Learn/Learn';
 
 export enum PATH {
     HOME = '/',

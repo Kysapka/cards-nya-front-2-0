@@ -1,11 +1,11 @@
-import React, {FC, useState} from 'react'
-import {Modal} from '../../../../components/UI/Modal/Modal'
-import {Input} from '../../../../components/UI/Input/Input'
-import {Button} from '../../../../components/UI/Button/Button'
-import {useModal} from '../../../../hooks/useModal'
-import {useDispatch} from 'react-redux'
-import {createCard} from '../../../../store/reducers/cards-reducer'
-import {useTypedSelector} from '../../../../hooks/hooks'
+import React, { FC, useState } from 'react';
+import { Modal } from '../../../../components/UI/Modal/Modal';
+import { Input } from '../../../../components/UI/Input/Input';
+import { Button } from '../../../../components/UI/Button/Button';
+import { useModal } from '../../../../hooks/useModal';
+import { useDispatch } from 'react-redux';
+import { createCard } from '../../../../store/reducers/cards-reducer';
+import { useTypedSelector } from '../../../../hooks/hooks';
 
 type AddCardModalProps = {
     buttonDisable: boolean

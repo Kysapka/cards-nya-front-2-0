@@ -1,9 +1,9 @@
-import React, {FC} from 'react'
-import {useDispatch} from 'react-redux'
-import {useModal} from '../../../../hooks/useModal'
-import {Button} from '../../../../components/UI/Button/Button'
-import {Modal} from '../../../../components/UI/Modal/Modal'
-import {deleteCard} from '../../../../store/reducers/cards-reducer'
+import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../../../hooks/useModal';
+import { Button } from '../../../../components/UI/Button/Button';
+import { Modal } from '../../../../components/UI/Modal/Modal';
+import { deleteCard } from '../../../../store/reducers/cards-reducer';
 
 type DeletePackModalProps = {
     cardID: string

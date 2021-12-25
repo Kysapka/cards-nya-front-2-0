@@ -1,11 +1,11 @@
-import React, {FC, useState} from 'react'
-import {Modal} from '../../../../components/UI/Modal/Modal'
-import {Input} from '../../../../components/UI/Input/Input'
-import {Checkbox} from '../../../../components/UI/Checkbox/Checkbox'
-import {Button} from '../../../../components/UI/Button/Button'
-import {useModal} from '../../../../hooks/useModal'
-import {useDispatch} from 'react-redux'
-import {createCardsPack} from '../../../../store/reducers/packs-reducer'
+import React, { FC, useState } from 'react';
+import { Modal } from '../../../../components/UI/Modal/Modal';
+import { Input } from '../../../../components/UI/Input/Input';
+import { Checkbox } from '../../../../components/UI/Checkbox/Checkbox';
+import { Button } from '../../../../components/UI/Button/Button';
+import { useModal } from '../../../../hooks/useModal';
+import { useDispatch } from 'react-redux';
+import { createCardsPack } from '../../../../store/reducers/packs-reducer';
 
 export const AddPackModal: FC = () => {
     const dispatch = useDispatch()

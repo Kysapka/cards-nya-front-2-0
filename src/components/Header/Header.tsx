@@ -1,12 +1,11 @@
-import React, {FC} from 'react'
-import {Link, NavLink} from 'react-router-dom'
-import {PATH} from '../../routes/routes'
-import s from './Header.module.css'
-import {useDispatch, useSelector} from 'react-redux'
-import {logout} from '../../store/reducers/auth-reducer'
-import {useTypedSelector} from '../../hooks/hooks'
-import {ReactIcon} from '../Icons/ReactIcon'
-import {RootState} from "../../store/store";
+import React, { FC } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { PATH } from '../../routes/routes';
+import s from './Header.module.css';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/reducers/auth-reducer';
+import { useTypedSelector } from '../../hooks/hooks';
+import { ReactIcon } from '../Icons/ReactIcon';
 
 export const Header: FC = () => {
     const isLoggedIn = useTypedSelector(state => state.auth.isLoggedIn)

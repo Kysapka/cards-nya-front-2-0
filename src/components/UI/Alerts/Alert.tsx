@@ -1,5 +1,5 @@
-import React, {FC, useCallback, useEffect, useState} from 'react'
-import s from './Alerts.module.css'
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import s from './Alerts.module.css';
 
 type AlertProps = {
     type: 'error' | 'success'

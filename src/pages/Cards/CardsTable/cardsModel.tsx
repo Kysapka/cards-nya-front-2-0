@@ -1,9 +1,9 @@
-import {TableModel} from '../../../components/UI/Table/Table'
-import {Card} from '../../../api/cards-api'
-import {Sort} from '../../../components/UI/Sort/Sort'
-import {AddCardModal} from './CardsModals/AddCardModal'
-import {DeleteCardModal} from './CardsModals/DeleteCardModal'
-import {UpdateCardModal} from './CardsModals/UpdateCardModal'
+import { TableModel } from '../../../components/UI/Table/Table';
+import { Card } from '../../../api/cards-api';
+import { Sort } from '../../../components/UI/Sort/Sort';
+import { AddCardModal } from './CardsModals/AddCardModal';
+import { DeleteCardModal } from './CardsModals/DeleteCardModal';
+import { UpdateCardModal } from './CardsModals/UpdateCardModal';
 
 export const cardsModel = (sort: (sort: string) => void, isOwner: boolean, sortMethod: string | undefined): TableModel[] => [
     {

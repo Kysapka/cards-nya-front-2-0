@@ -1,9 +1,9 @@
-import React, {FC} from 'react'
-import s from '../Cards.module.css'
-import {Pagination} from '../../../components/UI/Pagination/Pagination'
-import {Select} from '../../../components/UI/Select/Select'
-import {useDispatch} from 'react-redux'
-import {setCardsCountOnPage, setCardsCurrentPage} from '../../../store/reducers/cards-reducer'
+import React, { FC } from 'react';
+import s from '../Cards.module.css';
+import { Pagination } from '../../../components/UI/Pagination/Pagination';
+import { Select } from '../../../components/UI/Select/Select';
+import { useDispatch } from 'react-redux';
+import { setCardsCountOnPage, setCardsCurrentPage } from '../../../store/reducers/cards-reducer';
 
 type CardsPaginationProps = {
     cardsTotalCount: number

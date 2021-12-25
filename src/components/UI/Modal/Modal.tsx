@@ -1,5 +1,5 @@
-import React, {FC} from 'react'
-import s from './Modal.module.css'
+import React, { FC } from 'react';
+import s from './Modal.module.css';
 
 type ModalProps = {
     open: boolean

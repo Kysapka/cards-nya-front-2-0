@@ -1,13 +1,13 @@
-import React, {FC, useEffect, useState} from 'react'
-import {Link, Redirect, useParams} from 'react-router-dom'
-import {Button} from '../../components/UI/Button/Button'
-import {Card} from '../../api/cards-api'
-import {useTypedSelector} from '../../hooks/hooks'
-import {useDispatch} from 'react-redux'
-import {fetchCards, gradeAnswer, setCardsCountOnPage} from '../../store/reducers/cards-reducer'
-import {getCard, grades} from '../../utils/cardsLearning'
-import {PATH} from '../../routes/routes'
-import s from './Learn.module.css'
+import React, { FC, useEffect, useState } from 'react';
+import { Link, Redirect, useParams } from 'react-router-dom';
+import { Button } from '../../components/UI/Button/Button';
+import { Card } from '../../api/cards-api';
+import { useTypedSelector } from '../../hooks/hooks';
+import { useDispatch } from 'react-redux';
+import { fetchCards, gradeAnswer, setCardsCountOnPage } from '../../store/reducers/cards-reducer';
+import { getCard, grades } from '../../utils/cardsLearning';
+import { PATH } from '../../routes/routes';
+import s from './Learn.module.css';
 
 export const Learn: FC = () => {
     const dispatch = useDispatch()

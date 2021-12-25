@@ -1,5 +1,5 @@
-import {instance} from './axios-instance'
-import axios, {AxiosResponse} from 'axios'
+import { instance } from './axios-instance';
+import axios, { AxiosResponse } from 'axios';
 
 export type LoginData = {
     email: string,

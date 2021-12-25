@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux'
-import thunk, {ThunkAction} from 'redux-thunk'
-import {authReducer} from './reducers/auth-reducer'
-import {appReducer} from './reducers/app-reducer'
-import {packsReducer} from './reducers/packs-reducer'
-import {cardsReducer} from './reducers/cards-reducer'
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import thunk, { ThunkAction } from 'redux-thunk';
+import { authReducer } from './reducers/auth-reducer';
+import { appReducer } from './reducers/app-reducer';
+import { packsReducer } from './reducers/packs-reducer';
+import { cardsReducer } from './reducers/cards-reducer';
 
 const rootReducer = combineReducers({
     app: appReducer,

@@ -1,6 +1,6 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react'
-import {Input} from '../Input/Input'
-import s from './EditableElement.module.css'
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import { Input } from '../Input/Input';
+import s from './EditableElement.module.css';
 
 type EditableElementProps = {
     defaultValue: string

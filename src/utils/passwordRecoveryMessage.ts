@@ -1,6 +1,6 @@
-import {PATH} from '../routes/routes'
-import {PasswordRecoveryData} from '../api/auth-api'
-import {developmentMode} from '../api/axios-instance'
+import { PATH } from '../routes/routes';
+import { PasswordRecoveryData } from '../api/auth-api';
+import { developmentMode } from '../api/axios-instance';
 
 export const passwordRecoveryMessage = (email: string) => {
     const targetLink = developmentMode

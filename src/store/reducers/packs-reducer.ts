@@ -1,15 +1,14 @@
 import {
-    CardsPack,
     CardsPackResponse,
     DeleteCardsPackData,
     GetCardPacksQueryParams,
     NewCardsPackData,
     packsAPI,
-    UpdateCardsPackData
-} from '../../api/packs-api'
-import {AppDispatch, RootState, ThunkType} from '../store'
-import {setAppIsLoading} from './app-reducer'
-import {errorsHandler} from '../../utils/errors'
+    UpdateCardsPackData,
+} from '../../api/packs-api';
+import { AppDispatch, RootState, ThunkType } from '../store';
+import { setAppIsLoading } from './app-reducer';
+import { errorsHandler } from '../../utils/errors';
 
 enum PACKS_ACTIONS_TYPES {
     SET_CARD_PACKS = 'PACKS/SET_CARD_PACKS',

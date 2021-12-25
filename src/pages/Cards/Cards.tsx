@@ -1,13 +1,13 @@
-import React, {FC, useEffect, useRef} from 'react'
-import {useDispatch} from 'react-redux'
-import {fetchCards, setCardsCountOnPage, setCurrentCardsPackID} from '../../store/reducers/cards-reducer'
-import {Link, Redirect, useParams} from 'react-router-dom'
-import {useTypedSelector} from '../../hooks/hooks'
-import {PATH} from '../../routes/routes'
-import {CardsTable} from './CardsTable/CardsTable'
-import {CardsPagination} from './CardsPagination/CardsPagination'
-import {CardsGradeRange} from './CardsGradeRange/CardsGradeRange'
-import {CardsSearch} from './CardsSearch/CardsSearch'
+import React, { FC, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchCards, setCurrentCardsPackID } from '../../store/reducers/cards-reducer';
+import { Link, useParams } from 'react-router-dom';
+import { useTypedSelector } from '../../hooks/hooks';
+import { PATH } from '../../routes/routes';
+import { CardsTable } from './CardsTable/CardsTable';
+import { CardsPagination } from './CardsPagination/CardsPagination';
+import { CardsGradeRange } from './CardsGradeRange/CardsGradeRange';
+import { CardsSearch } from './CardsSearch/CardsSearch';
 
 export const Cards: FC = () => {
     const dispatch = useDispatch()

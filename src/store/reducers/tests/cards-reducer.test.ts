@@ -1,18 +1,12 @@
 import {
-    PacksInitialState,
-    packsReducer,
-    setCardPacks, setMinMaxCardsCount,
-    setPacksCountOnPage,
-    setPacksCurrentPage,
-    setPacksTotalCount, setPrivatePacks, setSortCardsPackMethod
-} from '../packs-reducer'
-import {
-    CardsInitialState,
-    cardsReducer,
-    setCardsCountOnPage,
-    setCardsCurrentPage,
-    setCardsTotalCount, setCurrentCardsPackID, setMinMaxGrade
-} from '../cards-reducer'
+  CardsInitialState,
+  cardsReducer,
+  setCardsCountOnPage,
+  setCardsCurrentPage,
+  setCardsTotalCount,
+  setCurrentCardsPackID,
+  setMinMaxGrade,
+} from '../cards-reducer';
 
 let startState: CardsInitialState
 

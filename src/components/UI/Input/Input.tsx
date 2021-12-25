@@ -1,6 +1,6 @@
-import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
-import s from './Input.module.css'
-import {EyeIcon} from '../../Icons/EyeIcon'
+import React, { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, KeyboardEvent, useState } from 'react';
+import s from './Input.module.css';
+import { EyeIcon } from '../../Icons/EyeIcon';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 

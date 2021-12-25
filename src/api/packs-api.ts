@@ -1,5 +1,5 @@
-import {instance} from './axios-instance'
-import {AxiosResponse} from 'axios'
+import { instance } from './axios-instance';
+import { AxiosResponse } from 'axios';
 
 export type CardsPack = {
     cardsCount: number

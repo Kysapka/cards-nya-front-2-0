@@ -1,6 +1,6 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, FC} from 'react'
-import s from './Button.module.css'
-import {useTypedSelector} from '../../../hooks/hooks'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import s from './Button.module.css';
+import { useTypedSelector } from '../../../hooks/hooks';
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 

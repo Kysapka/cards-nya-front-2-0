@@ -1,10 +1,10 @@
-import React, {FC} from 'react'
-import {cardsModel} from './cardsModel'
-import {setSortCardsMethod} from '../../../store/reducers/cards-reducer'
-import {useDispatch} from 'react-redux'
-import {Card} from '../../../api/cards-api'
-import {Table} from '../../../components/UI/Table/Table'
-import {useTypedSelector} from '../../../hooks/hooks'
+import React, { FC } from 'react';
+import { cardsModel } from './cardsModel';
+import { setSortCardsMethod } from '../../../store/reducers/cards-reducer';
+import { useDispatch } from 'react-redux';
+import { Card } from '../../../api/cards-api';
+import { Table } from '../../../components/UI/Table/Table';
+import { useTypedSelector } from '../../../hooks/hooks';
 
 type CardsTableProps = {
     cards: Card[]

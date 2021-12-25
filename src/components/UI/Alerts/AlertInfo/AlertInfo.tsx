@@ -1,8 +1,8 @@
-import React, {FC, useCallback} from 'react'
-import {useTypedSelector} from '../../../../hooks/hooks'
-import {useDispatch} from 'react-redux'
-import {setAppInfo} from '../../../../store/reducers/app-reducer'
-import {Alert} from '../Alert'
+import React, { FC, useCallback } from 'react';
+import { useTypedSelector } from '../../../../hooks/hooks';
+import { useDispatch } from 'react-redux';
+import { setAppInfo } from '../../../../store/reducers/app-reducer';
+import { Alert } from '../Alert';
 
 export const AlertInfo: FC = () => {
     const info = useTypedSelector(state => state.app.info)

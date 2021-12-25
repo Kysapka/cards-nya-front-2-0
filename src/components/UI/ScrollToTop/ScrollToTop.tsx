@@ -1,6 +1,6 @@
-import {FC, useEffect, useState} from 'react'
-import {Button} from '../Button/Button'
-import s from './ScrollToTop.module.css'
+import { FC, useEffect, useState } from 'react';
+import { Button } from '../Button/Button';
+import s from './ScrollToTop.module.css';
 
 export const ScrollToTop: FC = () => {
     const [visible, setVisible] = useState(false)

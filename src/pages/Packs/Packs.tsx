@@ -1,14 +1,14 @@
-import React, {FC, useEffect, useRef} from 'react'
-import {useDispatch} from 'react-redux'
-import {fetchCardPacks} from '../../store/reducers/packs-reducer'
-import {useTypedSelector} from '../../hooks/hooks'
-import {Redirect} from 'react-router-dom'
-import {PATH} from '../../routes/routes'
-import {PacksPagination} from './PacksPagination/PacksPagination'
-import {PrivatePacksToggle} from './PrivatePacksToggle/PrivatePacksToggle'
-import {PacksSearch} from './PacksSearch/PacksSearch'
-import {CardsCountRange} from './CardsCountRange/CardsCountRange'
-import {PacksTable} from './PacksTable/PacksTable'
+import React, { FC, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchCardPacks } from '../../store/reducers/packs-reducer';
+import { useTypedSelector } from '../../hooks/hooks';
+import { Redirect } from 'react-router-dom';
+import { PATH } from '../../routes/routes';
+import { PacksPagination } from './PacksPagination/PacksPagination';
+import { PrivatePacksToggle } from './PrivatePacksToggle/PrivatePacksToggle';
+import { PacksSearch } from './PacksSearch/PacksSearch';
+import { CardsCountRange } from './CardsCountRange/CardsCountRange';
+import { PacksTable } from './PacksTable/PacksTable';
 
 export const Packs: FC = () => {
     const dispatch = useDispatch()

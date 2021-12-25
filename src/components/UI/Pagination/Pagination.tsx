@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import s from './Pagination.module.css'
+import React, { useEffect, useState } from 'react';
+import s from './Pagination.module.css';
 
 type PaginationProps = {
     totalCount: number,

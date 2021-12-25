@@ -1,8 +1,8 @@
-import {authAPI, ChangeUsersInfoData, LoginData, RegistrationsData, UsersInfoResponse} from '../../api/auth-api'
-import {AppDispatch} from '../store'
-import {setAppInfo, setAppInitialized, setAppIsLoading} from './app-reducer'
-import {passwordRecoveryMessage} from '../../utils/passwordRecoveryMessage'
-import {errorsHandler} from '../../utils/errors'
+import { authAPI, ChangeUsersInfoData, LoginData, RegistrationsData, UsersInfoResponse } from '../../api/auth-api';
+import { AppDispatch } from '../store';
+import { setAppInfo, setAppInitialized, setAppIsLoading } from './app-reducer';
+import { passwordRecoveryMessage } from '../../utils/passwordRecoveryMessage';
+import { errorsHandler } from '../../utils/errors';
 
 enum AUTH_ACTIONS_TYPES {
     SET_REGISTRATION_SUCCESS = 'AUTH/SET_REGISTRATION_SUCCESS',

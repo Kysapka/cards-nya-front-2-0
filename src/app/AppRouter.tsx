@@ -1,10 +1,10 @@
-import React, {FC, useEffect} from 'react'
-import {Redirect, Route, Switch} from 'react-router-dom'
-import {PATH, publicRoutes} from '../routes/routes'
-import {useTypedSelector} from '../hooks/hooks'
-import {Progress} from '../components/UI/Progress/Progress'
-import {useDispatch} from 'react-redux'
-import {checkAuth} from '../store/reducers/auth-reducer'
+import React, { FC, useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { PATH, publicRoutes } from '../routes/routes';
+import { useTypedSelector } from '../hooks/hooks';
+import { Progress } from '../components/UI/Progress/Progress';
+import { useDispatch } from 'react-redux';
+import { checkAuth } from '../store/reducers/auth-reducer';
 
 export const AppRouter: FC = () => {
     const {isLoading, isInitialized} = useTypedSelector(state => state.app)

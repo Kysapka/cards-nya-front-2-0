@@ -1,4 +1,4 @@
-import React, {FC, ReactNode} from 'react'
+import React, { FC, ReactNode } from 'react';
 
 export type TableModel = {
     header: (index: number) => ReactNode

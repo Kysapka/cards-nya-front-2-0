@@ -1,15 +1,15 @@
 import {
-    Card,
-    cardsAPI,
-    CardsResponse,
-    DeleteCardData,
-    GetCardsQueryParams, GradeData,
-    NewCardData,
-    UpdateCardData
-} from '../../api/cards-api'
-import {AppDispatch, RootState, ThunkType} from '../store'
-import {setAppIsLoading} from './app-reducer'
-import {errorsHandler} from '../../utils/errors'
+  cardsAPI,
+  CardsResponse,
+  DeleteCardData,
+  GetCardsQueryParams,
+  GradeData,
+  NewCardData,
+  UpdateCardData,
+} from '../../api/cards-api';
+import { AppDispatch, RootState, ThunkType } from '../store';
+import { setAppIsLoading } from './app-reducer';
+import { errorsHandler } from '../../utils/errors';
 
 enum CARDS_ACTIONS_TYPES {
     SET_CARDS = 'CARDS/SET_CARDS',
