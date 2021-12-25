@@ -1,29 +1,23 @@
 {
   "files": {
-    "main.css": "/cards-nya-front-2-0/static/css/main.6ed41b0d.chunk.css",
-    "main.js": "/cards-nya-front-2-0/static/js/main.4bf01222.chunk.js",
-    "main.js.map": "/cards-nya-front-2-0/static/js/main.4bf01222.chunk.js.map",
-    "runtime-main.js": "/cards-nya-front-2-0/static/js/runtime-main.5274030a.js",
-    "runtime-main.js.map": "/cards-nya-front-2-0/static/js/runtime-main.5274030a.js.map",
-    "static/css/2.383c0125.chunk.css": "/cards-nya-front-2-0/static/css/2.383c0125.chunk.css",
-    "static/js/2.deed29ce.chunk.js": "/cards-nya-front-2-0/static/js/2.deed29ce.chunk.js",
-    "static/js/2.deed29ce.chunk.js.map": "/cards-nya-front-2-0/static/js/2.deed29ce.chunk.js.map",
-    "static/js/3.e8d1b7fa.chunk.js": "/cards-nya-front-2-0/static/js/3.e8d1b7fa.chunk.js",
-    "static/js/3.e8d1b7fa.chunk.js.map": "/cards-nya-front-2-0/static/js/3.e8d1b7fa.chunk.js.map",
+    "main.css": "/cards-nya-front-2-0/static/css/main.3107f9de.chunk.css",
+    "main.js": "/cards-nya-front-2-0/static/js/main.a058c0b3.chunk.js",
+    "main.js.map": "/cards-nya-front-2-0/static/js/main.a058c0b3.chunk.js.map",
+    "runtime-main.js": "/cards-nya-front-2-0/static/js/runtime-main.65e96741.js",
+    "runtime-main.js.map": "/cards-nya-front-2-0/static/js/runtime-main.65e96741.js.map",
+    "static/css/2.4a35ef0a.chunk.css": "/cards-nya-front-2-0/static/css/2.4a35ef0a.chunk.css",
+    "static/js/2.261b9cdd.chunk.js": "/cards-nya-front-2-0/static/js/2.261b9cdd.chunk.js",
+    "static/js/2.261b9cdd.chunk.js.map": "/cards-nya-front-2-0/static/js/2.261b9cdd.chunk.js.map",
     "index.html": "/cards-nya-front-2-0/index.html",
-    "static/css/2.383c0125.chunk.css.map": "/cards-nya-front-2-0/static/css/2.383c0125.chunk.css.map",
-    "static/css/main.6ed41b0d.chunk.css.map": "/cards-nya-front-2-0/static/css/main.6ed41b0d.chunk.css.map",
-    "static/js/2.deed29ce.chunk.js.LICENSE.txt": "/cards-nya-front-2-0/static/js/2.deed29ce.chunk.js.LICENSE.txt",
-    "static/media/Rocket.fc7a629f.jpg": "/cards-nya-front-2-0/static/media/Rocket.fc7a629f.jpg",
-    "static/media/anime_girl_forgot_password.86d398ac.png": "/cards-nya-front-2-0/static/media/anime_girl_forgot_password.86d398ac.png",
-    "static/media/anime_girl_login2.8b3ecfef.png": "/cards-nya-front-2-0/static/media/anime_girl_login2.8b3ecfef.png",
-    "static/media/girl.36fbb42a.png": "/cards-nya-front-2-0/static/media/girl.36fbb42a.png"
+    "static/css/2.4a35ef0a.chunk.css.map": "/cards-nya-front-2-0/static/css/2.4a35ef0a.chunk.css.map",
+    "static/css/main.3107f9de.chunk.css.map": "/cards-nya-front-2-0/static/css/main.3107f9de.chunk.css.map",
+    "static/js/2.261b9cdd.chunk.js.LICENSE.txt": "/cards-nya-front-2-0/static/js/2.261b9cdd.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.5274030a.js",
-    "static/css/2.383c0125.chunk.css",
-    "static/js/2.deed29ce.chunk.js",
-    "static/css/main.6ed41b0d.chunk.css",
-    "static/js/main.4bf01222.chunk.js"
+    "static/js/runtime-main.65e96741.js",
+    "static/css/2.4a35ef0a.chunk.css",
+    "static/js/2.261b9cdd.chunk.js",
+    "static/css/main.3107f9de.chunk.css",
+    "static/js/main.a058c0b3.chunk.js"
   ]
 }
