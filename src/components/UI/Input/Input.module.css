@@ -1,0 +1,30 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.errorInput {
+    border-color: var(--secondary);
+}
+
+.errorInput:focus {
+    border-color: red;
+}
+
+.error {
+    color: red;
+}
+
+.eye {
+    color: var(--dark);
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.eye:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,40 @@
+.wrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    right: 24px;
+    bottom: 24px;
+}
+
+.container {
+    width: 288px;
+    background-color: var(--primary);
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px black;
+    animation: show 0.5s linear;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.container span {
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.error {
+    background-color: var(--secondary);
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

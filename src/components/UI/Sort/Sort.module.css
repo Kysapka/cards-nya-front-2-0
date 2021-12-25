@@ -1,0 +1,21 @@
+.container {
+    cursor: pointer;
+}
+
+.down:after,
+.up:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary);
+}
+
+.up:after {
+    top: 0;
+}
+
+.down:after {
+    bottom: 0;
+}

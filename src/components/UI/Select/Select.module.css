@@ -1,0 +1,14 @@
+.select {
+    min-width: 64px;
+    border: none;
+}
+
+.select:hover,
+.select:active,
+.select:focus {
+}
+
+.select option:checked {
+    background: var(--primary);
+    color: var(--light);
+}

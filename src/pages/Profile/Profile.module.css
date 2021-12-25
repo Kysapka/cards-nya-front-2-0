@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.avatar {
+    max-height: 400px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

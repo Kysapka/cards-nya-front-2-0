@@ -1,13 +1,136 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap');
+
+:root {
+    --primary: cornflowerblue;
+    --secondary: indianred;
+    --dark: #333;
+    --light: whitesmoke;
+    --darkLight: #555;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--dark);
+    color: var(--light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#root {
+    width: 1280px;
+    margin-top: 72px;
+    padding: 24px;
+    overflow-x: hidden
+}
+
+a {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 48px;
+    margin: 40px 0;
+}
+
+h2 {
+    font-size: 32px;
+    margin: 24px 0;
+}
+
+h3, h4, h5 {
+    font-weight: 500;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 24px;
+    gap: 8px;
+}
+
+button {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
+    padding: 12px 24px;
+    line-height: 1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    min-height: 40px;
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+input {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
+    outline: none;
+    border: 2px solid var(--light);
+    border-radius: 4px;
+    height: 40px;
+    padding: 8px;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+select {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
+    padding: 8px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 40px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid var(--darkLight);
+}
+
+thead, tfoot {
+    background: var(--darkLight);
+}
+
+tr {
+}
+
+tr:hover {
+    background: var(--darkLight);
+}
+
+th, td {
+    padding: 8px;
+    position: relative;
+}
+
+.tablesButtonsCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }

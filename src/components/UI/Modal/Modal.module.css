@@ -1,0 +1,24 @@
+.wrapper {
+    position: fixed;
+    background: rgba(51, 51, 51, 0.50);
+    top: 72px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    min-width: 400px;
+    border-radius: 4px;
+    background: var(--darkLight);
+    cursor: default;
+}

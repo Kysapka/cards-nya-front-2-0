@@ -1,22 +1,10 @@
-import React from 'react';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
-
-import { App } from './n1-main/m1-ui/App';
-import { store } from './n1-main/m2-bll';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import 'rc-slider/assets/index.css'
+import {App} from './app/App'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <HashRouter basename="/">
-      <App />
-    </HashRouter>
-  </Provider>,
-  document.getElementById('root'),
-);
-
-reportWebVitals();
+    <App/>,
+    document.getElementById('root')
+)

@@ -1,1 +1,0 @@
-export { NewPassword } from './NewPassword';

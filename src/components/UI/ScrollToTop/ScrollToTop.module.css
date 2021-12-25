@@ -1,0 +1,29 @@
+.scrollButton {
+    position: fixed;
+    top: 128px;
+    right: 24px;
+    padding-top: 36px;
+    color: var(--light);
+    transition: all .3s ease-out;
+    background: none;
+    font-size: 18px;
+    background: var(--primary);
+}
+
+.scrollButton:before {
+    content: 'ᐱ';
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: transform .5s ease-in;
+}
+
+.scrollButton:hover {
+    color: var(--light);
+}
+
+.scrollButton:hover:before {
+    transform: rotate(360deg);
+}

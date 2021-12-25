@@ -1,0 +1,38 @@
+.progressContainer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 4px;
+    background-color: rgba(100, 149, 237, 0.1);
+    z-index: 1000;
+}
+
+.progressBar {
+    position: absolute;
+    width: 40%;
+    height: inherit;
+    background-color: var(--primary);
+    animation: loading 2s linear infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% {
+        left: -40%;
+        opacity: 0.3;
+    }
+
+    33% {
+        opacity: 1;
+    }
+
+    66% {
+        opacity: 0.3;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 1;
+    }
+}
